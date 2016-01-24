@@ -1,6 +1,8 @@
 #pragma once
-
 #include "ofMain.h"
+
+#include "ofxGui.h"
+#include "PlayerManager.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +22,12 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+		PlayerManager player;
+
+		vector<string> textEntries; //for future use;keeps track of text input entries
+		void addText(string &s); // adds input text
+		void drawEntries();
+		void activateSelectionScreen(); // moves player to Selection Screen		
+		int appState = 0; //tracks state of app; by default 0 --> Start Menu		
 };
