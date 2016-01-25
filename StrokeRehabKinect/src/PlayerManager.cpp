@@ -7,6 +7,7 @@ PlayerManager::PlayerManager() {
 	appHeight = ofGetHeight();
 	cursorX = appWidth/2;
 	cursorY = appHeight/2 + 100;
+	activeApp = 0;
 	debugFloat = 0;
 }
 
@@ -15,6 +16,7 @@ void PlayerManager::init() {
 	//load fonts
 	titleFont.load("segoeui.ttf", 80);
 	miscFont.load("segoeui.ttf", 40);
+	actionFont.load("segoeui.ttf", 30);
 	textFont.load("micross.ttf", 30);
 
 	//listen for Selection Screen events
@@ -49,7 +51,7 @@ void PlayerManager::drawTitlePage()
 	}
 	ofDrawRectangle((float)ofGetWidth() / 2 +150, (float)ofGetHeight() / 2, 0, 300, 80);
 	
-	miscFont.drawString("Continue -->", (float)ofGetWidth() / 2 + 250, (float)ofGetHeight() / 2 + 160);
+	actionFont.drawString("Continue -->", (float)ofGetWidth() / 2 + 250, (float)ofGetHeight() / 2 + 160);
 }
 
 void PlayerManager::drawInputText()
@@ -62,7 +64,7 @@ void PlayerManager::drawInputText()
 void PlayerManager::drawCursor() const {
 
 	////disabled cursor blink unless needed
-	/*ofPushStyle();
+/*	ofPushStyle();
 	float timeFrac = 0.5 * sin(3.0f * ofGetElapsedTimef()) + 0.5;
 
 	ofColor col = ofGetStyle().color;
@@ -71,10 +73,23 @@ void PlayerManager::drawCursor() const {
 	ofSetLineWidth(1.0f);
 	
 	
-	//ofLine(cursorX *2 + 10, 13.7*cursorY + 30, cursorX * 2 + 10, 10 + 13.7*cursorY +30);
+	ofLine(cursorX * 1.4 + 10 + 45.5 , 13.7*cursorY + 30 - 5, cursorX * 1.4 + 10 + 45.5, 10 + 13.7*cursorY +30 - 10.5);
 
 	ofPopStyle();
 	*/
+}
+
+void PlayerManager::drawAppSelectionPage()
+{
+	ofSetColor(ofColor::white);
+	miscFont.drawString("Select a Game", 100, 100);
+
+	//app selection
+	miscFont.drawString("Drawing\nChallenge", appWidth / 2 - 600, appHeight / 2 + 150);
+	miscFont.drawString("Multi-Matrix \nMatching", appWidth / 2 - 200, appHeight / 2 + 150);
+	miscFont.drawString("Orchestra \nConducting", appWidth / 2 + 200, appHeight / 2 + 150);
+
+	actionFont.drawString("<-- Back", appWidth / 2 - 650, appHeight / 2 + 300);
 }
 
 void PlayerManager::keyPressed(int key) {
@@ -135,28 +150,54 @@ void PlayerManager::clear() {
 	position = 0;
 }
 
-void PlayerManager::mouseEvent(int x,int y)
+void PlayerManager::mouseEvent(int x,int y, int appState)
 {
 	ofVec2f mousePos(x, y);
 	ofVec2f leftFieldPos((float)ofGetWidth() / 2 - 500, (float)ofGetHeight() / 2 + 160); //for Left
 	ofVec2f rightFieldPos((float)ofGetWidth() / 2 - 400, (float)ofGetHeight() / 2 + 160); // for Right
 	ofVec2f continuePos((float)ofGetWidth() / 2 + 250, (float)ofGetHeight() / 2 + 160); // for Continue Button
-	debugFloat = mousePos.distance(leftFieldPos);  //for debug
-	if (mousePos.distance(leftFieldPos) < 50)
+	ofVec2f drawingPos(appWidth / 2 - 600, appHeight / 2 + 150);
+	ofVec2f cardMatchingPos(appWidth / 2 - 200, appHeight / 2 + 150);
+	ofVec2f musicConductorPos(appWidth / 2 + 200, appHeight / 2 + 150);
+	switch (appState)
 	{
-		rightSideActivated = false;
-	}
+	case 0:
+		
+		debugFloat = mousePos.distance(leftFieldPos);  //for debug
+		if (mousePos.distance(leftFieldPos) < 50)
+		{
+			rightSideActivated = false;
+		}
 
-	if(mousePos.distance(rightFieldPos) < 50)
-	{
-		rightSideActivated = true;
-	}
+		else if (mousePos.distance(rightFieldPos) < 50)
+		{
+			rightSideActivated = true;
+		}
 
-	if (mousePos.distance(continuePos) < 70) //need a better way to activate "Buttons" without using GUI
-	{
-		ofNotifyEvent(eventEnter, this); //activate Selection Screen
-	}
+		else if (mousePos.distance(continuePos) < 70) //need a better way to activate "Buttons" without using GUI
+		{
+			ofNotifyEvent(eventEnter, this); //activate Selection Screen
+		}
 
+		break;
+	case 1:
+		if (y < 600 && y > 130 && x < 310 && x > 60)
+		{
+			activeApp = 1;
+			ofNotifyEvent(launchApp, activeApp, this);
+		}
+		else if (y < 600 && y >130 && x < 770 && x > 450)
+		{
+			activeApp = 2;
+			ofNotifyEvent(launchApp,activeApp, this);
+		}
+		else if (y < 600 && y >130 && x > 870 && x < 1145)
+		{
+			activeApp = 3;
+			ofNotifyEvent(launchApp,activeApp, this);
+		}
+		break;
+	}
 }
 
 void PlayerManager::keyPressedEvent(ofKeyEventArgs &a) {

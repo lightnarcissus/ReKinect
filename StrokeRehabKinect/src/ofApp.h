@@ -28,6 +28,14 @@ class ofApp : public ofBaseApp{
 		vector<string> textEntries; //for future use;keeps track of text input entries
 		void addText(string &s); // adds input text
 		void drawEntries();
+		void launchSelectedApp(int &i);
 		void activateSelectionScreen(); // moves player to Selection Screen		
 		int appState = 0; //tracks state of app; by default 0 --> Start Menu		
+
+		//for debugging purposes
+		ofxPanel gui;
+		ofParameter<float> distance1;
+		ofParameter<float>distance2;
+		ofParameter<float>distance3;
+		ofParameter<float>distance4;
 };
