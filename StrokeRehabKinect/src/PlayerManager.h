@@ -9,6 +9,9 @@ public:
 	void drawInputText();
 	void drawCursor() const;
 	void drawAppSelectionPage();
+	void musicConductorPage();
+	void drawingChallengePage(int,int,int,int);
+	void matrixMatchingPage();
 
 	void keyPressed(int key);
 	void mouseEvent(int,int, int);
@@ -20,8 +23,9 @@ public:
 	int activeApp;
 	float debugFloat;
 	string debugString;
-
-
+	int vertexCount = 0;
+	vector<ofVec2f> drawPoints;
+	bool enableFill = false;
 	ofTrueTypeFont miscFont; //font for normal UI text
 	ofTrueTypeFont actionFont; //font for action buttons like Continue and Back
 	ofTrueTypeFont textFont; //font for input text field
@@ -29,6 +33,14 @@ public:
 
 	ofEvent<int>launchApp;
 	ofEvent<void> eventEnter; // on press Enter, initiate Selection Screen
+
+	//drawing challenge variables
+	ofMesh mesh;
+	ofPath path;
+	ofPolyline b;
+	vector<ofPoint> movementPoints;
+
+
 
 protected:
 	

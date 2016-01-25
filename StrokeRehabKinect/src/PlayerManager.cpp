@@ -84,10 +84,19 @@ void PlayerManager::drawAppSelectionPage()
 	ofSetColor(ofColor::white);
 	miscFont.drawString("Select a Game", 100, 100);
 
+	ofSetColor(ofColor::red);
+	ofDrawCircle(appWidth / 2 - 500, appHeight / 2 - 50, 150);
+
+	ofSetColor(ofColor::green);
+	ofDrawCircle(appWidth / 2, appHeight / 2 - 50, 150);
+
+	ofSetColor(ofColor::blue);
+	ofDrawCircle(appWidth / 2 +500, appHeight / 2 - 50, 150);
+
 	//app selection
 	miscFont.drawString("Drawing\nChallenge", appWidth / 2 - 600, appHeight / 2 + 150);
 	miscFont.drawString("Multi-Matrix \nMatching", appWidth / 2 - 200, appHeight / 2 + 150);
-	miscFont.drawString("Orchestra \nConducting", appWidth / 2 + 200, appHeight / 2 + 150);
+	miscFont.drawString("Orchestra \nConducting", appWidth / 2 + 300, appHeight / 2 + 150);
 
 	actionFont.drawString("<-- Back", appWidth / 2 - 650, appHeight / 2 + 300);
 }
@@ -145,6 +154,78 @@ void PlayerManager::keyPressed(int key) {
 	}
 }
 
+void PlayerManager::drawingChallengePage(int x,int y, int prevX, int prevY)
+{
+	//ofDrawLine(x, y, prevX, prevY);
+	ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
+	ofVec2f circleTarget2(appWidth / 2 - 300, appHeight / 2);
+	ofVec2f circleTarget3(appWidth / 2 + 300, appHeight / 2);
+	ofVec2f circleTarget4(appWidth / 2, appHeight / 2 + 300);
+	if (enableFill)
+	{
+		ofFill();
+	}
+	ofDrawCircle(appWidth / 2, appHeight / 2 - 300, 50);
+	ofDrawCircle(appWidth / 2- 300, appHeight / 2, 50);
+	ofDrawCircle(appWidth / 2 + 300, appHeight / 2, 50);
+	ofDrawCircle(appWidth / 2, appHeight / 2 + 300, 50);
+	ofSetColor(ofColor::red);
+	ofSetLineWidth(3);
+	ofNoFill();
+	ofBeginShape();
+	drawPoints.push_back(ofVec2f(x, y));
+	for (int i = 0; i < drawPoints.size(); i++)
+	{
+		ofVertex(drawPoints[i].x, drawPoints[i].y);
+		if (drawPoints.size() > 50)
+		{
+			drawPoints.erase(drawPoints.begin());
+		}
+
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			cout << "on target 1" << "\n";
+			enableFill = true;
+		}
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			cout << "on target 2" << "\n";
+		}
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			cout << "on target 3" << "\n";
+		}
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			cout << "on target 4" << "\n";
+		}
+
+	}
+	ofVertex(x, y);
+	ofEndShape();
+/*	b.addVertex(ofPoint(x,y));
+	b.curveTo(ofPoint(x, y));
+	b.bezierTo(x,y,x,y,x,y);
+	b.addVertex(ofPoint(x, y));
+	b.close();
+	
+	b.getSmoothed(5, 0.5);
+		angle += TWO_PI / 30;
+	b.draw();*/
+	//cout << b.getClosestPoint(ofPoint(appWidth / 2, appHeight / 2))<<"\n";
+	//path.arc(x, y, 50, 50, 0, 360);
+	//path.draw();
+}
+
+void PlayerManager::matrixMatchingPage()
+{
+
+}
+
+void PlayerManager::musicConductorPage()
+{
+
+}
 void PlayerManager::clear() {
 	clientName.clear();
 	position = 0;

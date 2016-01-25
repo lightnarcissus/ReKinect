@@ -56,7 +56,8 @@ void ofApp::draw(){
 	case 1:
 		player.drawAppSelectionPage();
 		break;
-
+	case 2:
+		drawRunningApp();
 		//default is just to load the start page
 	default:
 		player.drawTitlePage();
@@ -79,7 +80,7 @@ void ofApp::launchSelectedApp( int &i)
 	switch (i)
 	{
 	case 1:
-		cout << "Launch Drawing Challenge";
+		player.activeApp = 1;
 		break;
 	case 2:
 		cout << "Launch Multi-Matrix Matching";
@@ -90,6 +91,14 @@ void ofApp::launchSelectedApp( int &i)
 	}
 }
 
+void ofApp::drawRunningApp()
+{
+	switch (player.activeApp)
+	{
+	case 1:
+		player.drawingChallengePage(mouseX, mouseY, 0,0);
+	}
+}
 //for future use
 void ofApp::addText(string &s) {
 	textEntries.push_back(s);
