@@ -182,19 +182,6 @@
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.cpp" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\src\extra\ofxKinectExtras.cpp" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\src\ofxKinect.cpp" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\failguard.cpp" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\libusbemu.cpp" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\audio.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\cameras.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\core.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\flags.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\keep_alive.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\loader.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\registration.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\tilt.c" />
-    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\usb_libusb10.c" />
     <ClCompile Include="src\PlayerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,28 +196,6 @@
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\src\extra\ofxKinectExtras.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\src\ofxBase3DVideo.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\src\ofxKinect.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\include\libfreenect.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\include\libfreenect_audio.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\include\libfreenect_registration.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\failguard.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\libusb.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\libusbemu_internal.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\libusbemu_threads.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0\libusbemu_threads_win32.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\stdbool.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\platform\windows\unistd.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\cameras.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\flags.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\freenect_internal.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\keep_alive.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\loader.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\registration.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libfreenect\src\usb_libusb10.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libusb-1.0\include\libusb-1.0\libusb.h" />
-    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinect\libs\libusb-win32\include\lusb0_usb.h" />
     <ClInclude Include="src\PlayerManager.h" />
   </ItemGroup>
   <ItemGroup>

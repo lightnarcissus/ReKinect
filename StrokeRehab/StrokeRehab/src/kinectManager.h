@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "ofxKinect.h"
 #include "ofMain.h"
 class KinectManager{
 
@@ -9,5 +8,5 @@ public:
 	void draw();
 
 	//declaring variable for Kinect
-	//ofxKinect kinect;
+//	ofxKinect kinect;
 };

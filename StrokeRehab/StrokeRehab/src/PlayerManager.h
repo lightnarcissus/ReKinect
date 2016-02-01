@@ -13,8 +13,7 @@ public:
 	void drawingChallengePage(int,int,int,int);
 	void drawCircleTargets(int,int);
 	void drawSquareTargets(int,int);
-	void drawHexagonTargets(int, int);
-	int currentDrawingLevel = 3;
+	int currentDrawingLevel = 2;
 	vector<bool> fillCircles;
 	vector<ofVec2f> targetPoints;
 	void matrixMatchingPage();
