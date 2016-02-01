@@ -60,8 +60,8 @@ void ofApp::draw(){
 		drawRunningApp();
 		//default is just to load the start page
 	default:
-		player.drawTitlePage();
-		player.drawInputText();
+		//player.drawTitlePage();
+		//player.drawInputText();
 		break;
 	}
 

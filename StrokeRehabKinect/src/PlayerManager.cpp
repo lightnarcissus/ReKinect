@@ -9,8 +9,8 @@ PlayerManager::PlayerManager() {
 	cursorY = appHeight/2 + 100;
 	activeApp = 0;
 	debugFloat = 0;
-	currentDrawingLevel = 3;
-	for (int i = 0; i < 14; i++) //initialize all to false
+	currentDrawingLevel = 4;
+	for (int i = 0; i < 22; i++) //initialize all to false
 	{
 
 		fillCircles.push_back(false);
@@ -34,6 +34,17 @@ PlayerManager::PlayerManager() {
 	targetPoints[11] = ofVec2f(appWidth / 2 + 300, appHeight / 2);
 	targetPoints[12] = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
 	targetPoints[13] = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+
+	//for invisible octagon
+	targetPoints[14] = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+	targetPoints[15] = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+	targetPoints[16] = ofVec2f(appWidth / 2 + 300, appHeight / 2 -100);
+	targetPoints[17] = ofVec2f(appWidth / 2 + 300, appHeight / 2 + 100);
+	targetPoints[18] = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+	targetPoints[19] = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+	targetPoints[20] = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
+	targetPoints[21] = ofVec2f(appWidth / 2 - 300, appHeight / 2  -100);
+
 		/*ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
 	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
 	ofVec2f circleTarget3(appWidth / 2 - 300, appHeight / 2);
@@ -187,6 +198,7 @@ void PlayerManager::keyPressed(int key) {
 
 void PlayerManager::drawingChallengePage(int x,int y, int prevX, int prevY)
 {
+	ofSetBackgroundColor(ofColor::black);
 	switch (currentDrawingLevel)
 	{
 	case 1:
@@ -197,6 +209,9 @@ void PlayerManager::drawingChallengePage(int x,int y, int prevX, int prevY)
 		break;
 	case 3:
 		drawHexagonTargets(x, y);
+		break;
+	case 4:
+		drawInvisibleOctagonTargets(x, y);
 		break;
 	default:
 		drawCircleTargets(x, y);
@@ -421,7 +436,6 @@ void PlayerManager::drawHexagonTargets(int x, int y)
 	ofVec2f circleTarget4(appWidth / 2 + 200, appHeight / 2 + 300);
 	ofVec2f circleTarget5(appWidth / 2 - 200, appHeight / 2 + 300);
 	ofVec2f circleTarget6(appWidth / 2 - 300, appHeight / 2);
-	cout << nextTarget;
 	if (enableFill)
 	{
 		ofFill();
@@ -677,9 +691,339 @@ void PlayerManager::drawHexagonTargets(int x, int y)
 	//path.draw();
 }
 
+void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
+{
+	ofVec2f circleTarget1(appWidth / 2 - 200, appHeight / 2 - 300);
+	ofVec2f circleTarget2(appWidth / 2 + 200, appHeight / 2 - 300);
+	ofVec2f circleTarget3(appWidth / 2 + 300, appHeight / 2 - 100);
+	ofVec2f circleTarget4(appWidth / 2 + 300, appHeight / 2 + 100);
+	ofVec2f circleTarget5(appWidth / 2 + 200, appHeight / 2 + 300);
+	ofVec2f circleTarget6(appWidth / 2 - 200, appHeight / 2 + 300);
+	ofVec2f circleTarget7(appWidth / 2 - 300, appHeight / 2 + 100);
+	ofVec2f circleTarget8(appWidth / 2 - 300, appHeight / 2 - 100);
+	if (enableFill)
+	{
+		ofFill();
+	}
+	//ofDrawLine(x, y, prevX, prevY);
+
+	for (int i = 14; i < 22; i++)
+	{
+		/*
+		if (fillCircles[i])
+		ofFill();
+		else
+		ofNoFill();
+		*/
+		//ofDrawCircle(targetPoints[i], 50);
+	}
+	ofSetColor(ofColor::red);
+	ofSetLineWidth(3);
+	ofNoFill();
+	ofBeginShape();
+	drawPoints.push_back(ofVec2f(x, y));
+	/*
+	ostringstream temp;
+	temp << hitTarget;
+	cout << temp.str();
+	*/
+	if (hitTarget > 15)
+	{
+		hitTarget = 0;
+		currentDrawingLevel++;
+	}
+	for (int i = 0; i < drawPoints.size(); i++)
+	{
+		ofVertex(drawPoints[i].x, drawPoints[i].y);
+		if (drawPoints.size() > 50)
+		{
+			drawPoints.erase(drawPoints.begin());
+		}
+
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//	cout << "on target 1" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+			ofDrawCircle(circleTarget1, 100); //indicate whether it is a hit or miss
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 1)
+			{
+				nextTarget = 2;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 2)
+			{
+				//	cout << "Wrong";
+				hitTarget--;
+				nextTarget = 2;
+				enableFill = false;
+			}
+			else
+			{
+
+				nextTarget = 2;
+			}
+		}
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 2" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+			ofDrawCircle(circleTarget2, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+
+			if (nextTarget == 0 || nextTarget == 2)
+			{
+				nextTarget = 3;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 3)
+			{
+				//	cout << "Wrong";
+				hitTarget--;
+				nextTarget = 3;
+				enableFill = false;
+			}
+		}
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 3" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+			ofDrawCircle(circleTarget3, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+
+			if (nextTarget == 0 || nextTarget == 3)
+			{
+				nextTarget = 4;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 4)
+			{
+				//	cout << "Wrong";
+				hitTarget--;
+				nextTarget = 4;
+				enableFill = false;
+
+			}
+		}
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 4" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+
+			ofDrawCircle(circleTarget4, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 4)
+			{
+				nextTarget = 5;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 5)
+			{
+				hitTarget--;
+				nextTarget = 5;
+
+				//cout << "Wrong";
+				enableFill = false;
+
+			}
+		}
+		else if (circleTarget5.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 5" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+
+			ofDrawCircle(circleTarget5, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 5)
+			{
+				nextTarget = 6;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 6)
+			{
+				hitTarget--;
+				nextTarget = 6;
+
+				//cout << "Wrong";
+				enableFill = false;
+
+			}
+		}
+
+		else if (circleTarget6.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 4" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+
+			ofDrawCircle(circleTarget6, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 6)
+			{
+				nextTarget = 7;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget !=7)
+			{
+				hitTarget--;
+				nextTarget = 7;
+
+				//cout << "Wrong";
+				enableFill = false;
+
+			}
+		}
+		else if (circleTarget7.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 4" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+
+			ofDrawCircle(circleTarget7, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 7)
+			{
+				nextTarget = 8;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 8)
+			{
+				hitTarget--;
+				nextTarget = 8;
+
+				//cout << "Wrong";
+				enableFill = false;
+
+			}
+		}
+		else if (circleTarget8.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		{
+			//cout << "on target 4" << "\n";
+			if (enableFill) //correct hit
+			{
+				ofSetColor(0, 255, 0, 128);
+				ofFill();
+			}
+			else //wrong hit
+			{
+				ofSetColor(255, 0, 0, 128);
+				ofFill();
+			}
+
+			ofDrawCircle(circleTarget8, 100);
+			ofSetColor(255, 0, 0);
+			ofNoFill();
+			if (nextTarget == 0 || nextTarget == 8)
+			{
+				nextTarget = 1;
+				hitTarget++;
+				enableFill = true;
+			}
+			else if (nextTarget != 1)
+			{
+				hitTarget--;
+				nextTarget = 1;
+
+				//cout << "Wrong";
+				enableFill = false;
+
+			}
+		}
+
+	}
+	ofVertex(x, y);
+	ofEndShape();
+	/*	b.addVertex(ofPoint(x,y));
+	b.curveTo(ofPoint(x, y));
+	b.bezierTo(x,y,x,y,x,y);
+	b.addVertex(ofPoint(x, y));
+	b.close();
+
+	b.getSmoothed(5, 0.5);
+	angle += TWO_PI / 30;
+	b.draw();*/
+	//cout << b.getClosestPoint(ofPoint(appWidth / 2, appHeight / 2))<<"\n";
+	//path.arc(x, y, 50, 50, 0, 360);
+	//path.draw();
+}
 void PlayerManager::drawSquareTargets(int x, int y)
 {
-	cout << "In square";
+	//cout << "In square";
 	ofVec2f circleTarget1(appWidth / 2 - 200, appHeight / 2 - 300);
 	ofVec2f circleTarget2(appWidth / 2 + 200, appHeight / 2-300);
 	ofVec2f circleTarget3(appWidth / 2 + 200, appHeight / 2 + 300);

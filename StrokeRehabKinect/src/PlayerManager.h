@@ -14,6 +14,7 @@ public:
 	void drawCircleTargets(int,int);
 	void drawSquareTargets(int,int);
 	void drawHexagonTargets(int, int);
+	void drawInvisibleOctagonTargets(int, int);
 	int currentDrawingLevel = 3;
 	vector<bool> fillCircles;
 	vector<ofVec2f> targetPoints;
