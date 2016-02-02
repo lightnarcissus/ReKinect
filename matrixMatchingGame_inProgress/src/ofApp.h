@@ -30,8 +30,6 @@ class ofApp : public ofBaseApp{
         //declaring variable for Kinect
         ofxKinect kinect;
     
-        vector<int> shuf;
-        vector<int> used;
     
     int picnum = 4; //4, 6
     //int a=3;

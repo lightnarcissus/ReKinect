@@ -39,12 +39,17 @@ void ofApp::draw(){
     
     int elapsed = ofGetElapsedTimeMillis() - startTime;
     
+//    ofLog() << "pics in draw : " << pics.size();
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::initCards(){
     
     vector<int> order;
+    
+    pics.clear();
+    pics2.clear();
     
     for(int i = 0; i < picnum; i++){
         order.push_back(0);
@@ -73,6 +78,8 @@ void ofApp::initCards(){
         pics2.push_back( tempPic2 );
         
     }
+    
+    ofLog() << "order in initCard : " << order.size();
 }
 
 
