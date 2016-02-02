@@ -6,12 +6,13 @@ void ofApp::setup(){
 	
 	ofSetFrameRate(30); //set Frame Rate to 30
 	ofSetVerticalSync(true); //set V-Sync
-	
+	kinect.setup();
 	//GUI panel for positional debugging
 	//gui.setup("panel");
 
 	//load fonts
 	player.init();
+
 
 	/* for debugging
 	gui.setup("panel"); // most of the time you don't need a name but don't forget to call setup
@@ -86,17 +87,23 @@ void ofApp::launchSelectedApp( int &i)
 		cout << "Launch Multi-Matrix Matching";
 		break;
 	case 3:
-		cout << "Launch Music Conductor";
+		player.activeApp = 3;
 		break;
 	}
 }
 
 void ofApp::drawRunningApp()
 {
+	kinect.update();
+	kinect.draw();
+	ofVec3f temp = kinect.leftPos;
 	switch (player.activeApp)
 	{
 	case 1:
-		player.drawingChallengePage(mouseX, mouseY, 0,0);
+		player.drawingChallengePage(temp.x, temp.y, 0,0);
+		break;
+	case 3:
+		break;
 	}
 }
 //for future use
@@ -114,6 +121,7 @@ void ofApp::drawEntries() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+	kinect.keyPressed(key);
 }
 
 //--------------------------------------------------------------
@@ -138,6 +146,7 @@ void ofApp::mousePressed(int x, int y, int button){
 	{
 		player.mouseEvent(mouseX,mouseY,appState);
 	}
+	kinect.mousePressed(x, y, button);
 
 }
 

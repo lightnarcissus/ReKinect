@@ -3,6 +3,7 @@
 
 #include "ofxGui.h"
 #include "PlayerManager.h"
+#include "KinectManager.h"
 
 class ofApp : public ofBaseApp{
 
@@ -25,6 +26,7 @@ class ofApp : public ofBaseApp{
 		void drawRunningApp();
 
 		PlayerManager player;
+		KinectManager kinect;
 
 		vector<string> textEntries; //for future use;keeps track of text input entries
 		void addText(string &s); // adds input text
