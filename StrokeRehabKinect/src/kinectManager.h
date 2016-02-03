@@ -16,13 +16,14 @@ public:
 
 	//declaring variable for Kinect
 	//ofxKinect kinect;
-	ofVec3f prevLeftPos;
+	ofVec3f prevLeftPos=ofVec3f(0.2,0.2,0.4);
 	ofVec3f leftPos;
 	ofVec3f prevRightPos;
 	ofVec3f rightPos;
 	ofxKinectCommonBridge kinect;
 	ofShader yuvRGBShader;
 	ofPlanePrimitive plane;
+	vector<ofVec3f> handPos;
 
 
 	//fonts

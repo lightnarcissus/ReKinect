@@ -94,8 +94,8 @@ void PlayerManager::drawTitlePage()
 	ofSetColor(ofColor::white);
 	titleFont.drawString("Stroke + Kinect", 300, 300);
 	miscFont.drawString("Client Name", (float)ofGetWidth() / 2 - 150, (float)ofGetHeight() / 2 + 60);
-	ofDrawBitmapString(hitTarget, 100, 100);
-	ofDrawBitmapString("Next Target:" + nextTarget, 400, 400);
+//	ofDrawBitmapString(hitTarget, 100, 100);
+	//ofDrawBitmapString("Next Target:" + nextTarget, 400, 400);
 	miscFont.drawString("Problem Side", (float)ofGetWidth() / 2 - 550, (float)ofGetHeight() / 2 + 60);
 	//draw if Left Side is selected
 	if (!rightSideActivated)
@@ -220,9 +220,8 @@ void PlayerManager::keyPressed(int key) {
 	}
 }
 
-void PlayerManager::drawingChallengePage(int x,int y, int prevX, int prevY)
+void PlayerManager::drawingChallengePage(float x,float y, int prevX, int prevY)
 {
-	ofSetBackgroundColor(ofColor::black);
 	switch (currentDrawingLevel)
 	{
 	case 1:
@@ -245,12 +244,22 @@ void PlayerManager::drawingChallengePage(int x,int y, int prevX, int prevY)
 	
 }
 
-void PlayerManager::drawCircleTargets(int x,int y)
+void PlayerManager::drawCircleTargets(float x,float y)
 {
-	ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
-	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
-	ofVec2f circleTarget3(appWidth / 2, appHeight / 2 + 300);
-	ofVec2f circleTarget4(appWidth / 2 - 300, appHeight / 2);
+	if (rightSideActivated)
+	{
+		circleTarget4=ofVec2f(appWidth / 2, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
+		circleTarget2 = ofVec2f(appWidth / 2, appHeight / 2 + 300);
+		circleTarget1 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+	}
+	else
+	{
+		circleTarget1 = ofVec2f(appWidth / 2, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
+		circleTarget3 = ofVec2f(appWidth / 2, appHeight / 2 + 300);
+		circleTarget4 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+	}
 	if (enableFill)
 	{
 		ofFill();
@@ -265,11 +274,13 @@ void PlayerManager::drawCircleTargets(int x,int y)
 		else
 		ofNoFill();
 		*/
-		ofDrawCircle(targetPoints[i], 50);
+		ofDrawCircle(targetPoints[i], 50 + ((15-hitTarget) * 2));
 	}
 	ofSetColor(ofColor::red);
 	ofSetLineWidth(3);
 	ofNoFill();
+//	cout << "doing this";
+	//ofSetPolyMode(OF_POLY_WINDING_ODD);
 	ofBeginShape();
 	drawPoints.push_back(ofVec2f(x, y));
 	/*
@@ -282,16 +293,19 @@ void PlayerManager::drawCircleTargets(int x,int y)
 		hitTarget = 0;
 		currentDrawingLevel++;
 	}
+	else if (hitTarget < 0)
+	{
+		hitTarget = 0;
+	}
 	for (int i = 0; i < drawPoints.size(); i++)
 	{
 		ofVertex(drawPoints[i].x, drawPoints[i].y);
-		
 		if (drawPoints.size() > 50)
 		{
 			drawPoints.erase(drawPoints.begin());
 		}
 
-		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15-hitTarget) * 2))
 		{
 			if (enableFill) //correct hit
 			{
@@ -304,7 +318,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget1, 100);
+			ofDrawCircle(circleTarget1, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			//	cout << "on target 1" << "\n";
@@ -315,7 +329,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				enableFill = true;
 				ofSetColor(0, 255, 0, 128);
 				ofFill();
-				ofDrawCircle(circleTarget1, 100);
+				ofDrawCircle(circleTarget1, 100 + ((15 - hitTarget) * 2));
 			}
 			else if (nextTarget != 2)
 			{
@@ -330,7 +344,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				nextTarget = 2;
 			}
 		}
-		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			if (enableFill) //correct hit
 			{
@@ -343,7 +357,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget2, 100);
+			ofDrawCircle(circleTarget2, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			//cout << "on target 2" << "\n";
@@ -354,7 +368,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				enableFill = true;
 				ofSetColor(0, 255, 0, 128);
 				ofFill();
-				ofDrawCircle(circleTarget2, 100);
+				ofDrawCircle(circleTarget2, 100 + ((15 - hitTarget) * 2));
 			}
 			else if (nextTarget != 3)
 			{
@@ -364,7 +378,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				enableFill = false;
 			}
 		}
-		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			if (enableFill) //correct hit
 			{
@@ -377,7 +391,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget3, 100);
+			ofDrawCircle(circleTarget3, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			//cout << "on target 3" << "\n";
@@ -388,7 +402,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				enableFill = true;
 				ofSetColor(0, 255, 0, 128);
 				ofFill();
-				ofDrawCircle(circleTarget3, 100);
+				ofDrawCircle(circleTarget3, 100 + ((15 - hitTarget) * 2));
 			}
 			else if (nextTarget != 4)
 			{
@@ -399,7 +413,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 
 			}
 		}
-		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			if (enableFill) //correct hit
 			{
@@ -412,7 +426,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget4, 100);
+			ofDrawCircle(circleTarget4, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			//cout << "on target 4" << "\n";
@@ -423,7 +437,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 				enableFill = true;
 				ofFill();
 				ofSetColor(0, 255, 0, 128);
-				ofDrawCircle(circleTarget4, 100);
+				ofDrawCircle(circleTarget4, 100 + ((15 - hitTarget) * 2));
 			}
 			else if (nextTarget != 1)
 			{
@@ -437,19 +451,40 @@ void PlayerManager::drawCircleTargets(int x,int y)
 		}
 
 	}
-	//ofVertex(x, y);
 	ofEndShape();
+	/*b.addVertex(ofPoint(x, y));
+	b.curveTo(ofPoint(x, y));
+	b.bezierTo(x, y, x, y, x, y);
+	b.addVertex(ofPoint(x, y));
+	b.close();
+
+	b.getSmoothed(5, 0.5);
+	//angle += TWO_PI / 30;
+	b.draw(); */
 
 }
 
-void PlayerManager::drawHexagonTargets(int x, int y)
+void PlayerManager::drawHexagonTargets(float x, float y)
 {
-	ofVec2f circleTarget1(appWidth / 2 - 200, appHeight / 2 - 300);
-	ofVec2f circleTarget2(appWidth / 2 + 200, appHeight / 2 - 300);
-	ofVec2f circleTarget3(appWidth / 2  + 300, appHeight / 2);
-	ofVec2f circleTarget4(appWidth / 2 + 200, appHeight / 2 + 300);
-	ofVec2f circleTarget5(appWidth / 2 - 200, appHeight / 2 + 300);
-	ofVec2f circleTarget6(appWidth / 2 - 300, appHeight / 2);
+	if (rightSideActivated)
+	{
+		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
+		circleTarget4 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget5 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget6 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+	}
+	else
+	{
+		circleTarget6 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget5 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget4 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
+		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget2 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget1 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+	}
+	
 	if (enableFill)
 	{
 		ofFill();
@@ -689,7 +724,7 @@ void PlayerManager::drawHexagonTargets(int x, int y)
 		}
 
 	}
-	ofVertex(x, y);
+	//ofVertex(x, y);
 	ofEndShape();
 	/*	b.addVertex(ofPoint(x,y));
 	b.curveTo(ofPoint(x, y));
@@ -705,16 +740,31 @@ void PlayerManager::drawHexagonTargets(int x, int y)
 	//path.draw();
 }
 
-void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
+void PlayerManager::drawInvisibleOctagonTargets(float x, float y)
 {
-	ofVec2f circleTarget1(appWidth / 2 - 200, appHeight / 2 - 300);
-	ofVec2f circleTarget2(appWidth / 2 + 200, appHeight / 2 - 300);
-	ofVec2f circleTarget3(appWidth / 2 + 300, appHeight / 2 - 100);
-	ofVec2f circleTarget4(appWidth / 2 + 300, appHeight / 2 + 100);
-	ofVec2f circleTarget5(appWidth / 2 + 200, appHeight / 2 + 300);
-	ofVec2f circleTarget6(appWidth / 2 - 200, appHeight / 2 + 300);
-	ofVec2f circleTarget7(appWidth / 2 - 300, appHeight / 2 + 100);
-	ofVec2f circleTarget8(appWidth / 2 - 300, appHeight / 2 - 100);
+	if (rightSideActivated)
+	{
+		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2 - 100);
+		circleTarget4 = ofVec2f(appWidth / 2 + 300, appHeight / 2 + 100);
+		circleTarget5 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget6 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget7 = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
+		circleTarget8 = ofVec2f(appWidth / 2 - 300, appHeight / 2 - 100);
+	}
+	else
+	{
+		circleTarget8 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget7 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget6 = ofVec2f(appWidth / 2 + 300, appHeight / 2 - 100);
+		circleTarget5 = ofVec2f(appWidth / 2 + 300, appHeight / 2 + 100);
+		circleTarget4 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget3 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget2 = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
+		circleTarget1 = ofVec2f(appWidth / 2 - 300, appHeight / 2 - 100);
+	}
+	
 	if (enableFill)
 	{
 		ofFill();
@@ -754,7 +804,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 			drawPoints.erase(drawPoints.begin());
 		}
 
-		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget * 2))
 		{
 			//	cout << "on target 1" << "\n";
 			if (enableFill) //correct hit
@@ -767,7 +817,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget1, 100); //indicate whether it is a hit or miss
+			ofDrawCircle(circleTarget1, 100 + (hitTarget * 2)); //indicate whether it is a hit or miss
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 1)
@@ -789,7 +839,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 				nextTarget = 2;
 			}
 		}
-		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget * 2))
 		{
 			//cout << "on target 2" << "\n";
 			if (enableFill) //correct hit
@@ -802,7 +852,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget2, 100);
+			ofDrawCircle(circleTarget2, 100 + (hitTarget * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -820,7 +870,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 				enableFill = false;
 			}
 		}
-		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget * 2))
 		{
 			//cout << "on target 3" << "\n";
 			if (enableFill) //correct hit
@@ -852,7 +902,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 
 			}
 		}
-		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget * 2))
 		{
 			//cout << "on target 4" << "\n";
 			if (enableFill) //correct hit
@@ -1020,7 +1070,7 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 		}
 
 	}
-	ofVertex(x, y);
+	//ofVertex(x, y);
 	ofEndShape();
 	/*	b.addVertex(ofPoint(x,y));
 	b.curveTo(ofPoint(x, y));
@@ -1035,13 +1085,24 @@ void PlayerManager::drawInvisibleOctagonTargets(int x, int y)
 	//path.arc(x, y, 50, 50, 0, 360);
 	//path.draw();
 }
-void PlayerManager::drawSquareTargets(int x, int y)
+void PlayerManager::drawSquareTargets(float x, float y)
 {
 	//cout << "In square";
-	ofVec2f circleTarget1(appWidth / 2 - 200, appHeight / 2 - 300);
-	ofVec2f circleTarget2(appWidth / 2 + 200, appHeight / 2-300);
-	ofVec2f circleTarget3(appWidth / 2 + 200, appHeight / 2 + 300);
-	ofVec2f circleTarget4(appWidth / 2 - 200, appHeight / 2 + 300);
+	if (rightSideActivated)
+	{
+		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget4 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+	}
+	else
+	{
+		circleTarget4 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget1 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+	}
+	
 	if (enableFill)
 	{
 		ofFill();
@@ -1056,7 +1117,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 		else
 		ofNoFill();
 		*/
-		ofDrawCircle(targetPoints[i], 50);
+		ofDrawCircle(targetPoints[i], 50+(hitTarget * 2));
 	}
 	ofSetColor(ofColor::red);
 	ofSetLineWidth(3);
@@ -1081,7 +1142,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 			drawPoints.erase(drawPoints.begin());
 		}
 
-		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget*2))
 		{
 			//	cout << "on target 1" << "\n";
 			if (enableFill) //correct hit
@@ -1094,7 +1155,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget1, 100); //indicate whether it is a hit or miss
+			ofDrawCircle(circleTarget1, 100 + (hitTarget * 2)); //indicate whether it is a hit or miss
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 1)
@@ -1129,7 +1190,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget2, 100);
+			ofDrawCircle(circleTarget2, 100+(hitTarget * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -1160,7 +1221,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget3, 100);
+			ofDrawCircle(circleTarget3, 100 + (hitTarget * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -1193,7 +1254,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 				ofFill();
 			}
 			
-			ofDrawCircle(circleTarget4, 100);
+			ofDrawCircle(circleTarget4, 100 + (hitTarget * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 4)
@@ -1214,7 +1275,7 @@ void PlayerManager::drawSquareTargets(int x, int y)
 		}
 
 	}
-	ofVertex(x, y);
+//	ofVertex(x, y);
 	ofEndShape();
 	/*	b.addVertex(ofPoint(x,y));
 	b.curveTo(ofPoint(x, y));
@@ -1235,11 +1296,15 @@ void PlayerManager::matrixMatchingPage()
 
 }
 
-void PlayerManager::musicConductorPage()
+void PlayerManager::musicConductorPage(float x,float y)
 {
+	cout << "In here";
+	ofSetColor(ofColor::red);
+	ofDrawCircle(300, 300, 100);
 	fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 	//background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 	//orchestraBg.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight()-100);
+
 
 }
 void PlayerManager::clear() {

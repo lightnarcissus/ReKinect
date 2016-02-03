@@ -82,6 +82,10 @@ void KinectManager::update()
 		}
 		videoTexture.loadData(videoInverted, camWidth, camHeight, GL_RGB);
 	}
+	
+}
+void KinectManager::draw()
+{
 	vector<Kv2Skeleton> mySkeletons = kinect.getSkeletons();
 	{
 		int skeleton_count = 0;
@@ -89,18 +93,21 @@ void KinectManager::update()
 		{
 			if (mySkeletons[i].tracked) {
 
-				cout << "Drawing left hand of skeleton " << i << "\n";
+				//	cout << "SOMETHING";
+				//	cout << "Drawing left hand of skeleton " << i << "\n";
 				ofVec3f left_hand_pos = mySkeletons[i].joints[JointType_HandLeft].getPosition();
-				prevLeftPos = leftPos;
-				leftPos = left_hand_pos;
-			//	leftPos -= prevLeftPos;
-				leftPos.normalize();
+				left_hand_pos.normalize();
+				handPos.push_back(left_hand_pos);
+				//	leftPos = ofVec3f(roundf(left_hand_pos.x), roundf(left_hand_pos.y), roundf(left_hand_pos.z));
+					prevLeftPos = leftPos;
+			//	leftPos = left_hand_pos;
+
 				ofVec3f right_hand_pos = mySkeletons[i].joints[JointType_HandRight].getPosition();
 				prevRightPos = rightPos;
 				rightPos = right_hand_pos;
-			//	rightPos -= prevRightPos;
+				//	rightPos -= prevRightPos;
 				rightPos.normalize();
-				/*		ofVec3f head_pos = mySkeletons[i].joints[JointType_Head].getPosition();
+				ofVec3f head_pos = mySkeletons[i].joints[JointType_Head].getPosition();
 				ofVec3f neck_pos = mySkeletons[i].joints[JointType_Neck].getPosition();
 				ofVec3f hipleft_pos = mySkeletons[i].joints[JointType_HipLeft].getPosition();
 				ofVec3f spinemid_pos = mySkeletons[i].joints[JointType_SpineMid].getPosition();
@@ -114,8 +121,13 @@ void KinectManager::update()
 				ofVec3f left_elbow_pos = mySkeletons[i].joints[JointType_ElbowLeft].getPosition();
 				ofVec3f right_elbow_pos = mySkeletons[i].joints[JointType_ElbowRight].getPosition();
 
-*/
-				//cout << "  x: " << left_hand_pos.x << "  y: " << left_hand_pos.y << "  z: " << left_hand_pos.z << "\n";
+				//	cout << "Left: " << prevLeftPos;
+					//leftPos -= prevLeftPos;
+				//	leftPos.normalize();
+				//	cout << "After normalize: " << leftPos;
+
+
+		//		cout << "  x: " << left_hand_pos.x << "  y: " << left_hand_pos.y << "  z: " << left_hand_pos.z << "\n";
 
 
 				/* -------------------------------------------KEEP THIS PART --------------------------------------------
@@ -137,7 +149,7 @@ void KinectManager::update()
 				/////////////////////////////////////////////////////////////////////
 				//if (left_hand_pos.y>head_pos.y) ofSetColor(255,0,0);
 				//else  ofSetColor(0,255, 0);
-	/*			ofVec3f left_hand_shoulder = left_hand_pos - shoulderleft_pos;	// this is a vector point from shoulder to hand
+				ofVec3f left_hand_shoulder = left_hand_pos - shoulderleft_pos;	// this is a vector point from shoulder to hand
 				ofVec3f right_hand_shoulder = right_hand_pos - shoulderright_pos;	// this is a vector point from shoulder to hand
 
 				ofVec3f left_elbow_shoulder = elbow_left_pos - shoulderleft_pos;	// this is a vector point from left shoulder to elbow
@@ -185,8 +197,8 @@ void KinectManager::update()
 				ofDisableAlphaBlending();
 				*/
 
-			/*	ofSetColor(255);
-				if (left_hand_pos.y>spinebase_pos.y && left_hand_pos.y<spinemid_pos.y && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos<60 && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos>30 &&
+				//ofSetColor(255);
+				if (left_hand_pos.y > spinebase_pos.y && left_hand_pos.y<spinemid_pos.y && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos < 60 && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos>30 &&
 					right_hand_pos.y>spinebase_pos.y && right_hand_pos.y < spinemid_pos.y && right_shoulder_left_shoulder_hand_elbow_with_left_hand_pos < 60 && right_shoulder_left_shoulder_hand_elbow_with_left_hand_pos>30) {
 					ofEnableAlphaBlending();
 					float wave = sin(ofGetElapsedTimef());
@@ -276,25 +288,25 @@ void KinectManager::update()
 				//	readyforplay = 0;
 				//}
 
-/*
+				/*
 				if ((int)(left_hand_shoulder.x * 10) == -5 &&
-					left_hand_shoulder.y > 0.00 && left_hand_shoulder.y < 0.01 &&
-					(int)(left_hand_shoulder.z * 10) == 0 &&
-					left_shoulder_hand_elbow_with_left_hand_pos > 176 && left_shoulder_hand_elbow_with_left_hand_pos < 180) {
+				left_hand_shoulder.y > 0.00 && left_hand_shoulder.y < 0.01 &&
+				(int)(left_hand_shoulder.z * 10) == 0 &&
+				left_shoulder_hand_elbow_with_left_hand_pos > 176 && left_shoulder_hand_elbow_with_left_hand_pos < 180) {
 
-					if (readyforplay == 0) {
-						synth.setPaused(true);
-						readyforplay = 1;
-					}
+				if (readyforplay == 0) {
+				synth.setPaused(true);
+				readyforplay = 1;
+				}
 
-					if (readyforplay == 1) {
-						synthPlay();
-						readyforplay = 0;
-					}
+				if (readyforplay == 1) {
+				synthPlay();
+				readyforplay = 0;
+				}
 
-					ofSetColor(0, 0, 0);
-					verdana30.drawString("PLAY SOUND", ofGetWidth() / 2, ofGetHeight() / 2);
-					readyforplay = 0;
+				ofSetColor(0, 0, 0);
+				verdana30.drawString("PLAY SOUND", ofGetWidth() / 2, ofGetHeight() / 2);
+				readyforplay = 0;
 				}
 
 				/*
@@ -308,9 +320,9 @@ void KinectManager::update()
 				*/
 				/*
 				if (showAngle_Arm_Spine) {
-					ofSetColor(255, 0, 0);
-					verdana30.drawString("lAngle_Arm_Spine    " + ofToString(left_angle_elbow_shoulder_with_neck_hip), 550, 50 + 90 * i);
-					verdana30.drawString("rAngle_Arm_Spine    " + ofToString(right_angle_elbow_shoulder_with_neck_hip), 550, 90 + 90 * i);
+				ofSetColor(255, 0, 0);
+				verdana30.drawString("lAngle_Arm_Spine    " + ofToString(left_angle_elbow_shoulder_with_neck_hip), 550, 50 + 90 * i);
+				verdana30.drawString("rAngle_Arm_Spine    " + ofToString(right_angle_elbow_shoulder_with_neck_hip), 550, 90 + 90 * i);
 				}
 
 
@@ -319,55 +331,55 @@ void KinectManager::update()
 
 				////////////////////////////****/////////////////////////
 
-			/*	if (abs(neck_hip.x) > 0.04 && abs(neck_hip.x) < 0.09) {
-					//fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-					ofFill();
-					//	ofSetColor(255,0,0);
-					ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
-					ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					ofSetColor(0, 0, 0);
+				/*	if (abs(neck_hip.x) > 0.04 && abs(neck_hip.x) < 0.09) {
+				//fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+				ofFill();
+				//	ofSetColor(255,0,0);
+				ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
+				ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				ofSetColor(0, 0, 0);
 
-					verdana14.drawString("1", 50, 90 + 90 * i);
-					//mOne.draw(ofGetWindowWidth()/2 - 1474 / 4, ofGetWindowHeight()/2 - 1423 / 4, 1474 , 1423);
+				verdana14.drawString("1", 50, 90 + 90 * i);
+				//mOne.draw(ofGetWindowWidth()/2 - 1474 / 4, ofGetWindowHeight()/2 - 1423 / 4, 1474 , 1423);
 				}
 
 				if (abs(neck_hip.x) >= 0.09 && abs(neck_hip.x) < 0.15) {
-					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-					ofFill();
-					ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
-					ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					//mTwo.draw(ofGetWindowWidth() / 2 - 1474 / 4, ofGetWindowHeight() / 2 - 1423 / 4, 1474, 1423);
-					ofSetColor(0, 0, 0);
-					verdana14.drawString("2", 50, 90 + 90 * i);
+				ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+				ofFill();
+				ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
+				ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				//mTwo.draw(ofGetWindowWidth() / 2 - 1474 / 4, ofGetWindowHeight() / 2 - 1423 / 4, 1474, 1423);
+				ofSetColor(0, 0, 0);
+				verdana14.drawString("2", 50, 90 + 90 * i);
 				}
 
 				if (abs(neck_hip.x) >= 0.15 && abs(neck_hip.x) < 0.22) {
-					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-					ofFill();
-					ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
-					ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					ofSetColor(0, 0, 0);
-					verdana14.drawString("3", 50, 90 + 90 * i);
+				ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+				ofFill();
+				ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
+				ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				ofSetColor(0, 0, 0);
+				verdana14.drawString("3", 50, 90 + 90 * i);
 				}
 
 				if (abs(neck_hip.x) >= 0.22 && abs(neck_hip.x) < 0.30) {
-					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-					ofFill();
-					ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
-					ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					//mTwo.draw(ofGetWindowWidth() / 2 - 1474 / 4, ofGetWindowHeight() / 2 - 1423 / 4, 1474, 1423);
-					ofSetColor(0, 0, 0);
-					verdana14.drawString("4", 50, 90 + 90 * i);
+				ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+				ofFill();
+				ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
+				ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				//mTwo.draw(ofGetWindowWidth() / 2 - 1474 / 4, ofGetWindowHeight() / 2 - 1423 / 4, 1474, 1423);
+				ofSetColor(0, 0, 0);
+				verdana14.drawString("4", 50, 90 + 90 * i);
 				}
 
 				if (abs(neck_hip.x) >= 0.30 && abs(neck_hip.x) < 0.37) {
-					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-					ofFill();
-					ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
-					ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-					ofSetColor(0, 0, 0);
-					verdana14.drawString("5", 50, 90 + 90 * i);
+				ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+				ofFill();
+				ofSetColor(255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500, 255 - abs(neck_hip.x) * 500);
+				ofRect(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+				ofSetColor(0, 0, 0);
+				verdana14.drawString("5", 50, 90 + 90 * i);
 				}
 				//	if (showPos_Neck_Hip){
 				ofSetColor(0, 0, 0);
@@ -386,55 +398,74 @@ void KinectManager::update()
 				//			ofDrawBitmapString("Left hand pos.X    " + ofToString(left_hand_pos.x), 1600, 100 + 60 * i);
 				//		ofDrawBitmapString("Left hand Pos.Y    " + ofToString(left_hand_pos.y), 1600, 120 + 60 * i);
 				//	ofDrawBitmapString("Left hand Pos.Z    " + ofToString(left_hand_pos.z), 1600, 140 + 60 * i);
-				
+
+				}
+				*/
 			}
-		*/}
 
 
-		cout << skeleton_count << "\n\n\n";
+		//	cout << skeleton_count << "\n\n\n";
+		}
+		
+		
+			ofVec3f totalPos(0, 0, 0);
+
+			if (handPos.size() >3)
+			{
+				//leftPos = ofVec3f(ofLerp(handPos[0].x, handPos[3].x, 0.5), ofLerp(handPos[0].y, handPos[3].y, 0.5), handPos[0].z);
+				for (int i = 0; i < handPos.size(); i++)
+				{
+				totalPos += handPos[i];
+				}
+				totalPos /= handPos.size();
+				leftPos = ofVec3f(ofLerp(prevLeftPos.x,totalPos.x,0.5),ofLerp(prevLeftPos.y,totalPos.y,0.5),totalPos.z);
+			
+				for (int i = 0; i < handPos.size(); i++)
+				{
+					handPos.erase(handPos.begin());
+				}
+			}
+			
+			//ofBackground(255);
+			//ofSetColor(255);
+			/*vidGrabber.draw(20, 20);
+			videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
+
+			vidGrabber.draw(20, 20);
+			videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
+			*/
+			/*
+			//kinect.draw(0, 0);
+			kinect.drawDepth(0, 0);
+			//kinect.drawBodyIndex(500, 0);
+			//kinect.drawAllSkeletons(ofVec2f(640,480));
+			ofPushMatrix();
+			ofTranslate(900, 100);
+			//kinect.drawAllSkeletons(ofVec2f(640, 480));
+			kinect.drawAllSkeletons(ofVec2f(1200, 900));
+
+			ofPopMatrix();
+
+			float hue = fmodf(ofGetElapsedTimef() * 80, 255);
+
+			int step = 5;
+			// step through horizontally
+
+
+
+			//ofSetColor(255);
+
+			//---------------------------------- synth:
+			if (synth.getIsPlaying()) ofSetHexColor(0xFF0000);
+			else ofSetHexColor(0x000000);
+			verdana30.drawString("!", 50, 50);
+
+			ofSetHexColor(0x000000);
+			string tempStr = "click to play\npct done: " + ofToString(synth.getPosition()) + "\nspeed: " + ofToString(synth.getSpeed()) + "\npan: " + ofToString(synth.getPan());
+			ofDrawBitmapString(tempStr, 50, ofGetHeight() - 50);
+			*/
+
 	}
-
-}
-void KinectManager::draw()
-{//ofBackground(255);
-	//ofSetColor(255);
-	/*vidGrabber.draw(20, 20);
-	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
-
-	vidGrabber.draw(20, 20);
-	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
-	*/
-
-	//kinect.draw(0, 0);
-	kinect.drawDepth(0, 0);
-	//kinect.drawBodyIndex(500, 0);
-	//kinect.drawAllSkeletons(ofVec2f(640,480));
-	ofPushMatrix();
-	ofTranslate(900, 100);
-	//kinect.drawAllSkeletons(ofVec2f(640, 480));
-	kinect.drawAllSkeletons(ofVec2f(1200, 900));
-
-	ofPopMatrix();
-
-	float hue = fmodf(ofGetElapsedTimef() * 80, 255);
-
-	int step = 5;
-	// step through horizontally
-
-
-
-	//ofSetColor(255);
-
-	//---------------------------------- synth:
-	if (synth.getIsPlaying()) ofSetHexColor(0xFF0000);
-	else ofSetHexColor(0x000000);
-	verdana30.drawString("!", 50, 50);
-
-	ofSetHexColor(0x000000);
-	string tempStr = "click to play\npct done: " + ofToString(synth.getPosition()) + "\nspeed: " + ofToString(synth.getSpeed()) + "\npan: " + ofToString(synth.getPan());
-	ofDrawBitmapString(tempStr, 50, ofGetHeight() - 50);
-
-
 }
 
 void KinectManager::synthPlay()

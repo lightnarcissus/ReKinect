@@ -95,21 +95,22 @@ void ofApp::launchSelectedApp( int &i)
 void ofApp::drawRunningApp()
 {
 	ofVec3f temp;
-	//cout << player.activeApp;
+	cout << player.activeApp;
 	kinect.update();
-	//kinect.draw();
+	kinect.draw();
 	if (player.rightSideActivated)
 		temp = kinect.rightPos;
 	else
 		temp = kinect.leftPos;
-	ofVec3f final((abs(temp.x) * 1366) * 3, (abs(temp.y) * 768) *3, 0);
+	ofVec3f final((abs(temp.x) * 1919) , (abs(temp.y) * 1079) * 1.5, 0);
 	switch (player.activeApp)
 	{
 	case 1:
-		cout << "X: " << (abs(temp.x) *1366) * 3 << " and Y: " <<(abs(temp.y) * 768) * 3 << "\n";
-		player.drawingChallengePage(final.x, final.y, 0,0);
+		cout << "X: " << (abs(temp.x) *1919) << " and Y: " <<(abs(temp.y) * 1079) * 1.5 << "\n";
+		player.drawingChallengePage(final.x*1.5, final.y*1.5, 0,0);
 		break;
 	case 3:
+		player.musicConductorPage(300+final.x, final.y);
 		break;
 	}
 }

@@ -9,12 +9,12 @@ public:
 	void drawInputText();
 	void drawCursor() const;
 	void drawAppSelectionPage();
-	void musicConductorPage();
-	void drawingChallengePage(int,int,int,int);
-	void drawCircleTargets(int,int);
-	void drawSquareTargets(int,int);
-	void drawHexagonTargets(int, int);
-	void drawInvisibleOctagonTargets(int, int);
+	void musicConductorPage(float,float);
+	void drawingChallengePage(float,float,int,int);
+	void drawCircleTargets(float, float);
+	void drawSquareTargets(float, float);
+	void drawHexagonTargets(float, float);
+	void drawInvisibleOctagonTargets(float, float);
 	int currentDrawingLevel = 3;
 	vector<bool> fillCircles;
 	vector<ofVec2f> targetPoints;
@@ -50,8 +50,14 @@ public:
 	ofPath path;
 	ofPolyline b;
 	vector<ofPoint> movementPoints;
-
-
+	ofVec2f circleTarget1;
+	ofVec2f circleTarget2;
+	ofVec2f circleTarget3;
+	ofVec2f circleTarget4;
+	ofVec2f circleTarget5;
+	ofVec2f circleTarget6;
+	ofVec2f circleTarget7;
+	ofVec2f circleTarget8;
 	//conductor images
 	ofImage violinist;
 	ofImage contrabass;
