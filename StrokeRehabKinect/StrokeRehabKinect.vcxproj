@@ -79,8 +79,8 @@
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
-    <IncludePath>$(KINECTSDK20_DIR)inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(KINECTSDK20_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KCBv2\include;$(KINECTSDK20_DIR)inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(KINECTSDK20_DIR)lib\x86;C:\Users\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KCBv2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>bin\</OutDir>

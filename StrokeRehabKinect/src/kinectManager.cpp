@@ -38,26 +38,6 @@ void KinectManager::setup()
 
 	///////////////// load images//
 
-	orchestraBg.loadImage("orchestra4Eozin.png");
-
-	violinist.loadImage("violinist.png");
-	contrabass.loadImage("contrabass.jpg");
-
-	background.loadImage("background3.png");
-	fakeStage.loadImage("fakeStage1.png");
-
-	//background.loadImage("background2.jpg");
-	//fakeStage.loadImage("fakeStage.jpg");
-
-	mCenter.loadImage("1_center.png");
-	mLeft1.loadImage("1_left.png");
-	mLeft2.loadImage("2_left.png");
-	mRight1.loadImage("1_right.png");
-	mRight2.loadImage("2_right.png");
-
-	mOne.loadImage("1.png");
-	mTwo.loadImage("2.png");
-	mThree.loadImage("3.png");
 
 	ofTrueTypeFont::setGlobalDpi(72);
 
@@ -89,8 +69,8 @@ void KinectManager::setup()
 void KinectManager::update()
 {
 	kinect.update();
-	ofBackground(100, 100, 100);
-	ofSoundUpdate();
+//	ofBackground(100, 100, 100);
+	//ofSoundUpdate();
 
 	vidGrabber.update();
 
@@ -102,49 +82,25 @@ void KinectManager::update()
 		}
 		videoTexture.loadData(videoInverted, camWidth, camHeight, GL_RGB);
 	}
-}
-void KinectManager::draw()
-{//ofBackground(255);
-	ofSetColor(255);
-	vidGrabber.draw(20, 20);
-	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
-
-	vidGrabber.draw(20, 20);
-	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
-
-	fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-	//background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-	//orchestraBg.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight()-100);
-
-	//kinect.draw(0, 0);
-	kinect.drawDepth(0, 0);
-	//kinect.drawBodyIndex(500, 0);
-	//kinect.drawAllSkeletons(ofVec2f(640,480));
-	ofPushMatrix();
-	ofTranslate(900, 100);
-	//kinect.drawAllSkeletons(ofVec2f(640, 480));
-	kinect.drawAllSkeletons(ofVec2f(1200, 900));
-
-	ofPopMatrix();
-
-	float hue = fmodf(ofGetElapsedTimef() * 80, 255);
-
-	int step = 5;
-	// step through horizontally
-
-
 	vector<Kv2Skeleton> mySkeletons = kinect.getSkeletons();
 	{
 		int skeleton_count = 0;
 		for (int i = 0; i < mySkeletons.size(); i++)
 		{
 			if (mySkeletons[i].tracked) {
-				skeleton_count++;
+
 				cout << "Drawing left hand of skeleton " << i << "\n";
 				ofVec3f left_hand_pos = mySkeletons[i].joints[JointType_HandLeft].getPosition();
+				prevLeftPos = leftPos;
 				leftPos = left_hand_pos;
+			//	leftPos -= prevLeftPos;
+				leftPos.normalize();
 				ofVec3f right_hand_pos = mySkeletons[i].joints[JointType_HandRight].getPosition();
-				ofVec3f head_pos = mySkeletons[i].joints[JointType_Head].getPosition();
+				prevRightPos = rightPos;
+				rightPos = right_hand_pos;
+			//	rightPos -= prevRightPos;
+				rightPos.normalize();
+				/*		ofVec3f head_pos = mySkeletons[i].joints[JointType_Head].getPosition();
 				ofVec3f neck_pos = mySkeletons[i].joints[JointType_Neck].getPosition();
 				ofVec3f hipleft_pos = mySkeletons[i].joints[JointType_HipLeft].getPosition();
 				ofVec3f spinemid_pos = mySkeletons[i].joints[JointType_SpineMid].getPosition();
@@ -158,7 +114,7 @@ void KinectManager::draw()
 				ofVec3f left_elbow_pos = mySkeletons[i].joints[JointType_ElbowLeft].getPosition();
 				ofVec3f right_elbow_pos = mySkeletons[i].joints[JointType_ElbowRight].getPosition();
 
-
+*/
 				//cout << "  x: " << left_hand_pos.x << "  y: " << left_hand_pos.y << "  z: " << left_hand_pos.z << "\n";
 
 
@@ -181,7 +137,7 @@ void KinectManager::draw()
 				/////////////////////////////////////////////////////////////////////
 				//if (left_hand_pos.y>head_pos.y) ofSetColor(255,0,0);
 				//else  ofSetColor(0,255, 0);
-				ofVec3f left_hand_shoulder = left_hand_pos - shoulderleft_pos;	// this is a vector point from shoulder to hand
+	/*			ofVec3f left_hand_shoulder = left_hand_pos - shoulderleft_pos;	// this is a vector point from shoulder to hand
 				ofVec3f right_hand_shoulder = right_hand_pos - shoulderright_pos;	// this is a vector point from shoulder to hand
 
 				ofVec3f left_elbow_shoulder = elbow_left_pos - shoulderleft_pos;	// this is a vector point from left shoulder to elbow
@@ -229,12 +185,12 @@ void KinectManager::draw()
 				ofDisableAlphaBlending();
 				*/
 
-				ofSetColor(255);
+			/*	ofSetColor(255);
 				if (left_hand_pos.y>spinebase_pos.y && left_hand_pos.y<spinemid_pos.y && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos<60 && left_shoulder_right_shoulder_hand_elbow_with_right_hand_pos>30 &&
 					right_hand_pos.y>spinebase_pos.y && right_hand_pos.y < spinemid_pos.y && right_shoulder_left_shoulder_hand_elbow_with_left_hand_pos < 60 && right_shoulder_left_shoulder_hand_elbow_with_left_hand_pos>30) {
 					ofEnableAlphaBlending();
 					float wave = sin(ofGetElapsedTimef());
-				//	mCenter.draw(ofGetWidth() / 2 - mCenter.width / 2, wave / 1000 * (ofGetHeight() / 2 - mCenter.height / 2 - 80));
+					//	mCenter.draw(ofGetWidth() / 2 - mCenter.width / 2, wave / 1000 * (ofGetHeight() / 2 - mCenter.height / 2 - 80));
 					ofSetColor(10, 200, 133);
 					verdana30.drawString("Contrabass!", 950, 400);
 				}
@@ -243,7 +199,7 @@ void KinectManager::draw()
 					//ofSetColor(0, 255, 0);
 					ofEnableAlphaBlending();
 					float wave = sin(ofGetElapsedTimef()*2.0);
-					mLeft1.draw(500, (wave *  ofGetHeight()*.5));
+					//	mLeft1.draw(500, (wave *  ofGetHeight()*.5));
 					ofSetColor(155, 155, 200);
 					verdana30.drawString("Activate Musician on the Left", 950, 400);
 
@@ -254,7 +210,7 @@ void KinectManager::draw()
 					ofSetColor(255);
 					ofEnableAlphaBlending();
 					float wave = sin(ofGetElapsedTimef()*2.0);
-					mLeft2.draw(500, (wave * ofGetHeight()*.5));
+					//	mLeft2.draw(500, (wave * ofGetHeight()*.5));
 					ofColor color = ofColor::darkSlateBlue;
 
 					ofSetColor(color);
@@ -269,7 +225,7 @@ void KinectManager::draw()
 				else if (right_hand_pos.y > head_pos.y && left_hand_pos.y < spinebase_pos.y) {
 					ofEnableAlphaBlending();
 					float wave = sin(ofGetElapsedTimef()*2.0);
-					mRight1.draw(500, (wave *  ofGetHeight()*.5));
+					//	mRight1.draw(500, (wave *  ofGetHeight()*.5));
 
 					ofColor color = ofColor::orangeRed;
 
@@ -320,7 +276,7 @@ void KinectManager::draw()
 				//	readyforplay = 0;
 				//}
 
-
+/*
 				if ((int)(left_hand_shoulder.x * 10) == -5 &&
 					left_hand_shoulder.y > 0.00 && left_hand_shoulder.y < 0.01 &&
 					(int)(left_hand_shoulder.z * 10) == 0 &&
@@ -350,7 +306,7 @@ void KinectManager::draw()
 				verdana30.drawString("left_hand_shoulder.x    " + ofToString(left_hand_shoulder.x), 550, 150 + 90 * i);
 				//				}
 				*/
-
+				/*
 				if (showAngle_Arm_Spine) {
 					ofSetColor(255, 0, 0);
 					verdana30.drawString("lAngle_Arm_Spine    " + ofToString(left_angle_elbow_shoulder_with_neck_hip), 550, 50 + 90 * i);
@@ -363,7 +319,7 @@ void KinectManager::draw()
 
 				////////////////////////////****/////////////////////////
 
-				if (abs(neck_hip.x) > 0.04 && abs(neck_hip.x) < 0.09) {
+			/*	if (abs(neck_hip.x) > 0.04 && abs(neck_hip.x) < 0.09) {
 					//fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 					ofEnableBlendMode(OF_BLENDMODE_SCREEN);
 					ofFill();
@@ -430,13 +386,42 @@ void KinectManager::draw()
 				//			ofDrawBitmapString("Left hand pos.X    " + ofToString(left_hand_pos.x), 1600, 100 + 60 * i);
 				//		ofDrawBitmapString("Left hand Pos.Y    " + ofToString(left_hand_pos.y), 1600, 120 + 60 * i);
 				//	ofDrawBitmapString("Left hand Pos.Z    " + ofToString(left_hand_pos.z), 1600, 140 + 60 * i);
-
+				
 			}
-		}
+		*/}
 
 
 		cout << skeleton_count << "\n\n\n";
 	}
+
+}
+void KinectManager::draw()
+{//ofBackground(255);
+	//ofSetColor(255);
+	/*vidGrabber.draw(20, 20);
+	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
+
+	vidGrabber.draw(20, 20);
+	videoTexture.draw(20 + camWidth, 20, camWidth, camHeight);
+	*/
+
+	//kinect.draw(0, 0);
+	kinect.drawDepth(0, 0);
+	//kinect.drawBodyIndex(500, 0);
+	//kinect.drawAllSkeletons(ofVec2f(640,480));
+	ofPushMatrix();
+	ofTranslate(900, 100);
+	//kinect.drawAllSkeletons(ofVec2f(640, 480));
+	kinect.drawAllSkeletons(ofVec2f(1200, 900));
+
+	ofPopMatrix();
+
+	float hue = fmodf(ofGetElapsedTimef() * 80, 255);
+
+	int step = 5;
+	// step through horizontally
+
+
 
 	//ofSetColor(255);
 

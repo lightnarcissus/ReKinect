@@ -52,6 +52,28 @@ public:
 	vector<ofPoint> movementPoints;
 
 
+	//conductor images
+	ofImage violinist;
+	ofImage contrabass;
+
+	ofImage background;
+	ofImage fakeStage;
+
+	ofImage mCenter;
+	ofImage mLeft1;
+	ofImage mLeft2;
+	ofImage mRight1;
+	ofImage mRight2;
+
+	ofImage orchestraBg;
+
+
+	ofImage mOne;
+	ofImage mTwo;
+	ofImage mThree;
+
+
+
 
 protected:
 	void keyPressedEvent(ofKeyEventArgs &a); //checks events for key presses for text input

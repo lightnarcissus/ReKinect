@@ -16,8 +16,10 @@ public:
 
 	//declaring variable for Kinect
 	//ofxKinect kinect;
+	ofVec3f prevLeftPos;
 	ofVec3f leftPos;
-
+	ofVec3f prevRightPos;
+	ofVec3f rightPos;
 	ofxKinectCommonBridge kinect;
 	ofShader yuvRGBShader;
 	ofPlanePrimitive plane;
@@ -38,29 +40,6 @@ public:
 	ofTexture			videoTexture;
 	int 				camWidth;
 	int 				camHeight;
-	////// adding images////////////////////////////////////////
-
-
-	ofImage violinist;
-	ofImage contrabass;
-
-	ofImage background;
-	ofImage fakeStage;
-
-	ofImage mCenter;
-	ofImage mLeft1;
-	ofImage mLeft2;
-	ofImage mRight1;
-	ofImage mRight2;
-
-	ofImage orchestraBg;
-
-
-	ofImage mOne;
-	ofImage mTwo;
-	ofImage mThree;
-
-	/////////////
 
 	int oldalpha;
 	int newalpha;

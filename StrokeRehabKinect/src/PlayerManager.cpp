@@ -9,7 +9,7 @@ PlayerManager::PlayerManager() {
 	cursorY = appHeight/2 + 100;
 	activeApp = 0;
 	debugFloat = 0;
-	currentDrawingLevel = 4;
+	currentDrawingLevel = 1;
 	for (int i = 0; i < 22; i++) //initialize all to false
 	{
 
@@ -59,6 +59,30 @@ void PlayerManager::init() {
 	miscFont.load("segoeui.ttf", 40);
 	actionFont.load("segoeui.ttf", 30);
 	textFont.load("micross.ttf", 30);
+
+
+	//loading conductor images
+	orchestraBg.loadImage("orchestra4Eozin.png");
+
+	violinist.loadImage("violinist.png");
+	contrabass.loadImage("contrabass.jpg");
+
+	background.loadImage("background3.png");
+	fakeStage.loadImage("fakeStage1.png");
+
+	//background.loadImage("background2.jpg");
+	//fakeStage.loadImage("fakeStage.jpg");
+
+	mCenter.loadImage("1_center.png");
+	mLeft1.loadImage("1_left.png");
+	mLeft2.loadImage("2_left.png");
+	mRight1.loadImage("1_right.png");
+	mRight2.loadImage("2_right.png");
+
+	mOne.loadImage("1.png");
+	mTwo.loadImage("2.png");
+	mThree.loadImage("3.png");
+
 
 	//listen for Selection Screen events
 	ofAddListener(ofEvents().keyPressed, this, &PlayerManager::keyPressedEvent);
@@ -261,6 +285,7 @@ void PlayerManager::drawCircleTargets(int x,int y)
 	for (int i = 0; i < drawPoints.size(); i++)
 	{
 		ofVertex(drawPoints[i].x, drawPoints[i].y);
+		
 		if (drawPoints.size() > 50)
 		{
 			drawPoints.erase(drawPoints.begin());
@@ -412,20 +437,9 @@ void PlayerManager::drawCircleTargets(int x,int y)
 		}
 
 	}
-	ofVertex(x, y);
+	//ofVertex(x, y);
 	ofEndShape();
-	/*	b.addVertex(ofPoint(x,y));
-	b.curveTo(ofPoint(x, y));
-	b.bezierTo(x,y,x,y,x,y);
-	b.addVertex(ofPoint(x, y));
-	b.close();
 
-	b.getSmoothed(5, 0.5);
-	angle += TWO_PI / 30;
-	b.draw();*/
-	//cout << b.getClosestPoint(ofPoint(appWidth / 2, appHeight / 2))<<"\n";
-	//path.arc(x, y, 50, 50, 0, 360);
-	//path.draw();
 }
 
 void PlayerManager::drawHexagonTargets(int x, int y)
@@ -1223,6 +1237,9 @@ void PlayerManager::matrixMatchingPage()
 
 void PlayerManager::musicConductorPage()
 {
+	fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+	//background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+	//orchestraBg.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight()-100);
 
 }
 void PlayerManager::clear() {
