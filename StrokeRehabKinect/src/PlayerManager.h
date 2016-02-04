@@ -22,6 +22,7 @@ public:
 	void initCards();
 	void checkCollisions();
 
+	int isPlaying = 0;
 
 	int currentDrawingLevel = 3;
 	vector<bool> fillCircles;

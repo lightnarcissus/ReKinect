@@ -59,10 +59,12 @@ PlayerManager::PlayerManager() {
 	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
 	ofVec2f circleTarget3(appWidth / 2 - 300, appHeight / 2);
 	ofVec2f circleTarget4(appWidth / 2, appHeight / 2 + 300);*/
-	//music.loadSound("synth.wav",false);
-	//music.setVolume(0.3);
-	//music2.loadSound("synth2.wav",false);
-	//music2.setVolume(0.3);
+	music.loadSound("synth.wav",false);
+	music.setVolume(0.75);
+	music2.loadSound("synth2.wav",false);
+	music2.setVolume(0.75);
+	music.setMultiPlay(false);
+	music2.setMultiPlay(false);
 
 }
 
@@ -1484,26 +1486,47 @@ void PlayerManager::musicConductorPage(float x,float y)
 	ofSetColor(ofColor::white);
 	ofVec3f instrument1(appWidth / 2 - 100, appHeight, 0);
 	ofVec3f mousePos(x, y, 0);
+
+	cout << "X: " << x << "and Y: " << y << " \n ";
+
 	//cout << "X: " << x << " and Y: " << y << "\n";
-	if (mousePos.distance(targetPoints[26]) < 150)
+//	if (mousePos.distance(targetPoints[26]) < 300)
+	if(mousePos.x > appWidth * 2/3)
 	{
 		//cout << "TARGET LEFT";
 		orchestraActive1.resize(appWidth, appHeight);
 		orchestraActive1.draw(0, 0,0);
+		if(isPlaying!=1)
+		{
+		isPlaying = 1;
+		music.play();
+		}
 		//musicActivated = 1;
 	}
-	else if (mousePos.distance(targetPoints[27]) < 300)
+	//else if (mousePos.distance(targetPoints[27]) < 300)
+	else if(mousePos.x < appWidth * 2/3 && mousePos.x > appWidth/3)
 	{
 		//cout << "TARGET MIDDLE";
 		orchestraActive2.resize(appWidth, appHeight);
-		orchestraActive2.draw(0, 0, 0);
+		orchestraActive2.draw(0, 0, 0); 
+		if (isPlaying != 2)
+		{
+			isPlaying = 2;
+			music2.play();
+		}
 		//musicActivated = 2;
 	}
-	else if (mousePos.distance(targetPoints[28]) < 150)
+//	else if (mousePos.distance(targetPoints[28]) < 300)
+	else if(mousePos.x < appWidth/3)
 	{
 		//cout << "TARGET RIGHT";
 		orchestraActive3.resize(appWidth, appHeight);
 		orchestraActive3.draw(0, 0, 0);
+		if (isPlaying != 3)
+		{
+			isPlaying = 3;
+			music.play();
+		}
 	//	musicActivated = 3;
 	}
 /*	if (x > appWidth / 2 && y < appHeight / 2) //quadrant 1

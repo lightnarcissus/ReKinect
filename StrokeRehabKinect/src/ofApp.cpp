@@ -121,8 +121,8 @@ void ofApp::drawRunningApp()
 		player.matrixMatchingPage();
 		break;
 	case 3:
-		//player.musicConductorPage(final.x*2, final.y*1.75);
-		player.musicConductorPage((float)mouseX, (float)mouseY);
+		player.musicConductorPage(final.x*2, final.y*1.75);
+		//player.musicConductorPage((float)mouseX, (float)mouseY);
 		break;
 	}
 }

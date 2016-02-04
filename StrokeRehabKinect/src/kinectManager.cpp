@@ -60,7 +60,7 @@ void KinectManager::setup()
 	//synth.loadSound("sounds/synth2.wav");
 	//synth.setVolume(0.75f);
 
-	ofSetWindowTitle("testPrototype");
+	ofSetWindowTitle("Stroke + Kinect");
 
 	readyforplay = 0;
 
@@ -205,7 +205,7 @@ void KinectManager::draw()
 					//	mCenter.draw(ofGetWidth() / 2 - mCenter.width / 2, wave / 1000 * (ofGetHeight() / 2 - mCenter.height / 2 - 80));
 					ofSetColor(10, 200, 133);
 					verdana30.drawString("Contrabass!", 950, 400);
-					synth.play();
+				//	synth.play();
 				}
 
 				else if (left_hand_pos.y > shoulderleft_pos.y && right_hand_pos.y > shoulderright_pos.y &&left_hand_pos.z < left_knee_pos.z && right_hand_pos.z < left_knee_pos.z && right_shoulder_hand_elbow_with_right_hand_pos > 130 && left_shoulder_hand_elbow_with_left_hand_pos > 130 && left_knee_pos.z < right_knee_pos.z) {
@@ -215,7 +215,7 @@ void KinectManager::draw()
 					//	mLeft1.draw(500, (wave *  ofGetHeight()*.5));
 					ofSetColor(155, 155, 200);
 					verdana30.drawString("Activate Musician on the Left", 950, 400);
-					synth.play();
+				//	synth.play();
 
 				}
 				//ofSetColor(0, 255, 0);
@@ -230,7 +230,7 @@ void KinectManager::draw()
 					ofSetColor(color);
 
 					verdana30.drawString("Activate Musician on the Left edge", 950, 400);
-					synth.play();
+					//synth.play();
 
 
 				}
@@ -473,17 +473,19 @@ void KinectManager::draw()
 
 void KinectManager::synthPlay()
 {
+	/*
 	synth.play();
 	synth.setSpeed(0.1f + ((float)(ofGetHeight()) / (float)ofGetHeight()) * 10);
 	synth.setPan(ofMap(100, 0, ofGetWidth() / 3.0f, -1, 1, true));
+	*/
 }
 
 void KinectManager::mousePressed(int x, int y, int button)
 {
-	synth.play();
+/*	synth.play();
 	synth.setSpeed(0.1f + ((float)(ofGetHeight() - y) / (float)ofGetHeight()) * 10);
 	synth.setPan(ofMap(x, 0, ofGetWidth() / 3.0f, -1, 1, true));
-
+	*/
 }
 
 void KinectManager::keyPressed(int key)
@@ -495,7 +497,7 @@ void KinectManager::keyPressed(int key)
 		showAngle_Arm_Forearm = false;
 		showAngle_Arm_Spine = false;
 		showPos_Neck_Hip = false;
-		synth.stop();
+		//synth.stop();
 		break;
 
 	case 50:  // key 2
@@ -504,7 +506,7 @@ void KinectManager::keyPressed(int key)
 		showAngle_Arm_Forearm = false;
 		showAngle_Arm_Spine = false;
 		showPos_Neck_Hip = false;
-		synth.play();
+		//synth.play();
 		break;
 
 	case 51:  // key 3	
@@ -528,7 +530,7 @@ void KinectManager::keyPressed(int key)
 		showAngle_Arm_Forearm = false;
 		showAngle_Arm_Spine = false;
 		showPos_Neck_Hip = true;
-		synth.stop();
+		//synth.stop();
 		break;
 
 	default:
