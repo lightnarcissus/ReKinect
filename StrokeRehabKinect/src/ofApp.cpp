@@ -108,15 +108,15 @@ void ofApp::drawRunningApp()
 	switch (player.activeApp)
 	{
 	case 1:
-		cout << "X: " << (abs(temp.x) *1919) << " and Y: " <<(abs(temp.y) * 1079) * 1.5 << "\n";
-		//player.drawingChallengePage(final.x*1.5, final.y*1.5, 0,0);
-		player.drawingChallengePage((float)mouseX, (float)mouseY,0,0);
+		//cout << "X: " << (abs(temp.x) *1919) << " and Y: " <<(abs(temp.y) * 1079) * 1.5 << "\n";
+		player.drawingChallengePage(final.x+300, final.y+100, 0,0);
+		//player.drawingChallengePage((float)mouseX, (float)mouseY,0,0);
 		break;
 	case 2:
 		player.matrixMatchingPage();
 		break;
 	case 3:
-		//player.musicConductorPage(300+final.x, final.y);
+		//player.musicConductorPage(final.x*2, final.y*1.75);
 		player.musicConductorPage((float)mouseX, (float)mouseY);
 		break;
 	}

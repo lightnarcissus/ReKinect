@@ -1484,23 +1484,26 @@ void PlayerManager::musicConductorPage(float x,float y)
 	ofVec3f instrument1(appWidth / 2 - 100, appHeight, 0);
 	ofVec3f mousePos(x, y, 0);
 	//cout << "X: " << x << " and Y: " << y << "\n";
-	if (mousePos.distance(targetPoints[26]) < 100)
+	if (mousePos.distance(targetPoints[26]) < 150)
 	{
 		//cout << "TARGET LEFT";
 		orchestraActive1.resize(appWidth, appHeight);
 		orchestraActive1.draw(0, 0,0);
+		//musicActivated = 1;
 	}
 	else if (mousePos.distance(targetPoints[27]) < 300)
 	{
 		//cout << "TARGET MIDDLE";
 		orchestraActive2.resize(appWidth, appHeight);
 		orchestraActive2.draw(0, 0, 0);
+		//musicActivated = 2;
 	}
-	else if (mousePos.distance(targetPoints[28]) < 100)
+	else if (mousePos.distance(targetPoints[28]) < 150)
 	{
 		//cout << "TARGET RIGHT";
 		orchestraActive3.resize(appWidth, appHeight);
 		orchestraActive3.draw(0, 0, 0);
+	//	musicActivated = 3;
 	}
 /*	if (x > appWidth / 2 && y < appHeight / 2) //quadrant 1
 	{
