@@ -97,6 +97,7 @@ void ofApp::launchSelectedApp( int &i)
 void ofApp::drawRunningApp()
 {
 	ofVec3f temp;
+	ofVec3f tempRight;
 	//cout << player.activeApp;
 	kinect.update();
 	kinect.draw();
@@ -104,7 +105,9 @@ void ofApp::drawRunningApp()
 		temp = kinect.rightPos;
 	else
 		temp = kinect.leftPos;
+	tempRight = kinect.rightPos;
 	ofVec3f final((abs(temp.x) * 1919) , (abs(temp.y) * 1079) * 1.5, 0);
+	ofVec3f finalRight((abs(tempRight.x) * 1919), (abs(tempRight.y) * 1079) * 1.5, 0);
 	switch (player.activeApp)
 	{
 	case 1:
@@ -113,6 +116,8 @@ void ofApp::drawRunningApp()
 		//player.drawingChallengePage((float)mouseX, (float)mouseY,0,0);
 		break;
 	case 2:
+		// to be used once kinect coordinates added 
+		//player.matrixMatchingPage(final.x + 300, final.y + 300, finalRight.x, finalRight.y);
 		player.matrixMatchingPage();
 		break;
 	case 3:

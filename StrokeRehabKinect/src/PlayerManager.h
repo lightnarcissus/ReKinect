@@ -32,8 +32,8 @@ public:
 	float currentTimer = 0;
 
 	void keyPressed(int key);
-	void mouseDragged(int, int, int);
-	void mouseEvent(int,int, int);
+	void mouseDragged(int,int, int);
+	void mouseEvent(int,int,int);
 	void mouseReleased(int, int, int); //TODO: combine released and dragged to mouseEvent
 	void clear();
 	bool rightSideActivated = false; // if Right Side selected

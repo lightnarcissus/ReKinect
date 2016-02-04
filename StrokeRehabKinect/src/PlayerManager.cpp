@@ -53,7 +53,7 @@ PlayerManager::PlayerManager() {
 	targetPoints[26] = ofVec2f(150, appHeight / 2 + 200);
 	targetPoints[27] = ofVec2f(appWidth / 2, appHeight / 2 -250);
 	targetPoints[28] = ofVec2f(appWidth / 2 + 500, appHeight / 2 + 300);
-
+	//music.load("sounds/synth.wav", false);
 	
 		/*ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
 	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
@@ -107,7 +107,8 @@ void PlayerManager::init() {
 
 
 	//music conductor load events
-	//music.loadSound("synth.wav", false);
+
+	//music.load("sounds/synth.wav", false);
 	//music.setVolume(0.3);
 //	music2.loadSound("synth2.wav",false);
 	//music.setMultiPlay(true);
@@ -568,7 +569,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 		else
 		ofNoFill();
 		*/
-		ofDrawCircle(targetPoints[i], 50);
+		ofDrawCircle(targetPoints[i], 50 + ((15 - hitTarget) * 2));
 	}
 	ofSetColor(ofColor::red);
 	ofSetLineWidth(3);
@@ -597,7 +598,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 			drawPoints.erase(drawPoints.begin());
 		}
 
-		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//	cout << "on target 1" << "\n";
 			if (enableFill) //correct hit
@@ -610,7 +611,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget1, 100); //indicate whether it is a hit or miss
+			ofDrawCircle(circleTarget1, 100 + ((15 - hitTarget) * 2)); //indicate whether it is a hit or miss
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 1)
@@ -632,7 +633,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				nextTarget = 2;
 			}
 		}
-		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 2" << "\n";
 			if (enableFill) //correct hit
@@ -645,7 +646,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget2, 100);
+			ofDrawCircle(circleTarget2, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -663,7 +664,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				enableFill = false;
 			}
 		}
-		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 3" << "\n";
 			if (enableFill) //correct hit
@@ -676,7 +677,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget3, 100);
+			ofDrawCircle(circleTarget3, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -695,7 +696,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 
 			}
 		}
-		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 4" << "\n";
 			if (enableFill) //correct hit
@@ -709,7 +710,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget4, 100);
+			ofDrawCircle(circleTarget4, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 4)
@@ -728,7 +729,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 
 			}
 		}
-		else if (circleTarget5.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget5.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 5" << "\n";
 			if (enableFill) //correct hit
@@ -742,7 +743,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget5, 100);
+			ofDrawCircle(circleTarget5, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 5)
@@ -762,7 +763,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 			}
 		}
 
-		else if (circleTarget6.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget6.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 4" << "\n";
 			if (enableFill) //correct hit
@@ -776,7 +777,7 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 				ofFill();
 			}
 
-			ofDrawCircle(circleTarget6, 100);
+			ofDrawCircle(circleTarget6, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 6)
@@ -1192,7 +1193,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 		else
 		ofNoFill();
 		*/
-		ofDrawCircle(targetPoints[i], 50+(hitTarget * 2));
+		ofDrawCircle(targetPoints[i], 50 + ((15 - hitTarget) * 2));
 	}
 	ofSetColor(ofColor::red);
 	ofSetLineWidth(3);
@@ -1221,7 +1222,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 			drawPoints.erase(drawPoints.begin());
 		}
 
-		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + (hitTarget*2))
+		if (circleTarget1.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//	cout << "on target 1" << "\n";
 			if (enableFill) //correct hit
@@ -1234,7 +1235,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget1, 100 + (hitTarget * 2)); //indicate whether it is a hit or miss
+			ofDrawCircle(circleTarget1, 100 + ((15 - hitTarget) * 2)); //indicate whether it is a hit or miss
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 1)
@@ -1256,7 +1257,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				nextTarget = 2;
 			}
 		}
-		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget2.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 2" << "\n";
 			if (enableFill) //correct hit
@@ -1269,7 +1270,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget2, 100+(hitTarget * 2));
+			ofDrawCircle(circleTarget2, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -1287,7 +1288,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				enableFill = false;
 			}
 		}
-		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget3.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 3" << "\n";
 			if (enableFill) //correct hit
@@ -1300,7 +1301,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				ofSetColor(255, 0, 0, 128);
 				ofFill();
 			}
-			ofDrawCircle(circleTarget3, 100 + (hitTarget * 2));
+			ofDrawCircle(circleTarget3, 100 + ((15 - hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 
@@ -1319,7 +1320,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 
 			}
 		}
-		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50)
+		else if (circleTarget4.distance(drawPoints[drawPoints.size() - 1]) < 50 + ((15 - hitTarget) * 2))
 		{
 			//cout << "on target 4" << "\n";
 			if (enableFill) //correct hit
@@ -1333,7 +1334,7 @@ void PlayerManager::drawSquareTargets(float x, float y)
 				ofFill();
 			}
 			
-			ofDrawCircle(circleTarget4, 100 + (hitTarget * 2));
+			ofDrawCircle(circleTarget4, 100+ ((15-hitTarget) * 2));
 			ofSetColor(255, 0, 0);
 			ofNoFill();
 			if (nextTarget == 0 || nextTarget == 4)
