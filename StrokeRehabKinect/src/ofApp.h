@@ -5,6 +5,8 @@
 #include "PlayerManager.h"
 #include "KinectManager.h"
 
+
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -41,4 +43,7 @@ class ofApp : public ofBaseApp{
 		ofParameter<float>distance2;
 		ofParameter<float>distance3;
 		ofParameter<float>distance4;
+
+
+		
 };

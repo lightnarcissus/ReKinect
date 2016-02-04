@@ -73,6 +73,8 @@ void ofApp::activateSelectionScreen()
 {
 	if(appState==0)
 		appState = 1; //switch to Game Selection Screen
+
+	player.lastResetTime = ofGetElapsedTimef();
 }
 
 void ofApp::launchSelectedApp( int &i)
@@ -84,7 +86,7 @@ void ofApp::launchSelectedApp( int &i)
 		player.activeApp = 1;
 		break;
 	case 2:
-		cout << "Launch Multi-Matrix Matching";
+		player.activeApp = 2;
 		break;
 	case 3:
 		player.activeApp = 3;
@@ -95,7 +97,7 @@ void ofApp::launchSelectedApp( int &i)
 void ofApp::drawRunningApp()
 {
 	ofVec3f temp;
-	cout << player.activeApp;
+	//cout << player.activeApp;
 	kinect.update();
 	kinect.draw();
 	if (player.rightSideActivated)
@@ -107,10 +109,15 @@ void ofApp::drawRunningApp()
 	{
 	case 1:
 		cout << "X: " << (abs(temp.x) *1919) << " and Y: " <<(abs(temp.y) * 1079) * 1.5 << "\n";
-		player.drawingChallengePage(final.x*1.5, final.y*1.5, 0,0);
+		//player.drawingChallengePage(final.x*1.5, final.y*1.5, 0,0);
+		player.drawingChallengePage((float)mouseX, (float)mouseY,0,0);
+		break;
+	case 2:
+		player.matrixMatchingPage();
 		break;
 	case 3:
-		player.musicConductorPage(300+final.x, final.y);
+		//player.musicConductorPage(300+final.x, final.y);
+		player.musicConductorPage((float)mouseX, (float)mouseY);
 		break;
 	}
 }
@@ -145,6 +152,10 @@ void ofApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
 
+	if (player.activeApp == 2)
+	{
+		player.mouseDragged(x, y, button);
+	}
 }
 
 //--------------------------------------------------------------
@@ -160,7 +171,10 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+	if (player.activeApp == 2)
+	{
+		player.mouseReleased(x, y, button);
+	}
 }
 
 //--------------------------------------------------------------

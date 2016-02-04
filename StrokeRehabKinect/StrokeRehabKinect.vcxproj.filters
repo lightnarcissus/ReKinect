@@ -46,6 +46,12 @@
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\src\ofxKinectCommonBridge.cpp">
       <Filter>addons\ofxKinectV2\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShuffleManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KCBv2\include\KCBv2Lib.h">
       <Filter>addons\ofxKinectV2\libs\KCBv2\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShuffleManager.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

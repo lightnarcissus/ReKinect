@@ -193,7 +193,9 @@ C:\Users\Ansh\Desktop\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KC
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="src\Pic.cpp" />
     <ClCompile Include="src\PlayerManager.cpp" />
+    <ClCompile Include="src\ShuffleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KCBv2\include\KCBv2Lib.h" />
@@ -209,7 +211,9 @@ C:\Users\Ansh\Desktop\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KC
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="src\Pic.h" />
     <ClInclude Include="src\PlayerManager.h" />
+    <ClInclude Include="src\ShuffleManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

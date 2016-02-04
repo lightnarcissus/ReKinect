@@ -10,7 +10,7 @@ PlayerManager::PlayerManager() {
 	activeApp = 0;
 	debugFloat = 0;
 	currentDrawingLevel = 1;
-	for (int i = 0; i < 22; i++) //initialize all to false
+	for (int i = 0; i < 26; i++) //initialize all to false
 	{
 
 		fillCircles.push_back(false);
@@ -45,10 +45,19 @@ PlayerManager::PlayerManager() {
 	targetPoints[20] = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
 	targetPoints[21] = ofVec2f(appWidth / 2 - 300, appHeight / 2  -100);
 
+	targetPoints[22] = ofVec2f(0,0);
+	targetPoints[23] = ofVec2f(0, appHeight / 2);
+	targetPoints[24] = ofVec2f(appWidth / 2, 0);
+	targetPoints[25] = ofVec2f(appWidth / 2, appHeight/2);
+	
 		/*ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
 	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
 	ofVec2f circleTarget3(appWidth / 2 - 300, appHeight / 2);
 	ofVec2f circleTarget4(appWidth / 2, appHeight / 2 + 300);*/
+//	music.loadSound("synth.wav");
+	//music.setVolume(0.3);
+	//music2.loadSound("synth2.wav");
+	//music2.setVolume(0.3);
 
 }
 
@@ -86,6 +95,8 @@ void PlayerManager::init() {
 
 	//listen for Selection Screen events
 	ofAddListener(ofEvents().keyPressed, this, &PlayerManager::keyPressedEvent);
+
+	//music conductor load events
 }
 
 void PlayerManager::drawTitlePage()
@@ -116,6 +127,7 @@ void PlayerManager::drawTitlePage()
 		ofSetColor(ofColor::white);
 	}
 	ofDrawRectangle((float)ofGetWidth() / 2 +150, (float)ofGetHeight() / 2, 0, 300, 80);
+	
 	
 	actionFont.drawString("Continue -->", (float)ofGetWidth() / 2 + 250, (float)ofGetHeight() / 2 + 160);
 }
@@ -162,9 +174,10 @@ void PlayerManager::drawAppSelectionPage()
 	//app selection
 	miscFont.drawString("Drawing\nChallenge", appWidth / 2 - 600, appHeight / 2 + 150);
 	miscFont.drawString("Multi-Matrix \nMatching", appWidth / 2 - 200, appHeight / 2 + 150);
-	miscFont.drawString("Orchestra \nConducting", appWidth / 2 + 300, appHeight / 2 + 150);
+	miscFont.drawString("Orchestra \nConducting", appWidth / 2 + 350, appHeight / 2 + 150);
 
 	actionFont.drawString("<-- Back", appWidth / 2 - 650, appHeight / 2 + 300);
+	//currentTimer -= lastResetTime;
 }
 
 void PlayerManager::keyPressed(int key) {
@@ -218,6 +231,30 @@ void PlayerManager::keyPressed(int key) {
 			cursorX++;
 		}
 	}
+
+
+	//for shuffle functions
+	if (key == '1') {
+		picnum = 4;
+		b_shuffle = 250;
+
+		initCards();
+	}
+
+	if (key == '2') {
+		picnum = 6;
+		b_shuffle = 250;
+
+		initCards();
+	}
+
+	if (key == '3') {
+		picnum = 10;
+		b_shuffle = 70;
+
+		initCards();
+	}
+
 }
 
 void PlayerManager::drawingChallengePage(float x,float y, int prevX, int prevY)
@@ -240,8 +277,22 @@ void PlayerManager::drawingChallengePage(float x,float y, int prevX, int prevY)
 		drawCircleTargets(x, y);
 		break;
 	}
-	
-	
+
+	//other text stuff
+	currentTimer = ofGetElapsedTimef()- lastResetTime;
+	stringParser.str("");
+	stringParser.clear();
+	stringParser << "Score: \n" << hitTarget;
+	ofSetColor(ofColor::white);
+	textFont.drawString(stringParser.str(), appWidth / 2 + 400, appHeight / 2 - 300);
+	textFont.drawString("Instructions: \nMove clockwise \n through the \n targets",0,100);
+	stringParser.str("");
+	stringParser.clear();
+	stringParser << "Timer: \n" << currentTimer;
+	textFont.drawString(stringParser.str(), appWidth / 2 + 400, appHeight / 2 + 300);
+	ofSetColor(ofColor::red);
+
+
 }
 
 void PlayerManager::drawCircleTargets(float x,float y)
@@ -468,21 +519,22 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 {
 	if (rightSideActivated)
 	{
-		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
-		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
-		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
-		circleTarget4 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
-		circleTarget5 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
-		circleTarget6 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
-	}
-	else
-	{
 		circleTarget6 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
 		circleTarget5 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
 		circleTarget4 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
 		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
 		circleTarget2 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
 		circleTarget1 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+	}
+	else
+	{
+		circleTarget1 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2);
+		circleTarget4 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget5 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget6 = ofVec2f(appWidth / 2 - 300, appHeight / 2);
+		
 	}
 	
 	if (enableFill)
@@ -515,6 +567,10 @@ void PlayerManager::drawHexagonTargets(float x, float y)
 	{
 		hitTarget = 0;
 		currentDrawingLevel++;
+	}
+	else if (hitTarget < 0)
+	{
+		hitTarget = 0;
 	}
 	for (int i = 0; i < drawPoints.size(); i++)
 	{
@@ -744,17 +800,6 @@ void PlayerManager::drawInvisibleOctagonTargets(float x, float y)
 {
 	if (rightSideActivated)
 	{
-		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
-		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
-		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2 - 100);
-		circleTarget4 = ofVec2f(appWidth / 2 + 300, appHeight / 2 + 100);
-		circleTarget5 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
-		circleTarget6 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
-		circleTarget7 = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
-		circleTarget8 = ofVec2f(appWidth / 2 - 300, appHeight / 2 - 100);
-	}
-	else
-	{
 		circleTarget8 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
 		circleTarget7 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
 		circleTarget6 = ofVec2f(appWidth / 2 + 300, appHeight / 2 - 100);
@@ -763,6 +808,18 @@ void PlayerManager::drawInvisibleOctagonTargets(float x, float y)
 		circleTarget3 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
 		circleTarget2 = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
 		circleTarget1 = ofVec2f(appWidth / 2 - 300, appHeight / 2 - 100);
+	}
+	else
+	{
+		circleTarget1 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 300, appHeight / 2 - 100);
+		circleTarget4 = ofVec2f(appWidth / 2 + 300, appHeight / 2 + 100);
+		circleTarget5 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget6 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		circleTarget7 = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
+		circleTarget8 = ofVec2f(appWidth / 2 - 300, appHeight / 2 - 100);
+		
 	}
 	
 	if (enableFill)
@@ -1090,17 +1147,18 @@ void PlayerManager::drawSquareTargets(float x, float y)
 	//cout << "In square";
 	if (rightSideActivated)
 	{
-		circleTarget1=ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
-		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
-		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
-		circleTarget4 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
-	}
-	else
-	{
 		circleTarget4 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
 		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
 		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
 		circleTarget1 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+	}
+	else
+	{
+		circleTarget1 = ofVec2f(appWidth / 2 - 200, appHeight / 2 - 300);
+		circleTarget2 = ofVec2f(appWidth / 2 + 200, appHeight / 2 - 300);
+		circleTarget3 = ofVec2f(appWidth / 2 + 200, appHeight / 2 + 300);
+		circleTarget4 = ofVec2f(appWidth / 2 - 200, appHeight / 2 + 300);
+		
 	}
 	
 	if (enableFill)
@@ -1133,6 +1191,10 @@ void PlayerManager::drawSquareTargets(float x, float y)
 	{
 		hitTarget = 0;
 		currentDrawingLevel++;
+	}
+	else if (hitTarget < 0)
+	{
+		hitTarget = 0;
 	}
 	for (int i = 0; i < drawPoints.size(); i++)
 	{
@@ -1291,21 +1353,156 @@ void PlayerManager::drawSquareTargets(float x, float y)
 	//path.draw();
 }
 
+//shuffle functions
+
 void PlayerManager::matrixMatchingPage()
 {
+	//cout << "At shuffle";
+	ofEnableSmoothing();
+	ofSetWindowShape(3840, 1200);
 
+	for (int m = 0; m < pics.size(); m++)
+	{
+		pics[m]->drawsneaky();
+	}
+
+	for (int i = 0; i < pics2.size(); i++)
+	{
+		pics2[i]->drawsneaky();
+	}
+
+	int elapsed = ofGetElapsedTimeMillis() - startTime;
+
+}
+
+void PlayerManager::initCards()
+{
+
+		vector<int> order;
+
+		pics.clear();
+		pics2.clear();
+
+		for (int i = 0; i < picnum; i++) {
+			order.push_back(0);
+		}
+
+		order = shuffleIt.shuffle(picnum);
+
+		for (int i = 0; i< picnum; i++) {
+
+			int x = i % 2 * (ofGetWidth() / 6) + ofGetWidth() / 4;
+			int y = i / 2 * (ofGetHeight() / 6) + b_shuffle;
+
+			Pic* tempPic = new Pic(x, y, order[i], c1, c2, c3);
+			pics.push_back(tempPic);
+
+		}
+
+		order = shuffleIt.shuffle(picnum);
+
+		for (int i = 0; i< picnum; i++) {
+
+			int x = i % 2 * (ofGetWidth() / 6) + ofGetWidth() / 4 + 140;
+			int y = i / 2 * (ofGetHeight() / 6) + b_shuffle;
+
+			Pic* tempPic2 = new Pic(x, y, order[i], c1, c2, c3);
+			pics2.push_back(tempPic2);
+
+		}
+
+		ofLog() << "order in initCard : " << order.size();
+	
+}
+
+
+void PlayerManager::checkCollisions()
+{
+	match = 0;
+	//println(match +""+"match!!!");
+	//println("checking collisions...");
+	for (int i = 0; i< pics.size(); i++)
+	{
+		pics[i]->match = 0;
+		pics2[i]->match = 0; // assume they're not touching yet
+	}
+	for (int i = 0; i<pics.size(); i++)
+	{
+		for (int j = 0; j<pics2.size(); j++)
+		{
+			if (pics[i]->whichcard == pics2[j]->whichcard) {
+				if ((pics[i]->locationX + picsize) >= pics2[j]->locationX&&pics[i]->locationX<(pics2[j]->locationX + picsize) && (pics[i]->locationY + picsize) >= pics2[j]->locationY&&pics[i]->locationY<(pics2[j]->locationY + picsize))
+				{
+					//println(i + " is touching " + j);
+					pics[i]->match = 1;
+					pics2[j]->match = 1;
+					match++;
+				}
+			}
+		}
+	}
+	if (match == pics.size()) {
+
+		startTime = ofGetElapsedTimeMillis();
+	}
 }
 
 void PlayerManager::musicConductorPage(float x,float y)
 {
-	cout << "In here";
+
+	//cout << "In here";
 	ofSetColor(ofColor::red);
-	ofDrawCircle(300, 300, 100);
-	fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+	ofVec3f instrument1(appWidth / 2 - 100, appHeight, 0);
+
+	if (x > appWidth / 2 && y < appHeight / 2) //quadrant 1
+	{
+		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
+		//music.play();
+		//music.setVolume((appHeight / 2 - y) / appHeight);
+		musicActivated = 0;
+	}
+	else if (x > appWidth / 2 && y > appHeight / 2) //quadrant 2
+	{
+		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
+		//music.play();
+		//music.setVolume((y-appHeight / 2) / appHeight);
+		musicActivated = 1;
+	}
+	else if (x < appWidth / 2 && y > appHeight / 2) //quadrant 3
+	{
+		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
+		//music2.play();
+		//music2.setVolume((y-appHeight / 2) / appHeight);
+		musicActivated = 2;
+	}
+	else if(x < appWidth / 2 && y < appHeight / 2) //quadrant 4
+	{
+		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
+		//music2.play();
+		//music2.setVolume((appHeight / 2 - y) / appHeight);
+		musicActivated = 3;
+	}
+
+	for (int i = 22; i < 25; i++)
+	{
+		if (musicActivated == (22 - i))
+		{
+			ofSetColor(ofColor::green);
+		}
+		else
+		{
+			ofSetColor(ofColor::red);
+		}
+		ofRect(targetPoints[i], appWidth / 2, appHeight / 2);
+	}
+
+
+	//ofDrawCircle(300, 300, 100);
+	//fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+	ofDrawCone(appWidth - 100, appHeight-300, 0, 100, 100);
+	//ofDrawCone(appWidth, appHeight, 0, 100, 100);
 	//background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 	//orchestraBg.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight()-100);
-
-
 }
 void PlayerManager::clear() {
 	clientName.clear();
@@ -1360,8 +1557,72 @@ void PlayerManager::mouseEvent(int x,int y, int appState)
 		}
 		break;
 	}
+
+	if (activeApp == 2) //for shuffle cards
+	{
+		whichoneamimoving = -1;
+
+		for (int j = pics2.size() - 1; j >= 0; j--)
+		{
+			if (ofGetMouseX() >= pics2[j]->locationX&&ofGetMouseX()<(pics2[j]->locationX + picsize) && ofGetMouseY() >= pics2[j]->locationY&&ofGetMouseY()<(pics2[j]->locationY + picsize))
+			{
+
+				num = j;
+				whichoneamimoving = j;
+
+				pics2[j]->tint = true;
+				pics2[j]->col = 255;
+				pics2[j]->col2 = 215;
+				pics2[j]->col3 = 0;
+
+				//ofLog() << pics2[j].col + ""+ "COL!!!";
+				break;
+			}
+		}
+
+		if (whichoneamimoving == -1) {
+
+			for (int i = pics.size() - 1; i >= 0; i--)
+			{
+				if (ofGetMouseX() >= pics[i]->locationX && ofGetMouseX()<(pics[i]->locationX + picsize) && ofGetMouseY() >= pics[i]->locationY&&ofGetMouseY()<(pics[i]->locationY + picsize))
+				{
+					whichoneamimoving = i + pics.size();
+					num = i;
+					pics[i]->tint = true;
+					pics[i]->col = 255;
+					pics[i]->col2 = 215;
+					pics[i]->col3 = 0;
+
+					break;
+				}
+			}
+		}
+
+	}
 }
 
+void PlayerManager::mouseDragged(int x, int y, int button)
+{
+	if (whichoneamimoving>-1 && whichoneamimoving<pics.size())
+	{
+		pics2[whichoneamimoving]->locationX += (ofGetMouseX() - ofGetPreviousMouseX());
+		pics2[whichoneamimoving]->locationY += (ofGetMouseY() - ofGetPreviousMouseY());
+	}
+	else if (whichoneamimoving>-1 && whichoneamimoving >= pics.size())
+	{
+		pics[whichoneamimoving - pics.size()]->locationX += (ofGetMouseX() - ofGetPreviousMouseX());
+
+		pics[whichoneamimoving - pics.size()]->locationY += (ofGetMouseY() - ofGetPreviousMouseY());
+	}
+}
+
+void PlayerManager::mouseReleased(int x, int y, int button)
+{
+	whichoneamimoving = -1;
+	checkCollisions();
+//	pics[num]->tint = false;
+//	pics2[num]->tint = false;
+}
 void PlayerManager::keyPressedEvent(ofKeyEventArgs &a) {
 	keyPressed(a.key);
 }

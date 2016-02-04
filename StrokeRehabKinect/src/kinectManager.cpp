@@ -57,8 +57,8 @@ void KinectManager::setup()
 
 
 
-	synth.loadSound("sounds/synth2.wav");
-	synth.setVolume(0.75f);
+	//synth.loadSound("sounds/synth2.wav");
+	//synth.setVolume(0.75f);
 
 	ofSetWindowTitle("testPrototype");
 
@@ -205,6 +205,7 @@ void KinectManager::draw()
 					//	mCenter.draw(ofGetWidth() / 2 - mCenter.width / 2, wave / 1000 * (ofGetHeight() / 2 - mCenter.height / 2 - 80));
 					ofSetColor(10, 200, 133);
 					verdana30.drawString("Contrabass!", 950, 400);
+					synth.play();
 				}
 
 				else if (left_hand_pos.y > shoulderleft_pos.y && right_hand_pos.y > shoulderright_pos.y &&left_hand_pos.z < left_knee_pos.z && right_hand_pos.z < left_knee_pos.z && right_shoulder_hand_elbow_with_right_hand_pos > 130 && left_shoulder_hand_elbow_with_left_hand_pos > 130 && left_knee_pos.z < right_knee_pos.z) {
@@ -214,6 +215,7 @@ void KinectManager::draw()
 					//	mLeft1.draw(500, (wave *  ofGetHeight()*.5));
 					ofSetColor(155, 155, 200);
 					verdana30.drawString("Activate Musician on the Left", 950, 400);
+					synth.play();
 
 				}
 				//ofSetColor(0, 255, 0);
@@ -228,6 +230,7 @@ void KinectManager::draw()
 					ofSetColor(color);
 
 					verdana30.drawString("Activate Musician on the Left edge", 950, 400);
+					synth.play();
 
 
 				}

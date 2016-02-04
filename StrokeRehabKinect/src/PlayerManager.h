@@ -1,6 +1,9 @@
 #pragma once
 #include "ofMain.h"
 #include "ofEvents.h"
+#include "Pic.h"
+#include "ShuffleManager.h"
+
 class PlayerManager {
 public:
 	PlayerManager();
@@ -15,17 +18,29 @@ public:
 	void drawSquareTargets(float, float);
 	void drawHexagonTargets(float, float);
 	void drawInvisibleOctagonTargets(float, float);
+	//shuffle functions
+	void initCards();
+	void checkCollisions();
+
+
 	int currentDrawingLevel = 3;
 	vector<bool> fillCircles;
 	vector<ofVec2f> targetPoints;
 	void matrixMatchingPage();
 
+	float lastResetTime = 0;
+	float currentTimer = 0;
 
 	void keyPressed(int key);
+	void mouseDragged(int, int, int);
 	void mouseEvent(int,int, int);
+	void mouseReleased(int, int, int); //TODO: combine released and dragged to mouseEvent
 	void clear();
 	bool rightSideActivated = false; // if Right Side selected
-	
+	int musicActivated = 0;
+	ofSoundPlayer music;
+	ofSoundPlayer music2;
+	ostringstream stringParser;
 	int hitTarget = 0;
 	int missTarget = 0;
 	string clientName;
@@ -78,6 +93,26 @@ public:
 	ofImage mTwo;
 	ofImage mThree;
 
+	//shuffle application variables
+	int picnum = 4; //4, 6
+					//int a=3;
+	int b_shuffle = 250;
+
+	vector<Pic*> pics;
+	vector<Pic*> pics2;
+
+	ShuffleManager shuffleIt;
+
+	int startTime;
+	int x;
+	int f;
+	int picsize = 100;
+	int whichoneamimoving = -1;
+	int match = 0;
+	float x1, y1, x2, y2 = 0;
+	int c1, c2, c3;
+	int num = 0;
+	bool init1 = false;
 
 
 
