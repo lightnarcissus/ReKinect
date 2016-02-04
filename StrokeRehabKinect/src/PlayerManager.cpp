@@ -10,7 +10,7 @@ PlayerManager::PlayerManager() {
 	activeApp = 0;
 	debugFloat = 0;
 	currentDrawingLevel = 1;
-	for (int i = 0; i < 26; i++) //initialize all to false
+	for (int i = 0; i < 29; i++) //initialize all to false
 	{
 
 		fillCircles.push_back(false);
@@ -45,18 +45,23 @@ PlayerManager::PlayerManager() {
 	targetPoints[20] = ofVec2f(appWidth / 2 - 300, appHeight / 2 + 100);
 	targetPoints[21] = ofVec2f(appWidth / 2 - 300, appHeight / 2  -100);
 
-	targetPoints[22] = ofVec2f(0,0);
-	targetPoints[23] = ofVec2f(0, appHeight / 2);
-	targetPoints[24] = ofVec2f(appWidth / 2, 0);
-	targetPoints[25] = ofVec2f(appWidth / 2, appHeight/2);
+	targetPoints[25] = ofVec2f(0,0);
+	targetPoints[24] = ofVec2f(0, appHeight / 2);
+	targetPoints[22] = ofVec2f(appWidth / 2, 0);
+	targetPoints[23] = ofVec2f(appWidth / 2, appHeight/2);
+
+	targetPoints[26] = ofVec2f(150, appHeight / 2 + 200);
+	targetPoints[27] = ofVec2f(appWidth / 2, appHeight / 2 -250);
+	targetPoints[28] = ofVec2f(appWidth / 2 + 500, appHeight / 2 + 300);
+
 	
 		/*ofVec2f circleTarget1(appWidth / 2, appHeight / 2 - 300);
 	ofVec2f circleTarget2(appWidth / 2 + 300, appHeight / 2);
 	ofVec2f circleTarget3(appWidth / 2 - 300, appHeight / 2);
 	ofVec2f circleTarget4(appWidth / 2, appHeight / 2 + 300);*/
-//	music.loadSound("synth.wav");
+	//music.loadSound("synth.wav",false);
 	//music.setVolume(0.3);
-	//music2.loadSound("synth2.wav");
+	//music2.loadSound("synth2.wav",false);
 	//music2.setVolume(0.3);
 
 }
@@ -76,7 +81,7 @@ void PlayerManager::init() {
 	violinist.loadImage("violinist.png");
 	contrabass.loadImage("contrabass.jpg");
 
-	background.loadImage("background3.png");
+	background.loadImage("newbackground.png");
 	fakeStage.loadImage("fakeStage1.png");
 
 	//background.loadImage("background2.jpg");
@@ -93,10 +98,22 @@ void PlayerManager::init() {
 	mThree.loadImage("3.png");
 
 
+	orchestraActive1.loadImage("orcActive1.png");
+	orchestraActive2.loadImage("orcActive2.png");
+	orchestraActive3.loadImage("orcActive3.png");
 	//listen for Selection Screen events
 	ofAddListener(ofEvents().keyPressed, this, &PlayerManager::keyPressedEvent);
 
+
+
 	//music conductor load events
+	//music.loadSound("synth.wav", false);
+	//music.setVolume(0.3);
+//	music2.loadSound("synth2.wav",false);
+	//music.setMultiPlay(true);
+	//music2.setMultiPlay(true);
+	//music2.setVolume(0.3);
+
 }
 
 void PlayerManager::drawTitlePage()
@@ -1442,7 +1459,7 @@ void PlayerManager::checkCollisions()
 		}
 	}
 	if (match == pics.size()) {
-
+			
 		startTime = ofGetElapsedTimeMillis();
 	}
 }
@@ -1451,55 +1468,79 @@ void PlayerManager::musicConductorPage(float x,float y)
 {
 
 	//cout << "In here";
-	ofSetColor(ofColor::red);
-	ofVec3f instrument1(appWidth / 2 - 100, appHeight, 0);
+	//ofSetColor(ofColor::white);
 
-	if (x > appWidth / 2 && y < appHeight / 2) //quadrant 1
+
+	ofSetColor(ofColor::white);
+	background.resize(appWidth, appHeight);
+	if(musicActivated==0)
+	background.draw(0, 0, 0);
+
+	/*	ofSetColor(0, 0, 0, 255);
+	ofDrawCircle(100, appHeight/2 + 200, 50);
+	ofDrawCircle(appWidth / 2, appHeight / 2  - 150, 50);
+	ofDrawCircle(appWidth / 2 + 500, appHeight / 2 + 300, 50);*/
+	ofSetColor(ofColor::white);
+	ofVec3f instrument1(appWidth / 2 - 100, appHeight, 0);
+	ofVec3f mousePos(x, y, 0);
+	//cout << "X: " << x << " and Y: " << y << "\n";
+	if (mousePos.distance(targetPoints[26]) < 100)
+	{
+		//cout << "TARGET LEFT";
+		orchestraActive1.resize(appWidth, appHeight);
+		orchestraActive1.draw(0, 0,0);
+	}
+	else if (mousePos.distance(targetPoints[27]) < 300)
+	{
+		//cout << "TARGET MIDDLE";
+		orchestraActive2.resize(appWidth, appHeight);
+		orchestraActive2.draw(0, 0, 0);
+	}
+	else if (mousePos.distance(targetPoints[28]) < 100)
+	{
+		//cout << "TARGET RIGHT";
+		orchestraActive3.resize(appWidth, appHeight);
+		orchestraActive3.draw(0, 0, 0);
+	}
+/*	if (x > appWidth / 2 && y < appHeight / 2) //quadrant 1
 	{
 		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
 		//music.play();
 		//music.setVolume((appHeight / 2 - y) / appHeight);
-		musicActivated = 0;
+		musicActivated = 1;
 	}
 	else if (x > appWidth / 2 && y > appHeight / 2) //quadrant 2
 	{
 		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
 		//music.play();
 		//music.setVolume((y-appHeight / 2) / appHeight);
-		musicActivated = 1;
+		musicActivated = 2;
 	}
 	else if (x < appWidth / 2 && y > appHeight / 2) //quadrant 3
 	{
 		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
 		//music2.play();
 		//music2.setVolume((y-appHeight / 2) / appHeight);
-		musicActivated = 2;
-	}
-	else if(x < appWidth / 2 && y < appHeight / 2) //quadrant 4
-	{
-		ofDrawBitmapString("HIIII", appWidth / 2, appWidth / 2 + 100);
-		//music2.play();
-		//music2.setVolume((appHeight / 2 - y) / appHeight);
 		musicActivated = 3;
 	}
-
-	for (int i = 22; i < 25; i++)
+	*/
+	/*
+	for (int i = 22; i < 26; i++)
 	{
-		if (musicActivated == (22 - i))
+		if (musicActivated == (i-22))
 		{
-			ofSetColor(ofColor::green);
+			ofSetColor(0,255,0,128);
 		}
 		else
 		{
-			ofSetColor(ofColor::red);
+			ofSetColor(255,0,0,128);
 		}
 		ofRect(targetPoints[i], appWidth / 2, appHeight / 2);
 	}
-
-
+	*/
 	//ofDrawCircle(300, 300, 100);
 	//fakeStage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-	ofDrawCone(appWidth - 100, appHeight-300, 0, 100, 100);
+	//ofDrawCone(appWidth - 100, appHeight-300, 0, 100, 100);
 	//ofDrawCone(appWidth, appHeight, 0, 100, 100);
 	//background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 	//orchestraBg.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight()-100);

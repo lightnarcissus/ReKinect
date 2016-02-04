@@ -44,6 +44,5 @@ class ofApp : public ofBaseApp{
 		ofParameter<float>distance3;
 		ofParameter<float>distance4;
 
-
 		
 };

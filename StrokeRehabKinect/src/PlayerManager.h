@@ -115,6 +115,10 @@ public:
 	bool init1 = false;
 
 
+	ofImage orchestraActive1;
+	ofImage orchestraActive2;
+	ofImage orchestraActive3;
+
 
 protected:
 	void keyPressedEvent(ofKeyEventArgs &a); //checks events for key presses for text input
