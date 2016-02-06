@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxBaseGui.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxButton.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxGuiGroup.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxLabel.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxPanel.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kinectManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\src\ofxKinectCommonBridge.cpp">
+      <Filter>addons\ofxKinectV2\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShuffleManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons">
+      <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxGui">
+      <UniqueIdentifier>{4F2A59AF-5F4E-704B-D067-EC13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxGui\src">
+      <UniqueIdentifier>{645E9533-4DCD-6179-1CDF-CB65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="other">
+      <UniqueIdentifier>{A2230F47-9F6B-908F-FF0E-E006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxKinectV2">
+      <UniqueIdentifier>{4d15540e-7af9-4de5-8e57-865acb1853a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxKinectV2\src">
+      <UniqueIdentifier>{82829e6b-6618-40f6-b9fc-c815e80e4622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxKinectV2\libs">
+      <UniqueIdentifier>{7b5bce31-2505-4cd2-9206-e21b45b65502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxKinectV2\libs\KCBv2">
+      <UniqueIdentifier>{2fbe4a5f-f3e3-473d-8e67-2da80173cd40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxKinectV2\libs\KCBv2\include">
+      <UniqueIdentifier>{327c400a-4464-45f6-8d8c-f7d2f93696dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxBaseGui.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxButton.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxGui.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxGuiGroup.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxLabel.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxPanel.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSlider.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxSliderGroup.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxGui\src\ofxToggle.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kinectManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\src\ofxKinectCommonBridge.h">
+      <Filter>addons\ofxKinectV2\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tech Projects\openFrameworks VS\addons\ofxKinectV2\libs\KCBv2\include\KCBv2Lib.h">
+      <Filter>addons\ofxKinectV2\libs\KCBv2\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShuffleManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
