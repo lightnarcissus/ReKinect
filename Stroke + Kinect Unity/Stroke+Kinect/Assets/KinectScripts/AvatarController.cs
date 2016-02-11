@@ -480,6 +480,7 @@ public class AvatarController : MonoBehaviour
 			
 			if(transLeftHand != null)
 			{
+                Debug.Log(transLeftHand.position);
 				Vector3 vLarmLeftDir = transLeftHand.position - transLeftLarm.position;
 				float fLarmLeftAngle = Vector3.Angle(vLarmLeftDir, vTposeLeftDir);
 				
