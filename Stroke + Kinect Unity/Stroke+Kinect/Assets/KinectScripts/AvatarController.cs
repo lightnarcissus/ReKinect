@@ -38,6 +38,8 @@ public class AvatarController : MonoBehaviour
 
 	[Tooltip("If specified, makes the initial avatar position relative to this camera, to be equal to the player's position relative to the sensor.")]
 	public Camera posRelativeToCamera;
+    KinectInterop.JointType targetJoint = KinectInterop.JointType.HandLeft;
+    public Vector3 elbowPos;
 
 //	[Tooltip("Whether the avatar position overlays the color camera background or not.")]
 //	protected bool avatarPosOverlaysBackground = true;
@@ -191,7 +193,8 @@ public class AvatarController : MonoBehaviour
 	/// </summary>
 	/// <param name="UserID">User ID</param>
     public void UpdateAvatar(Int64 UserID)
-    {	
+    {
+       
 		if(!gameObject.activeInHierarchy) 
 			return;
 
@@ -215,7 +218,11 @@ public class AvatarController : MonoBehaviour
 			if(boneIndex2JointMap.ContainsKey(boneIndex))
 			{
 				KinectInterop.JointType joint = !mirroredMovement ? boneIndex2JointMap[boneIndex] : boneIndex2MirrorJointMap[boneIndex];
-				TransformBone(UserID, joint, boneIndex, !mirroredMovement);
+                //  Debug.Log(boneIndex2JointMap[boneIndex]);
+                //Debug.Log(joint);
+                elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
+           //     Debug.Log(elbowPos);
+                TransformBone(UserID, joint, boneIndex, !mirroredMovement);
 			}
 			else if(specIndex2JointMap.ContainsKey(boneIndex))
 			{
@@ -466,7 +473,7 @@ public class AvatarController : MonoBehaviour
 		Transform transLeftUarm = animator.GetBoneTransform(HumanBodyBones.LeftUpperArm);
 		Transform transLeftLarm = animator.GetBoneTransform(HumanBodyBones.LeftLowerArm);
 		Transform transLeftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
-		
+        Debug.Log(transLeftLarm.position);
 		if(transLeftUarm != null && transLeftLarm != null)
 		{
 			Vector3 vUarmLeftDir = transLeftLarm.position - transLeftUarm.position;
