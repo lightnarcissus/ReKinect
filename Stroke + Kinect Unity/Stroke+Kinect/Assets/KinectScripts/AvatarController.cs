@@ -376,21 +376,21 @@ public class AvatarController : MonoBehaviour
 		// get the position of user's spine base
 		Vector3 trans = kinectManager.GetUserPosition(UserID);
 
-//		if(posRelativeToCamera && avatarPosOverlaysBackground)
-//		{
-//			// gets the user's spine-base position, matching the color-camera background
-//			Rect backgroundRect = posRelativeToCamera.pixelRect;
-//			PortraitBackground portraitBack = PortraitBackground.Instance;
-//			
-//			if(portraitBack && portraitBack.enabled)
-//			{
-//				backgroundRect = portraitBack.GetBackgroundRect();
-//			}
-//
-//			trans = kinectManager.GetJointPosColorOverlay(UserID, (int)KinectInterop.JointType.SpineBase, posRelativeToCamera, backgroundRect);
-//		}
+        //		if(posRelativeToCamera && avatarPosOverlaysBackground)
+        //		{
+        //			// gets the user's spine-base position, matching the color-camera background
+        //			Rect backgroundRect = posRelativeToCamera.pixelRect;
+        //			PortraitBackground portraitBack = PortraitBackground.Instance;
+        //			
+        //			if(portraitBack && portraitBack.enabled)
+        //			{
+        //				backgroundRect = portraitBack.GetBackgroundRect();
+        //			}
+        //
+        //			trans = kinectManager.GetJointPosColorOverlay(UserID, (int)KinectInterop.JointType.SpineBase, posRelativeToCamera, backgroundRect);
+        //		}
 
-		if(!offsetCalibrated)
+        if (!offsetCalibrated)
 		{
 			offsetCalibrated = true;
 			
@@ -480,7 +480,6 @@ public class AvatarController : MonoBehaviour
 			
 			if(transLeftHand != null)
 			{
-                Debug.Log(transLeftHand.position);
 				Vector3 vLarmLeftDir = transLeftHand.position - transLeftLarm.position;
 				float fLarmLeftAngle = Vector3.Angle(vLarmLeftDir, vTposeLeftDir);
 				
