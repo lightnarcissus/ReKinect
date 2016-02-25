@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CheckCollision : MonoBehaviour {
 
+    public int targetID = 0;
+    public GameObject drawingManager;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,15 +14,11 @@ public class CheckCollision : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        GetComponent<SpriteRenderer>().color = Color.green;
-        Debug.Log("collision");
-    }
 
-    void OnTriggerEnter(Collider col)
+    public void TargetCollision()
     {
         GetComponent<SpriteRenderer>().color = Color.green;
-        Debug.Log("collision");
+        drawingManager.GetComponent<DrawingManager>().AssignNextTarget(targetID);
+       // Debug.Log("collision");
     }
 }

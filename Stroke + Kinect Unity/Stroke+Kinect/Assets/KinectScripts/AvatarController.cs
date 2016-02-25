@@ -497,7 +497,7 @@ public class AvatarController : MonoBehaviour
 		Transform transLeftUarm = animator.GetBoneTransform(HumanBodyBones.LeftUpperArm);
 		Transform transLeftLarm = animator.GetBoneTransform(HumanBodyBones.LeftLowerArm);
 		Transform transLeftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
-        Debug.Log(transLeftLarm.position);
+      //  Debug.Log(transLeftLarm.position);
 		if(transLeftUarm != null && transLeftLarm != null)
 		{
 			Vector3 vUarmLeftDir = transLeftLarm.position - transLeftUarm.position;
