@@ -38,9 +38,19 @@ public class AvatarController : MonoBehaviour
 
 	[Tooltip("If specified, makes the initial avatar position relative to this camera, to be equal to the player's position relative to the sensor.")]
 	public Camera posRelativeToCamera;
+
+    //Target Joint
     KinectInterop.JointType targetJoint = KinectInterop.JointType.HandLeft;
     public Vector3 elbowPos;
+    //Balance spine joint
+    KinectInterop.JointType spineMidJoint = KinectInterop.JointType.SpineMid;
+    KinectInterop.JointType spineShoulderJoint = KinectInterop.JointType.SpineShoulder;
+    private Vector3 spineMidPos;
+    private Vector3 spineShoulderPos;
+    public Vector3 balancePos;
 
+    //whether user is out of balance or not
+    public bool outOfBalance = false;
 //	[Tooltip("Whether the avatar position overlays the color camera background or not.")]
 //	protected bool avatarPosOverlaysBackground = true;
 	
@@ -221,7 +231,21 @@ public class AvatarController : MonoBehaviour
                 //  Debug.Log(boneIndex2JointMap[boneIndex]);
                 //Debug.Log(joint);
                 elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
-           //     Debug.Log(elbowPos);
+                spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
+               // spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
+              //  Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
+
+                //focusing only on spine mid right now
+                balancePos =spineMidPos;
+                if (Mathf.Abs(balancePos.x) >=0.2f)
+                {
+                    outOfBalance = true;
+                }
+                else
+                {
+                    outOfBalance = false;
+                }
+                 //   Debug.Log(balancePos);
                 TransformBone(UserID, joint, boneIndex, !mirroredMovement);
 			}
 			else if(specIndex2JointMap.ContainsKey(boneIndex))

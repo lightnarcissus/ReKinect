@@ -1988,7 +1988,7 @@ public class KinectManager : MonoBehaviour
 					float displayWidth = cameraRect.width * displayMapsWidthPercent;
 					float displayHeight = cameraRect.width * displayMapsHeightPercent;
 					
-					usersMapRect = new Rect(cameraRect.width - displayWidth, cameraRect.height, displayWidth, -displayHeight);
+					usersMapRect = new Rect(cameraRect.width - displayWidth, cameraRect.height + 100, displayWidth, -displayHeight);
 				}
 
 	            GUI.DrawTexture(usersMapRect, usersLblTex);
@@ -2011,8 +2011,8 @@ public class KinectManager : MonoBehaviour
 					
 					float displayWidth = cameraRect.width * displayMapsWidthPercent;
 					float displayHeight = cameraRect.width * displayMapsHeightPercent;
-					
-					usersClrRect = new Rect(cameraRect.width - displayWidth, cameraRect.height, displayWidth, -displayHeight);
+
+                    usersClrRect = new Rect(cameraRect.width - displayWidth, cameraRect.height, displayWidth, -displayHeight);
 						
 //					if(computeUserMap && displayColorMap)
 //					{
@@ -2162,6 +2162,17 @@ public class KinectManager : MonoBehaviour
 	
 	void Update() 
 	{
+        for(int i = 0; i < avatarControllers.Count; i++)
+        {
+            if(avatarControllers[i].outOfBalance)
+            {
+                displayUserMap = true;
+            }
+            else
+            {
+                displayUserMap = false;
+            }
+        }
 		if(kinectInitialized)
 		{
 			if(!kinectReaderRunning)
