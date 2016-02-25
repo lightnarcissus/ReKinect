@@ -14,6 +14,6 @@ public class OrchestraSegment : MonoBehaviour {
 
     public void PlaySound()
     {
-        GetComponent<PointerCollide>().PlaySegment(this.gameObject);
+    //    GetComponent<PointerCollide>().PlaySegment(this.gameObject);
     }
 }

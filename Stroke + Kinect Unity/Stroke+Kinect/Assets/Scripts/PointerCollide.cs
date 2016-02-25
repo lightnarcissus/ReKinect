@@ -18,9 +18,9 @@ public class PointerCollide : MonoBehaviour {
 	
 	}
 
-    public void PlaySegment(GameObject obj)
+    void OnMouseOver()
     {
-        switch(obj.name)
+        switch(gameObject.name)
         {
             case "LeftArc":
                 activeImg[activeArc].SetActive(false);
