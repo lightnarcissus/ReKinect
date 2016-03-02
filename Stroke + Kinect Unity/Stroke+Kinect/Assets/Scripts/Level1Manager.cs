@@ -4,14 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class PlaceCardRandomly : MonoBehaviour
+public class Level1Manager : MonoBehaviour
 {
-    //
+    //Assign cards globally from card prefabs
     public GameObject RedPrefab, BluePrefab, GreenPrefab, YellowPrefab;
     private GameObject RedCard, BlueCard, GreenCard, YellowCard;
-    //
-
-    Vector3[] slots;
+    
+    //Initiate slots to place cards
+    public Vector3[] slots;
     Vector3 initPos;
     public GameObject[] Cards;
 
@@ -68,13 +68,13 @@ public class PlaceCardRandomly : MonoBehaviour
     }
 
 	void Update () {
+        //Test shuffling
         if (Input.GetKeyDown("s")){
             Shuffle();
-
             for (int i = 0; i < Cards.Length; i++) {
                Cards[i].transform.position = slots[i];
             }
-
         }
     }
+
 }
