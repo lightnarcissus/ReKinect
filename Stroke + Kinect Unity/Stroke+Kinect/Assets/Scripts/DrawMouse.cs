@@ -20,20 +20,21 @@ public class DrawMouse : MonoBehaviour
 
     void Awake()
     {
+        Cursor.visible = false;
         drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
         thisCamera = Camera.main;
     }
 
     void Update()
     {
-        //  drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
-        drawPos = Input.mousePosition;
+        drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
+       // drawPos = Input.mousePosition;
         Vector3 mousePos = drawPos;
         mousePos.z = thisCamera.nearClipPlane;
         Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
         mouseWorld.z = thisCamera.nearClipPlane;
       //    Debug.Log(mouseWorld.y);
-        mouseWorld = new Vector3((mouseWorld.x+0.1f)*multX, (mouseWorld.y-1f)*multY, 0f);
+        mouseWorld = new Vector3((mouseWorld.x+0.2f)*multX, (mouseWorld.y-1.2f)*multY, 0f);
       //  Debug.Log("After "+mouseWorld);
         float dist = Vector3.Distance(lastPos, mouseWorld);
         if (dist <= threshold)
