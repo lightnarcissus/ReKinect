@@ -159,7 +159,7 @@ public class GetJointPositionTest : MonoBehaviour
                 }
    
         } else {
-                stayTimer = 0;
+            stayTimer = 0;
             currState = 0;
             Picking[whichCard] = false;
                 Lv1.Cards[whichCard].transform.localScale = new Vector3(1f, 1f, 1f);

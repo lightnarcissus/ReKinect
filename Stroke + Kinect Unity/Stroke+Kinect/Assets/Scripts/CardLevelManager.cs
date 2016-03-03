@@ -23,6 +23,8 @@ public class CardLevelManager : MonoBehaviour {
 	
 	void Update () {
 
+       // Debug.Log(correctMatches);
+
         if (correctMatches >= levelTarget[currentLevel]) {
             NextLevel();
         }
