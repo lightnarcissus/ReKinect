@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public KinectManager kinManager;
+	public InteractionManager intManager;
 	public GameObject gamePage;
 	public GameObject titlePage;
 	// Use this for initialization
@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (kinManager.avatarControllers.Count > 0) {
+        Debug.Log(intManager.userActive);
+
+		if (intManager.userActive) {
 			titlePage.SetActive (false);
 			gamePage.SetActive (true);
 		} else {
@@ -23,4 +25,21 @@ public class GameManager : MonoBehaviour {
 		}
 	
 	}
+
+    public void ActivateApp(int appNumber)
+    {
+        switch(appNumber)
+        { 
+
+            case 1:
+                Application.LoadLevel("DrawingChallenge");
+                break;
+            case 2:
+                Application.LoadLevel("CardMatching");
+                break;
+            case 3:
+                Application.LoadLevel("ConductorMusic");
+                break;
+        }
+    }
 }

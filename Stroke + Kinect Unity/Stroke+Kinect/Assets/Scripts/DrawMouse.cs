@@ -17,6 +17,7 @@ public class DrawMouse : MonoBehaviour
     private Vector3 drawPos;
     Vector3 lastPos = Vector3.one * float.MaxValue;
     public GameObject trailRend;
+    public AvatarController avatarController;
 
     void Awake()
     {
@@ -27,20 +28,23 @@ public class DrawMouse : MonoBehaviour
 
     void Update()
     {
-        drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
-       // drawPos = Input.mousePosition;
-        Vector3 mousePos = drawPos;
-        mousePos.z = thisCamera.nearClipPlane;
-        Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
-        mouseWorld.z = thisCamera.nearClipPlane;
-      //    Debug.Log(mouseWorld.y);
-        mouseWorld = new Vector3((mouseWorld.x+0.2f)*multX, (mouseWorld.y-1.2f)*multY, 0f);
-      //  Debug.Log("After "+mouseWorld);
-        float dist = Vector3.Distance(lastPos, mouseWorld);
-        if (dist <= threshold)
-            return;
-        trailRend.transform.position=new Vector3(mouseWorld.x,mouseWorld.y,50f);
-        lastPos = mouseWorld;
+        if (!avatarController.outOfBalance)
+        {
+            drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
+            // drawPos = Input.mousePosition;
+            Vector3 mousePos = drawPos;
+            mousePos.z = thisCamera.nearClipPlane;
+            Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
+            mouseWorld.z = thisCamera.nearClipPlane;
+            //    Debug.Log(mouseWorld.y);
+            mouseWorld = new Vector3((mouseWorld.x + 0.2f) * multX, (mouseWorld.y - 1.2f) * multY, 0f);
+            //  Debug.Log("After "+mouseWorld);
+            float dist = Vector3.Distance(lastPos, mouseWorld);
+            if (dist <= threshold)
+                return;
+            trailRend.transform.position = new Vector3(mouseWorld.x, mouseWorld.y, 50f);
+            lastPos = mouseWorld;
+        }
         
     }
 
