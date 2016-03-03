@@ -235,12 +235,13 @@ public class AvatarController : MonoBehaviour
                 //Debug.Log(joint);
                 elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
                 spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
-               // spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
-              //  Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
+                spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
+                // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
                 //focusing only on spine mid right now
-                balancePos =spineMidPos;
-                if (Mathf.Abs(balancePos.x) >=0.2f)
+                balancePos =spineMidPos - spineShoulderPos;
+               // Debug.Log(balancePos);
+                if (Mathf.Abs(balancePos.x) >=0.1f)
                 {
                     outOfBalance = true;
                 }

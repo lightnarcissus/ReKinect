@@ -5,8 +5,14 @@ public class RaycastObj : MonoBehaviour {
     public Ray ray;
     public RaycastHit hit;
     public RaycastHit2D hit2D;
+    private int whichLevel = 0; //1 for drawing, 2 for music
 	// Use this for initialization
 	void Start () {
+
+        if (gameObject.name == "Collider")
+            whichLevel = 1;
+        else
+            whichLevel = 2;
 	
 	}
 
@@ -14,27 +20,27 @@ public class RaycastObj : MonoBehaviour {
     void Update()
     {
       
-        if (gameObject.name == "Collider")
+        if (whichLevel==1)
         {
             if (Physics.Linecast(transform.position, Camera.main.transform.position, out hit))
             {
                 if (hit.collider.gameObject.tag == "Target")
                 {
                     hit.collider.gameObject.GetComponent<CheckCollision>().TargetCollision();
-                    Debug.Log("blocked by" + hit.collider.gameObject.name);
+                 //   Debug.Log("blocked by" + hit.collider.gameObject.name);
                 }
             }
         }
 
         //for music conductor scene
-        if (gameObject.name == "MusicCollider")
+        else if (whichLevel==2)
         {
             if (Physics.Linecast(transform.position, Camera.main.transform.position, out hit))
             {
                 if (hit.collider.gameObject.tag == "Target")
                 {
                     hit.collider.gameObject.GetComponent<OrchestraSegment>().PlaySound();
-                    Debug.Log("blocked by" + hit.collider.gameObject.name);
+                 //   Debug.Log("blocked by" + hit.collider.gameObject.name);
                 }
             }
         }

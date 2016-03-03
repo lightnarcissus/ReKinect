@@ -18,7 +18,15 @@ public class CheckCollision : MonoBehaviour {
     public void TargetCollision()
     {
         GetComponent<SpriteRenderer>().color = Color.green;
+        StartCoroutine("TurnOffColor");
         drawingManager.GetComponent<DrawingManager>().AssignNextTarget(targetID);
        // Debug.Log("collision");
+    }
+
+    IEnumerator TurnOffColor()
+    {
+        yield return new WaitForSeconds(1f);
+        GetComponent<SpriteRenderer>().color = Color.black;
+        yield return null;
     }
 }

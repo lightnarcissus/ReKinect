@@ -46,6 +46,9 @@ public class InteractionManager : MonoBehaviour
 	[Tooltip("Whether hand grips and releases control mouse dragging or not.")]
 	public bool controlMouseDrag = false;
 
+    //whether user is active or not
+    public bool userActive = false;
+
 	// Bool to specify whether to convert Unity screen coordinates to full screen mouse coordinates
 	//public bool convertMouseToFullScreen = false;
 	
@@ -321,6 +324,7 @@ public class InteractionManager : MonoBehaviour
 			
 			if(primaryUserID != 0)
 			{
+                userActive = true;
 				HandEventType handEvent = HandEventType.None;
 				
 				// get the left hand state
@@ -359,6 +363,7 @@ public class InteractionManager : MonoBehaviour
 					if(allowHandClicks && !dragInProgress && isLeftHandInteracting && 
 					   (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
+                        Debug.Log("WAS A CLICK");
 						if((Time.realtimeSinceStartup - lastLeftHandTime) >= KinectInterop.Constants.ClickStayDuration)
 						{
 							if(!isLeftHandClick)
@@ -584,6 +589,7 @@ public class InteractionManager : MonoBehaviour
 			}
 			else
 			{
+                userActive = false;
 				leftHandState = KinectInterop.HandState.NotTracked;
 				rightHandState = KinectInterop.HandState.NotTracked;
 				
