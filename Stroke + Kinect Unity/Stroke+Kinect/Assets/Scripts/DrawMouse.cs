@@ -18,6 +18,7 @@ public class DrawMouse : MonoBehaviour
     Vector3 lastPos = Vector3.one * float.MaxValue;
     public GameObject trailRend;
     public AvatarController avatarController;
+	public bool allowMouse=false;
 
     void Awake()
     {
@@ -28,22 +29,31 @@ public class DrawMouse : MonoBehaviour
 
     void Update()
     {
-        if (!avatarController.outOfBalance)
+		if (!avatarController.outOfBalance)
         {
-            drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
-            // drawPos = Input.mousePosition;
-            Vector3 mousePos = drawPos;
-            mousePos.z = thisCamera.nearClipPlane;
-            Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
-            mouseWorld.z = thisCamera.nearClipPlane;
-            //    Debug.Log(mouseWorld.y);
-            mouseWorld = new Vector3((mouseWorld.x + 0.2f) * multX, (mouseWorld.y - 1.2f) * multY, 0f);
-            //  Debug.Log("After "+mouseWorld);
-            float dist = Vector3.Distance(lastPos, mouseWorld);
-            if (dist <= threshold)
-                return;
-            trailRend.transform.position = new Vector3(mouseWorld.x, mouseWorld.y, 50f);
-            lastPos = mouseWorld;
+			if (!allowMouse) {
+				drawPos = kinectAvatar.GetComponent<AvatarController> ().elbowPos;
+				Vector3 mousePos = drawPos;
+				mousePos.z = thisCamera.nearClipPlane;
+				Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
+				mouseWorld.z = thisCamera.nearClipPlane;
+				//    Debug.Log(mouseWorld.y);
+				mouseWorld = new Vector3((mouseWorld.x + 0.2f) * multX, (mouseWorld.y - 1.2f) * multY, 0f);
+				//  Debug.Log("After "+mouseWorld);
+				float dist = Vector3.Distance(lastPos, mouseWorld);
+				if (dist <= threshold)
+					return;
+				trailRend.transform.position = new Vector3(mouseWorld.x, mouseWorld.y, 50f);
+				lastPos = mouseWorld;
+			}
+			else
+             drawPos = Input.mousePosition;
+			Vector3 tempPos = new Vector3 (drawPos.x, drawPos.y, 10f);
+			Vector3 mouseWorldAlt = thisCamera.ScreenToWorldPoint(tempPos);
+			Debug.Log (mouseWorldAlt);
+			trailRend.transform.position = mouseWorldAlt;
+			//Debug.Log (drawPos);
+           
         }
         
     }

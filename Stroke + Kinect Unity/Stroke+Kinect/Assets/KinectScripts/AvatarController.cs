@@ -43,6 +43,10 @@ public class AvatarController : MonoBehaviour
     KinectInterop.JointType targetJoint = KinectInterop.JointType.HandLeft;
     public Vector3 elbowPos;
 
+	//tuning arm pos
+	KinectInterop.JointType tuningJoint = KinectInterop.JointType.HandRight;
+	public Vector3 rightElbowPos;
+
     //Balance spine joint
     KinectInterop.JointType spineMidJoint = KinectInterop.JointType.SpineMid;
     KinectInterop.JointType spineShoulderJoint = KinectInterop.JointType.SpineShoulder;
@@ -234,6 +238,7 @@ public class AvatarController : MonoBehaviour
                 //  Debug.Log(boneIndex2JointMap[boneIndex]);
                 //Debug.Log(joint);
                 elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
+				rightElbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
                 spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
                 spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
