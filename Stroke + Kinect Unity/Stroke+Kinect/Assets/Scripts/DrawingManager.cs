@@ -8,7 +8,8 @@ public class DrawingManager : MonoBehaviour {
     public int currentLevel;
     public int directionID = 0; // 0 is clockwise, 1 is anti-clockwise
     public int lastTarget = 0;
-    public int levelLimit = 3; //total targets -1 
+    public List<int> levelLimit; //total targets -1
+	private int currentLevelLimit=0;
     public int nextTarget = 0;
     public int score = 0;
     public int scoreTarget = 15;
@@ -25,6 +26,8 @@ public class DrawingManager : MonoBehaviour {
             else
                 targets[i].SetActive(false);
         }
+		currentLevelLimit = levelLimit [currentLevel];
+
 	
 	}
 	
@@ -39,7 +42,7 @@ public class DrawingManager : MonoBehaviour {
         if (lastTarget != hitTarget) 
             CheckTargetIsCorrect(hitTarget);
         lastTarget = hitTarget;
-        if (hitTarget != levelLimit)
+        if (hitTarget != currentLevelLimit)
             hitTarget++;
         else
             hitTarget = 0;
@@ -52,7 +55,8 @@ public class DrawingManager : MonoBehaviour {
     {
         if(hitTarget!=nextTarget)
         {
-            score--;
+			if(score>0)
+            	score--;
         }
         else
         {
@@ -75,10 +79,13 @@ public class DrawingManager : MonoBehaviour {
     {
 
         //first disable the current targets
+
         targets[currentLevel].SetActive(false);
         //increment and then enable
         currentLevel++;
         targets[currentLevel].SetActive(true);
+
+		currentLevelLimit=levelLimit [currentLevel];
         score = 0;
     }
     

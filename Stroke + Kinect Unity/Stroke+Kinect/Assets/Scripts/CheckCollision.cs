@@ -5,6 +5,8 @@ public class CheckCollision : MonoBehaviour {
 
     public int targetID = 0;
     public GameObject drawingManager;
+	public Color correctColor;
+	public Color normalColor;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +19,7 @@ public class CheckCollision : MonoBehaviour {
 
     public void TargetCollision()
     {
-        GetComponent<SpriteRenderer>().color = Color.green;
+		GetComponent<SpriteRenderer>().color = correctColor;
         StartCoroutine("TurnOffColor");
         drawingManager.GetComponent<DrawingManager>().AssignNextTarget(targetID);
        // Debug.Log("collision");
@@ -26,7 +28,7 @@ public class CheckCollision : MonoBehaviour {
     IEnumerator TurnOffColor()
     {
         yield return new WaitForSeconds(1f);
-        GetComponent<SpriteRenderer>().color = Color.black;
+        GetComponent<SpriteRenderer>().color = normalColor;
         yield return null;
     }
 }

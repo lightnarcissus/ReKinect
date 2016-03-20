@@ -50,7 +50,7 @@ public class DrawMouse : MonoBehaviour
              drawPos = Input.mousePosition;
 			Vector3 tempPos = new Vector3 (drawPos.x, drawPos.y, 10f);
 			Vector3 mouseWorldAlt = thisCamera.ScreenToWorldPoint(tempPos);
-			Debug.Log (mouseWorldAlt);
+			//Debug.Log (mouseWorldAlt);
 			trailRend.transform.position = mouseWorldAlt;
 			//Debug.Log (drawPos);
            
