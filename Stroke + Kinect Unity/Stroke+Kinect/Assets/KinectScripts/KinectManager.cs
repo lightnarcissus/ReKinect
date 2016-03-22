@@ -1937,7 +1937,7 @@ public class KinectManager : MonoBehaviour
 		// GUI Text.
 		if(calibrationText != null)
 		{
-			calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+			//calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
 		}
 		
 		Debug.Log("Waiting for users.");
@@ -3151,7 +3151,7 @@ public class KinectManager : MonoBehaviour
 			
 			if(calibrationText != null)
 			{
-				calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+			//	calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
 			}
 		}
 	}

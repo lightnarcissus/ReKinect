@@ -11,9 +11,9 @@ public class DrawingManager : MonoBehaviour {
     public List<int> levelLimit; //total targets -1
 	private int currentLevelLimit=0;
     public int nextTarget = 0;
-    public int score = 0;
     public int scoreTarget = 15;
-
+    public TimerText timerManager;
+    public GameObject scoreManager;
     public Text scoreText;
    // public Text timerText;
 	// Use this for initialization
@@ -53,27 +53,36 @@ public class DrawingManager : MonoBehaviour {
 
     void CheckTargetIsCorrect(int hitTarget)
     {
-        if(hitTarget!=nextTarget)
+        int tempInt = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+        if (hitTarget!=nextTarget)
         {
-			if(score>0)
-            	score--;
+            
+
+            if (tempInt>0)
+                scoreManager.GetComponent<ScoreManager>().DecrementScore() ;
         }
         else
         {
-            score++;
+            scoreManager.GetComponent<ScoreManager>().IncrementScore();
         }
 
-        if(score>scoreTarget)
+        if(tempInt>scoreTarget)
         {
             UpdateLevel();
         }
-        UpdateScore();
+      
     }
 
-    void UpdateScore()
+
+    void SetLevel(int activatedLevel)
     {
-        scoreText.text = "Score: " + score.ToString();
+        targets[currentLevel].SetActive(false);
+        //increment and then enable
+        currentLevel=activatedLevel;
+        targets[activatedLevel].SetActive(true);
+        currentLevelLimit = levelLimit[currentLevel];
     }
+
 
     void UpdateLevel()
     {
@@ -86,7 +95,18 @@ public class DrawingManager : MonoBehaviour {
         targets[currentLevel].SetActive(true);
 
 		currentLevelLimit=levelLimit [currentLevel];
-        score = 0;
+        scoreManager.GetComponent<ScoreManager>().ResetScore();
+        if(currentLevel>=4)
+        {
+            currentLevel = 0;
+        }
+    }
+
+    public void RestartLevel()
+    {
+        SetLevel(0);
+        timerManager.ResetTimer();
+        scoreManager.GetComponent<ScoreManager>().ResetScore();
     }
     
 }

@@ -11,14 +11,14 @@ public class OrchestraSegment : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		orcSource = gameObject.GetComponent<AudioSource> ();
+	//	orcSource = gameObject.GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 		if (!avatarController.outOfBalance) {
-			tuningArmPos = kinectAvatar.GetComponent<AvatarController> ().rightElbowPos;
+			tuningArmPos = avatarController.rightElbowPos;
 			//the higher the arm on either extremes, the more the volume
 			orcSource.volume = Mathf.Abs (tuningArmPos.y);
 		}
