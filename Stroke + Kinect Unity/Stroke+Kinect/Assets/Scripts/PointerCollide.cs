@@ -9,6 +9,7 @@ public class PointerCollide : MonoBehaviour {
     private int activeArc = 0;
 	private OrchestraSegment orcSeg;
     private int bgNum = 0;
+    public static float volumeVal = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -25,10 +26,22 @@ public class PointerCollide : MonoBehaviour {
 	
 	}
 
+    void OnMouseEnter()
+    {
+    }
+    void OnMouseExit()
+    {
+
+        Debug.Log(activeArc);
+        activeImg[activeArc].SetActive(false);
+    }
+
+
     void OnMouseOver()
     {
-        activeImg[activeArc].SetActive(false);
+        
         activeImg[bgNum-1].SetActive(true);
+    //    activeImg[bgNum - 1].GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, volumeVal);
         activeArc = bgNum-1;
       //  source.clip = orcClips[bgNum];
         //if (!source.isPlaying)

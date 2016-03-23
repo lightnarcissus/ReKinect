@@ -18,9 +18,20 @@ public class OrchestraSegment : MonoBehaviour {
 	void Update () {
 	
 		if (!avatarController.outOfBalance) {
-			tuningArmPos = avatarController.rightElbowPos;
+            	tuningArmPos = avatarController.rightElbowPos;
+        //    Debug.Log(tuningArmPos.y);
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                tuningArmPos += new Vector3(0f, 0.1f,0f);
+            }
+        else if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                tuningArmPos-= new Vector3(0f, 0.1f, 0f);
+            }
+
 			//the higher the arm on either extremes, the more the volume
 			orcSource.volume = Mathf.Abs (tuningArmPos.y);
+            PointerCollide.volumeVal = tuningArmPos.y;
 		}
 	}
 
