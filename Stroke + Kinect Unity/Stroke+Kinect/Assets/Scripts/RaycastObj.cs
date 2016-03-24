@@ -6,6 +6,7 @@ public class RaycastObj : MonoBehaviour {
     public RaycastHit hit;
     public RaycastHit2D hit2D;
     public Camera mainCam;
+    public GameObject manager;
     private int whichLevel = 0; //1 for drawing, 2 for music
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,18 @@ public class RaycastObj : MonoBehaviour {
                 {
                     hit.collider.gameObject.GetComponent<CheckCollision>().TargetCollision();
                  //   Debug.Log("blocked by" + hit.collider.gameObject.name);
+                }
+                if(hit.collider.gameObject.tag=="SpriteButton")
+                {
+                    if(hit.collider.gameObject.name=="Restart")
+                    {
+                        Debug.Log("Restart");
+                      manager.GetComponent<DrawingManager>().RestartLevel();
+                    }
+                    else if (hit.collider.gameObject.name == "BackMenu")
+                    {
+                        Debug.Log("Back to main menu");
+                    }
                 }
             }
         }
