@@ -23,7 +23,7 @@ public class DrawMouse : MonoBehaviour
     void Awake()
     {
         Cursor.visible = false;
-        drawPos = kinectAvatar.GetComponent<AvatarController>().activeJointPos;
+      //  drawPos = kinectAvatar.GetComponent<AvatarController>().activeJointPos;
         thisCamera = Camera.main;
     }
 
@@ -33,7 +33,7 @@ public class DrawMouse : MonoBehaviour
         {
 			if (!allowMouse) {
 				drawPos = kinectAvatar.GetComponent<AvatarController> ().activeJointPos;
-               // Debug.Log(drawPos);
+             //   Debug.Log(drawPos);
 				Vector3 mousePos = drawPos;
 				mousePos.z = thisCamera.nearClipPlane;
 				Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);

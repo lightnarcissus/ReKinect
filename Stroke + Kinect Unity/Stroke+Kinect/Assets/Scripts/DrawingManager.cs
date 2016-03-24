@@ -28,11 +28,7 @@ public class DrawingManager : MonoBehaviour {
     {
 
     }
-	void Start () {
-
-        drawnLines.GetComponent<DrawMouse>().kinectAvatar = avatarController;
-        drawnLines.GetComponent<DrawMouse>().avatarController = avatarController.GetComponent<AvatarController>();
-        calibrationManager.GetComponent<CalibrationManager>().avatarController = avatarController.GetComponent<AvatarController>();
+	void Start () { 
         for(int i=0;i<targets.Count;i++)
         {
             if (i == currentLevel)

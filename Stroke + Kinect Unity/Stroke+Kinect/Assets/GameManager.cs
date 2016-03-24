@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,16 +10,21 @@ public class GameManager : MonoBehaviour {
 	public GameObject titlePage;
     public AvatarController avatarCont;
 	public AlternateController altControl;
+    public SceneManager sceneManager;
     public bool focusSelected = false;
+
+    public Text confirmText;
+    public Text chooseText;
 	// Use this for initialization
 	void Start () {
 
         focusSelectionPage.SetActive(false);
         gamePage.SetActive(false);
         titlePage.SetActive(true);
-        DontDestroyOnLoad(this.gameObject);
-        DontDestroyOnLoad(avatarCont.gameObject);
 		InvokeRepeating ("CheckController", 0.1f, 0.1f);
+
+
+     
 	}
 	
 	// Update is called once per frame
@@ -50,8 +56,9 @@ public class GameManager : MonoBehaviour {
     void CheckStatus()
     {
         Debug.Log("left" + intManager.leftHandPos.y);
+        
         Debug.Log("right" + intManager.rightHandPos.y);
-        if (intManager.leftHandPos.y > intManager.rightHandPos.y)
+        if (intManager.leftHandPos.y > intManager.rightHandPos.y && Mathf.Abs(intManager.leftHandPos.y) > 0.5f)
         {
             avatarCont.activeJointPos = intManager.leftHandPos;
             Debug.Log("left");
@@ -59,9 +66,12 @@ public class GameManager : MonoBehaviour {
             focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
             focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
             StartCoroutine("ActivateLeft");
+            confirmText.gameObject.SetActive(true);
+            confirmText.text = "CONFIRM IF LEFT ARM IS \n THE FOCUS SIDE";
+            chooseText.gameObject.SetActive(false);
 
         }
-        else
+        else if(intManager.rightHandPos.y > intManager.leftHandPos.y && Mathf.Abs(intManager.rightHandPos.y) > 0.5f)
         {
             avatarCont.activeJointPos = intManager.rightHandPos;
             Debug.Log("right");
@@ -69,6 +79,13 @@ public class GameManager : MonoBehaviour {
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
             focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
             StartCoroutine("ActivateRight");
+            confirmText.gameObject.SetActive(true);
+            confirmText.text = "CONFIRM IF RIGHT ARM IS \n THE FOCUS SIDE";
+            chooseText.gameObject.SetActive(false);
+        }
+        else
+        {
+            chooseText.gameObject.SetActive(true);
         }
     }
 
@@ -78,6 +95,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.leftHandPos.y > intManager.rightHandPos.y)
         {
             focusSelected = true;
+            sceneManager.focusSide = 1;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 
@@ -89,6 +107,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.rightHandPos.y > intManager.leftHandPos.y)
         {
             focusSelected = true;
+            sceneManager.focusSide = 2;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 
