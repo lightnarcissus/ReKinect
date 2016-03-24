@@ -18,8 +18,11 @@ public class OrchestraSegment : MonoBehaviour {
 	void Update () {
 	
 		if (!avatarController.outOfBalance) {
-            	tuningArmPos = avatarController.rightElbowPos;
-        //    Debug.Log(tuningArmPos.y);
+            if (avatarController.activeJoint == 1)
+                tuningArmPos = avatarController.rightElbowPos;
+            else if (avatarController.activeJoint == 2)
+                tuningArmPos = avatarController.elbowPos;
+            Debug.Log(tuningArmPos.y);
         if(Input.GetKeyDown(KeyCode.UpArrow))
             {
                 tuningArmPos += new Vector3(0f, 0.1f,0f);

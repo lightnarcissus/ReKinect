@@ -32,7 +32,7 @@ public class PointerCollide : MonoBehaviour {
     void OnMouseExit()
     {
 
-        Debug.Log(activeArc);
+       // Debug.Log(activeArc);
         activeImg[activeArc].SetActive(false);
     }
 
