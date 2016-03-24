@@ -22,7 +22,7 @@ public class DrawingManager : MonoBehaviour {
     //important object references to be given to avatar controller
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
-
+    public GameObject scoreBox;
     public GameObject avatarController;
 
     public Text focusText;
@@ -41,17 +41,21 @@ public class DrawingManager : MonoBehaviour {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 drawingDir = 1; // left hand should move counter-clockwise
                 focusText.text = "Focus Side: \n Left Arm";
+                scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+
             }
             if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 drawingDir = 2; //right hand should move clockwise
                 focusText.text = "Focus Side: \n Right Arm";
+                scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
             }
             else
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 focusText.text = "Focus Side: \n Left Arm";
+                scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
             }
 
                 sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
