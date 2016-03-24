@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
 			if (intManager.userActive && !focusSelected) {
 				titlePage.SetActive (false);
                 focusSelectionPage.SetActive(true);
+                avatarCont.outOfBalance = true;
                 CheckStatus();
             } else if(focusSelected) {
                

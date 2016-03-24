@@ -15,7 +15,7 @@ public class DrawingManager : MonoBehaviour {
     public TimerText timerManager;
     public GameObject scoreManager;
     public Text scoreText;
-
+    public int drawingDir = 0; // 1 is counter-clockwise for left  and 2 is clockwise for right
     //indestructible common object
     public GameObject sceneManager;
 
@@ -39,11 +39,13 @@ public class DrawingManager : MonoBehaviour {
             if (sceneManager.GetComponent<SceneManager>().focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                drawingDir = 1; // left hand should move counter-clockwise
                 focusText.text = "Focus Side: \n Left Arm";
             }
             if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
+                drawingDir = 2; //right hand should move clockwise
                 focusText.text = "Focus Side: \n Right Arm";
             }
             else
@@ -73,14 +75,26 @@ public class DrawingManager : MonoBehaviour {
 
     public void AssignNextTarget(int hitTarget)
     {
-        
-        if (lastTarget != hitTarget) 
-            CheckTargetIsCorrect(hitTarget);
-        lastTarget = hitTarget;
-        if (hitTarget != currentLevelLimit)
-            hitTarget++;
-        else
-            hitTarget = 0;
+        if(drawingDir==1)
+        {
+            if (lastTarget != hitTarget)
+                CheckTargetIsCorrect(hitTarget);
+            lastTarget = hitTarget;
+            if (hitTarget != 0)
+                hitTarget--;
+            else
+                hitTarget = currentLevelLimit;
+        }
+        else if (drawingDir == 2)
+        {
+            if (lastTarget != hitTarget)
+                CheckTargetIsCorrect(hitTarget);
+            lastTarget = hitTarget;
+            if (hitTarget != currentLevelLimit)
+                hitTarget++;
+            else
+                hitTarget = 0;
+        }
 
         nextTarget = hitTarget;
        // Debug.Log("next target is: " + hitTarget);

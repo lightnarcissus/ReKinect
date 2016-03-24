@@ -36,12 +36,12 @@ public class DrawMouse : MonoBehaviour
 			if (!allowMouse) {
                 if (avatarController.activeJoint == 1)
                 {
-                    Debug.Log("left");
+                  //  Debug.Log("left");
                     drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
                 }
                 else if (avatarController.activeJoint == 2)
                 {
-                    Debug.Log("right");
+                //    Debug.Log("right");
                     drawPos = kinectAvatar.GetComponent<AvatarController>().rightElbowPos;
                 }
                 else
