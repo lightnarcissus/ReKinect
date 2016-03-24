@@ -5,10 +5,12 @@ public class CalibrationManager : MonoBehaviour {
     public AvatarController avatarController;
     public KinectManager kinectManager;
     public Text balanceWarning;
+    public Text balanceWarning2;
 	// Use this for initialization
 	void Start () {
-	
-	}
+        balanceWarning.enabled = false;
+        balanceWarning2.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -16,11 +18,13 @@ public class CalibrationManager : MonoBehaviour {
         {
             kinectManager.displayUserMap = true;
             balanceWarning.enabled = true;
+            balanceWarning2.enabled = true;
         }
         else
         {
             kinectManager.displayUserMap = false;
             balanceWarning.enabled = false;
+            balanceWarning2.enabled = false;
         }
 	
 	}

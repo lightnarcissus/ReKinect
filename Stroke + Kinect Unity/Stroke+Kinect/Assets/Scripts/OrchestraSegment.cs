@@ -22,6 +22,8 @@ public class OrchestraSegment : MonoBehaviour {
                 tuningArmPos = avatarController.rightElbowPos;
             else if (avatarController.activeJoint == 2)
                 tuningArmPos = avatarController.elbowPos;
+            else
+                tuningArmPos = avatarController.rightElbowPos;
             Debug.Log(tuningArmPos.y);
         if(Input.GetKeyDown(KeyCode.UpArrow))
             {
