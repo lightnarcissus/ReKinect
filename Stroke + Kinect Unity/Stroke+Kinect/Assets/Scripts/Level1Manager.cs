@@ -9,7 +9,9 @@ public class Level1Manager : MonoBehaviour
     //Assign cards globally from card prefabs
     public GameObject RedPrefab, BluePrefab, GreenPrefab, YellowPrefab;
     private GameObject RedCard, BlueCard, GreenCard, YellowCard;
-    
+
+    public GameObject timerManager, scoreManager;
+
     //Initiate slots to place cards
     public Vector3[] slots;
     Vector3 initPos;
@@ -28,6 +30,9 @@ public class Level1Manager : MonoBehaviour
         InitSlots();
         
         Shuffle();
+
+        timerManager.GetComponent<TimerText>().ResetTimer();
+        scoreManager.GetComponent<ScoreManager>().ResetScore();
 
         for (int i = 0; i < Cards.Count; i++){
             Cards[i].transform.position = slots[i];

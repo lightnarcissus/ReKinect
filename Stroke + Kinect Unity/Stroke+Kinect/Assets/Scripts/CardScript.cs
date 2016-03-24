@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CardScript : MonoBehaviour {
 
     public bool isPicking = false;
     private Vector3 tempPos;
-    GameObject levelManager;
+    GameObject levelManager, scoreManager;
 
-	void Start () {
+//    private int Lv123score = 0;
+//    public Text scoreText;
+
+    void Start () {
         levelManager = GameObject.Find("LevelManager");
+        scoreManager = GameObject.Find("ScoreManager");
     }
 	
 	void Update () {
