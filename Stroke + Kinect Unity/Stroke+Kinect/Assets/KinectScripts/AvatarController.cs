@@ -39,7 +39,7 @@ public class AvatarController : MonoBehaviour
 	[Tooltip("If specified, makes the initial avatar position relative to this camera, to be equal to the player's position relative to the sensor.")]
 	public Camera posRelativeToCamera;
 
-    public Vector3 activeJointPos;
+    public int activeJoint=0;
     //Target Joint*
     KinectInterop.JointType targetJoint = KinectInterop.JointType.HandLeft;
     public Vector3 elbowPos;
@@ -239,7 +239,7 @@ public class AvatarController : MonoBehaviour
                 //  Debug.Log(boneIndex2JointMap[boneIndex]);
                 //Debug.Log(joint);
                 elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
-				rightElbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
+				rightElbowPos = kinectManager.GetJointPosition(UserID, (int)tuningJoint);
                 spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
                 spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);

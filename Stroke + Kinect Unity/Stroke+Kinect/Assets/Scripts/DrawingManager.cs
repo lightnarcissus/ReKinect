@@ -15,24 +15,47 @@ public class DrawingManager : MonoBehaviour {
     public TimerText timerManager;
     public GameObject scoreManager;
     public Text scoreText;
-
+    public int drawingDir = 0; // 1 is counter-clockwise for left  and 2 is clockwise for right
     //indestructible common object
-    public static GameObject avatarController;
+    public GameObject sceneManager;
 
     //important object references to be given to avatar controller
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
 
+    public GameObject avatarController;
+
+    public Text focusText;
+
 	// Use this for initialization
     void Awake()
     {
-
+        sceneManager = GameObject.Find("SceneManager");
     }
-	void Start () {
+	void Start () { 
+        if(sceneManager!=null)
+        {
+            Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            if (sceneManager.GetComponent<SceneManager>().focusSide == 1)
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                drawingDir = 1; // left hand should move counter-clockwise
+                focusText.text = "Focus Side: \n Left Arm";
+            }
+            if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 2;
+                drawingDir = 2; //right hand should move clockwise
+                focusText.text = "Focus Side: \n Right Arm";
+            }
+            else
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                focusText.text = "Focus Side: \n Left Arm";
+            }
 
-        drawnLines.GetComponent<DrawMouse>().kinectAvatar = avatarController;
-        drawnLines.GetComponent<DrawMouse>().avatarController = avatarController.GetComponent<AvatarController>();
-        calibrationManager.GetComponent<CalibrationManager>().avatarController = avatarController.GetComponent<AvatarController>();
+                sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+        }
         for(int i=0;i<targets.Count;i++)
         {
             if (i == currentLevel)
@@ -52,14 +75,26 @@ public class DrawingManager : MonoBehaviour {
 
     public void AssignNextTarget(int hitTarget)
     {
-        
-        if (lastTarget != hitTarget) 
-            CheckTargetIsCorrect(hitTarget);
-        lastTarget = hitTarget;
-        if (hitTarget != currentLevelLimit)
-            hitTarget++;
-        else
-            hitTarget = 0;
+        if(drawingDir==1)
+        {
+            if (lastTarget != hitTarget)
+                CheckTargetIsCorrect(hitTarget);
+            lastTarget = hitTarget;
+            if (hitTarget != 0)
+                hitTarget--;
+            else
+                hitTarget = currentLevelLimit;
+        }
+        else if (drawingDir == 2)
+        {
+            if (lastTarget != hitTarget)
+                CheckTargetIsCorrect(hitTarget);
+            lastTarget = hitTarget;
+            if (hitTarget != currentLevelLimit)
+                hitTarget++;
+            else
+                hitTarget = 0;
+        }
 
         nextTarget = hitTarget;
        // Debug.Log("next target is: " + hitTarget);

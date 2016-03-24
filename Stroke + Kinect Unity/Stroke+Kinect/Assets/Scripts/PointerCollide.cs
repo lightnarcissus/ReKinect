@@ -43,9 +43,9 @@ public class PointerCollide : MonoBehaviour {
         activeImg[bgNum-1].SetActive(true);
     //    activeImg[bgNum - 1].GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, volumeVal);
         activeArc = bgNum-1;
-      //  source.clip = orcClips[bgNum];
-        //if (!source.isPlaying)
-          //  source.Play();
+       source.clip = orcClips[bgNum-1];
+        if (!source.isPlaying)
+           source.Play();
         orcSeg.allow = true;
 
         /*     switch(gameObject.name)
