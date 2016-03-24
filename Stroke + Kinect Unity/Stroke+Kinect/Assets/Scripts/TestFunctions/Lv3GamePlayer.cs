@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 
-public class Lv1GamePlayer : MonoBehaviour {
+public class Lv3GamePlayer : MonoBehaviour {
 
     public KinectInterop.JointType rightHand = KinectInterop.JointType.HandRight;
     public KinectInterop.JointType spineMid = KinectInterop.JointType.SpineMid;
@@ -10,8 +10,8 @@ public class Lv1GamePlayer : MonoBehaviour {
     public Vector3 rightHandPos, spindMidPos;
 
     //
-    public GameObject Level1, CardLevelManager;
-    Level1Manager Lv1; 
+    public GameObject Level3, CardLevelManager;
+    Level3Manager Lv3; 
     CardLevelManager LvManager;
 
     public GameObject pointer, gPointer;
@@ -20,7 +20,7 @@ public class Lv1GamePlayer : MonoBehaviour {
     Vector3 mappedRHandPos;
     float stretchRH;
 
-    bool[] Picking = new bool[8];
+    bool[] Picking;
 
     int stayTimer = 0;
     int currState = 0;
@@ -30,11 +30,13 @@ public class Lv1GamePlayer : MonoBehaviour {
     int match = 0;
 
     int stayCounter = 0;
-    
+
     // 
     void Start () {
-        Lv1 = Level1.GetComponent<Level1Manager>();
+        Lv3 = Level3.GetComponent<Level3Manager>();
         LvManager = CardLevelManager.GetComponent<CardLevelManager>();
+
+        Picking = new bool[Lv3.Cards.Count];
     }
 	
 	// 
@@ -74,20 +76,20 @@ public class Lv1GamePlayer : MonoBehaviour {
 
         if (whichCard == -1)
         {
-            for (int j = 0; j < Lv1.Cards.Count; j++){
-                if (Lv1.Cards[j] != null) Picking[j] = false;
+            for (int j = 0; j < Lv3.Cards.Count; j++){
+                if (Lv3.Cards[j] != null) Picking[j] = false;
             }
         }
 
-        for (int i = 0; i < Lv1.Cards.Count; i++) {
+        for (int i = 0; i < Lv3.Cards.Count; i++) {
 
-            if (Lv1.Cards[i] != null)
+            if (Lv3.Cards[i] != null)
             {
                 isInBoundary(mappedRHandPos, i);
                 if (isInBoundary(mappedRHandPos, i)) whichCard = i;
 
-                if (Picking[i]) Lv1.Cards[i].transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
-                else { Lv1.Cards[i].transform.localScale = new Vector3(1f, 1f, 1f); }
+                if (Picking[i]) Lv3.Cards[i].transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
+                else { Lv3.Cards[i].transform.localScale = new Vector3(1f, 1f, 1f); }
             }
      
         }
@@ -99,8 +101,8 @@ public class Lv1GamePlayer : MonoBehaviour {
        // }
 
         if (whichCard != -1) {
-            for (int j = 0; j < Lv1.Cards.Count; j++) {
-                if (Lv1.Cards[j] != null) Picking[j] = false;
+            for (int j = 0; j < Lv3.Cards.Count; j++) {
+                if (Lv3.Cards[j] != null) Picking[j] = false;
             }
             Picking[whichCard] = true;
 
@@ -109,13 +111,13 @@ public class Lv1GamePlayer : MonoBehaviour {
                 stayCounter++;
 
                 //Debug.Log(LvManager.correctMatches);
-                if (Lv1.Cards[whichCard] == null)
+                if (Lv3.Cards[whichCard] == null)
                 {
                     Debug.Log("NOOOOOOOOOOO0000OOOOOOOOO");
                     whichCard = -1;
                     stayCounter = 0;
                 }
-                else { if (stayCounter > 30) Lv1.Cards[whichCard].transform.position = mappedRHandPos; }
+                else { if (stayCounter > 30) Lv3.Cards[whichCard].transform.position = mappedRHandPos; }
             }
             else {
                 whichCard = -1;
@@ -136,8 +138,8 @@ public class Lv1GamePlayer : MonoBehaviour {
     }
 
     bool isInBoundary(Vector3 handPos, int whichCard){
-        if (handPos.x > Lv1.Cards[whichCard].transform.position.x - fuzz && handPos.x < Lv1.Cards[whichCard].transform.position.x + fuzz &&
-            handPos.y > Lv1.Cards[whichCard].transform.position.y - fuzz && handPos.y < Lv1.Cards[whichCard].transform.position.y + fuzz) {
+        if (handPos.x > Lv3.Cards[whichCard].transform.position.x - fuzz && handPos.x < Lv3.Cards[whichCard].transform.position.x + fuzz &&
+            handPos.y > Lv3.Cards[whichCard].transform.position.y - fuzz && handPos.y < Lv3.Cards[whichCard].transform.position.y + fuzz) {
             return true;
         }
         else return false;

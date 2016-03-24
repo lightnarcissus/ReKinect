@@ -9,6 +9,9 @@ public class CardLevelManager : MonoBehaviour {
     public GameObject[] cardCollections;
 
     public GameObject prompt1;
+
+    GameObject instMatching, instSorting;
+
     int timer;
 
 	void Start () {
@@ -19,7 +22,13 @@ public class CardLevelManager : MonoBehaviour {
             cardCollections[i].SetActive(false);
         }
         cardCollections[0].SetActive(true);
-	}
+
+        instMatching = GameObject.Find("Inst_CardMatching");
+        instSorting = GameObject.Find("Inst_CardSorting");
+
+        instMatching.SetActive(true);
+        instSorting.SetActive(false);
+    }
 	
 	void Update () {
 
@@ -29,11 +38,13 @@ public class CardLevelManager : MonoBehaviour {
             NextLevel();
         }
 
+
     }
 
     public void CorrectMatch() {
         correctMatches++;
     }
+
 
     public void NextLevel() {
         timer++;
@@ -44,13 +55,25 @@ public class CardLevelManager : MonoBehaviour {
             currentLevel++;
             cardCollections[currentLevel - 1].SetActive(false);
 
-            if (currentLevel > 2) currentLevel = 0;
+            if (currentLevel > 3) currentLevel = 0;
             cardCollections[currentLevel].SetActive(true);
 
             correctMatches = 0;
 
             timer = 0;
             prompt1.SetActive(false);
+
+            if (currentLevel == 3)
+            {
+                instMatching.SetActive(false);
+                instSorting.SetActive(true);
+            }
+            else
+            {
+                instMatching.SetActive(true);
+                instSorting.SetActive(false);
+            }
         }
+
     }
 }

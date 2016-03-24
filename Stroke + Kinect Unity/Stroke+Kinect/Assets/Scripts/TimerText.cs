@@ -15,7 +15,7 @@ public class TimerText : MonoBehaviour {
 
         timer += Time.deltaTime;
         timerText.text =timer.ToString("F2");
-	}
+    }
 
     public void ResetTimer()
     {

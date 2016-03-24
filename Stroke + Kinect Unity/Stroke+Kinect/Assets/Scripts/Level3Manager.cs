@@ -4,11 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Level2Manager : MonoBehaviour
+public class Level3Manager : MonoBehaviour
 {
     //Assign cards globally from card prefabs
-    public GameObject RedPrefab, BluePrefab, GreenPrefab, YellowPrefab, Num1Prefab, Num3Prefab;
-    private GameObject RedCard, BlueCard, GreenCard, YellowCard, NumCard1, NumCard3;
+    public GameObject RedPrefab, BluePrefab, GreenPrefab, YellowPrefab, Num1Prefab, Num3Prefab, DogPrefab, CatPrefab;
+    private GameObject RedCard, BlueCard, GreenCard, YellowCard, NumCard1, NumCard3, Dog, Cat;
 
     public GameObject timerManager, scoreManager;
 
@@ -65,10 +65,12 @@ public class Level2Manager : MonoBehaviour
             YellowCard = (GameObject)Instantiate(YellowPrefab);
             NumCard1 = (GameObject)Instantiate(Num1Prefab);
             NumCard3 = (GameObject)Instantiate(Num3Prefab);
+            Dog = (GameObject)Instantiate(DogPrefab);
+            Cat = (GameObject)Instantiate(CatPrefab);
         }
 
         // Cards = GameObject.FindGameObjectsWithTag("Lv1Card");
-        tempArray = GameObject.FindGameObjectsWithTag("Lv2Card");
+        tempArray = GameObject.FindGameObjectsWithTag("Lv3Card");
 
         for (int j = 0; j < tempArray.Length; j++) { 
         Cards.Add(tempArray[j]);

@@ -5,11 +5,13 @@ public class CardSortScript : MonoBehaviour {
 			
 		public bool isPicking = false;
 		private Vector3 tempPos;
-		GameObject levelManager;
+		GameObject levelManager, scoreManager;
+        
 		
 		void Start () {
 			levelManager = GameObject.Find("LevelManager");
-		}
+            scoreManager = GameObject.Find("ScoreManager");
+        }
 		
 		void Update () {
 			if(isPicking) {
@@ -33,22 +35,27 @@ public class CardSortScript : MonoBehaviour {
 			if (gameObject.tag == "Lv4Colors" && col.gameObject.name == "Colors") {
 				levelManager.GetComponent<CardLevelManager> ().CorrectMatch ();
 				Destroy (gameObject);
-			}
+                scoreManager.GetComponent<ScoreManager> ().IncrementScore();
+
+            }
 
 			if (gameObject.tag == "Lv4Nums" && col.gameObject.name == "Numbers") {
 				levelManager.GetComponent<CardLevelManager> ().CorrectMatch ();
 				Destroy (gameObject);
-			}
+                scoreManager.GetComponent<ScoreManager>().IncrementScore();
+        }
 
 			if (gameObject.tag == "Lv4Pets" && col.gameObject.name == "Pets") {
 				levelManager.GetComponent<CardLevelManager> ().CorrectMatch ();
 				Destroy (gameObject);
-			}
+                scoreManager.GetComponent<ScoreManager>().IncrementScore();
+        }
 			
 			if (gameObject.tag == "Lv4Flowers" && col.gameObject.name == "Flowers") {
 				levelManager.GetComponent<CardLevelManager> ().CorrectMatch ();
 				Destroy (gameObject);
-			}
+                scoreManager.GetComponent<ScoreManager>().IncrementScore();
+        }
 		}
 	}
 	
