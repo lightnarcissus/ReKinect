@@ -23,7 +23,7 @@ public class DrawMouse : MonoBehaviour
     void Awake()
     {
         Cursor.visible = false;
-        drawPos = kinectAvatar.GetComponent<AvatarController>().elbowPos;
+        drawPos = kinectAvatar.GetComponent<AvatarController>().activeJointPos;
         thisCamera = Camera.main;
     }
 
@@ -32,7 +32,8 @@ public class DrawMouse : MonoBehaviour
 		if (!avatarController.outOfBalance)
         {
 			if (!allowMouse) {
-				drawPos = kinectAvatar.GetComponent<AvatarController> ().elbowPos;
+				drawPos = kinectAvatar.GetComponent<AvatarController> ().activeJointPos;
+               // Debug.Log(drawPos);
 				Vector3 mousePos = drawPos;
 				mousePos.z = thisCamera.nearClipPlane;
 				Vector3 mouseWorld = thisCamera.ViewportToWorldPoint(mousePos);
@@ -47,13 +48,15 @@ public class DrawMouse : MonoBehaviour
 				lastPos = mouseWorld;
 			}
 			else
+            { 
              drawPos = Input.mousePosition;
 			Vector3 tempPos = new Vector3 (drawPos.x, drawPos.y, 10f);
 			Vector3 mouseWorldAlt = thisCamera.ScreenToWorldPoint(tempPos);
 			//Debug.Log (mouseWorldAlt);
 			trailRend.transform.position = mouseWorldAlt;
-			//Debug.Log (drawPos);
-           
+                //Debug.Log (drawPos);
+            }
+
         }
         
     }

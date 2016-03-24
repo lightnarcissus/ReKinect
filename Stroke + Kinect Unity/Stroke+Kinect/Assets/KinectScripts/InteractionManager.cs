@@ -72,7 +72,7 @@ public class InteractionManager : MonoBehaviour
 	private HandEventType leftHandEvent = HandEventType.None;
 	private HandEventType lastLeftHandEvent = HandEventType.Release;
 
-	private Vector3 leftHandPos = Vector3.zero;
+	public Vector3 leftHandPos = Vector3.zero;
 	private Vector3 leftHandScreenPos = Vector3.zero;
 	private Vector3 leftIboxLeftBotBack = Vector3.zero;
 	private Vector3 leftIboxRightTopFront = Vector3.zero;
@@ -88,7 +88,7 @@ public class InteractionManager : MonoBehaviour
 	private HandEventType rightHandEvent = HandEventType.None;
 	private HandEventType lastRightHandEvent = HandEventType.Release;
 
-	private Vector3 rightHandPos = Vector3.zero;
+	public Vector3 rightHandPos = Vector3.zero;
 	private Vector3 rightHandScreenPos = Vector3.zero;
 	private Vector3 rightIboxLeftBotBack = Vector3.zero;
 	private Vector3 rightIboxRightTopFront = Vector3.zero;
@@ -363,7 +363,7 @@ public class InteractionManager : MonoBehaviour
 					if(allowHandClicks && !dragInProgress && isLeftHandInteracting && 
 					   (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
-                        Debug.Log("WAS A CLICK");
+                      //  Debug.Log("WAS A CLICK");
 						if((Time.realtimeSinceStartup - lastLeftHandTime) >= KinectInterop.Constants.ClickStayDuration)
 						{
 							if(!isLeftHandClick)

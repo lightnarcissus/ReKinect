@@ -39,6 +39,7 @@ public class AvatarController : MonoBehaviour
 	[Tooltip("If specified, makes the initial avatar position relative to this camera, to be equal to the player's position relative to the sensor.")]
 	public Camera posRelativeToCamera;
 
+    public Vector3 activeJointPos;
     //Target Joint*
     KinectInterop.JointType targetJoint = KinectInterop.JointType.HandLeft;
     public Vector3 elbowPos;

@@ -15,10 +15,24 @@ public class DrawingManager : MonoBehaviour {
     public TimerText timerManager;
     public GameObject scoreManager;
     public Text scoreText;
-   // public Text timerText;
+
+    //indestructible common object
+    public static GameObject avatarController;
+
+    //important object references to be given to avatar controller
+    public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
+    public GameObject calibrationManager;
+
 	// Use this for initialization
+    void Awake()
+    {
+
+    }
 	void Start () {
 
+        drawnLines.GetComponent<DrawMouse>().kinectAvatar = avatarController;
+        drawnLines.GetComponent<DrawMouse>().avatarController = avatarController.GetComponent<AvatarController>();
+        calibrationManager.GetComponent<CalibrationManager>().avatarController = avatarController.GetComponent<AvatarController>();
         for(int i=0;i<targets.Count;i++)
         {
             if (i == currentLevel)
