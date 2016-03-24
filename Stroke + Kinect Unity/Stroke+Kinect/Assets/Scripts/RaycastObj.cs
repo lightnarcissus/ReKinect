@@ -5,6 +5,7 @@ public class RaycastObj : MonoBehaviour {
     public Ray ray;
     public RaycastHit hit;
     public RaycastHit2D hit2D;
+    public Camera mainCam;
     private int whichLevel = 0; //1 for drawing, 2 for music
 	// Use this for initialization
 	void Start () {
@@ -22,7 +23,7 @@ public class RaycastObj : MonoBehaviour {
       
         if (whichLevel==1)
         {
-            if (Physics.Linecast(transform.position, Camera.main.transform.position, out hit))
+            if (Physics.Linecast(transform.position,mainCam.transform.position, out hit))
             {
                 if (hit.collider.gameObject.tag == "Target")
                 {
@@ -35,7 +36,7 @@ public class RaycastObj : MonoBehaviour {
         //for music conductor scene
         else if (whichLevel==2)
         {
-            if (Physics.Linecast(transform.position, Camera.main.transform.position, out hit))
+            if (Physics.Linecast(transform.position, mainCam.transform.position, out hit))
             {
                 if (hit.collider.gameObject.tag == "Target")
                 {
@@ -46,7 +47,7 @@ public class RaycastObj : MonoBehaviour {
         }
         if (gameObject.name == "Collider 2D")
         {
-            hit2D = Physics2D.Linecast(transform.position, Camera.main.transform.position);
+            hit2D = Physics2D.Linecast(transform.position, mainCam.transform.position);
             if (hit2D.collider.gameObject.tag == "Target")
             {
               //  hit2D.collider.gameObject.GetComponent<CheckCollision>().TargetCollision();

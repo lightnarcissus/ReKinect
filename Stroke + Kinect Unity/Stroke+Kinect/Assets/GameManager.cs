@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public AlternateController altControl;
     public SceneManager sceneManager;
     public bool focusSelected = false;
-
+    public GUIText debugText;
     public Text confirmText;
     public Text chooseText;
 	// Use this for initialization
@@ -29,11 +29,12 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        MouseControl.MouseMove(avatarCont.elbowPos,debugText);
+       // Input.mousePosition = avatarCont.elbowPos;
+       //        Debug.Log(intManager.userActive);
 
-//        Debug.Log(intManager.userActive);
-	
-	
-	}
+
+    }
 
 	void CheckController()
 	{
@@ -55,12 +56,12 @@ public class GameManager : MonoBehaviour {
 
     void CheckStatus()
     {
-        Debug.Log("left" + intManager.leftHandPos.y);
+       // Debug.Log("left" + intManager.leftHandPos.y);
         
-        Debug.Log("right" + intManager.rightHandPos.y);
+      //  Debug.Log("right" + intManager.rightHandPos.y);
         if (intManager.leftHandPos.y > intManager.rightHandPos.y && Mathf.Abs(intManager.leftHandPos.y) > 0.5f)
         {
-            avatarCont.activeJointPos = intManager.leftHandPos;
+            avatarCont.activeJoint = 1;
             Debug.Log("left");
             focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
             focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour {
         }
         else if(intManager.rightHandPos.y > intManager.leftHandPos.y && Mathf.Abs(intManager.rightHandPos.y) > 0.5f)
         {
-            avatarCont.activeJointPos = intManager.rightHandPos;
+            avatarCont.activeJoint=2;
             Debug.Log("right");
             focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
@@ -114,20 +115,5 @@ public class GameManager : MonoBehaviour {
             yield return null;
     }
 
-    public void ActivateApp(int appNumber)
-    {
-        switch(appNumber)
-        { 
-
-            case 1:
-                Application.LoadLevel("DrawingChallenge");
-                break;
-            case 2:
-                Application.LoadLevel("CardMatching");
-                break;
-            case 3:
-                Application.LoadLevel("ConductorMusic");
-                break;
-        }
-    }
+    
 }

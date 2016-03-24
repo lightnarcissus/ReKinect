@@ -17,18 +17,43 @@ public class DrawingManager : MonoBehaviour {
     public Text scoreText;
 
     //indestructible common object
-    public static GameObject avatarController;
+    public GameObject sceneManager;
 
     //important object references to be given to avatar controller
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
 
+    public GameObject avatarController;
+
+    public Text focusText;
+
 	// Use this for initialization
     void Awake()
     {
-
+        sceneManager = GameObject.Find("SceneManager");
     }
 	void Start () { 
+        if(sceneManager!=null)
+        {
+            Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            if (sceneManager.GetComponent<SceneManager>().focusSide == 1)
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                focusText.text = "Focus Side: \n Left Arm";
+            }
+            if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 2;
+                focusText.text = "Focus Side: \n Right Arm";
+            }
+            else
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                focusText.text = "Focus Side: \n Left Arm";
+            }
+
+                sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+        }
         for(int i=0;i<targets.Count;i++)
         {
             if (i == currentLevel)
