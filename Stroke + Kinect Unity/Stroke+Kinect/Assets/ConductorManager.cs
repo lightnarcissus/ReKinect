@@ -8,6 +8,7 @@ public class ConductorManager : MonoBehaviour {
     public Text focusText;
     public TimerText timerManager;
     public ScoreManager scoreManager;
+    public GameObject calibManager;
     // Use this for initialization
 
     void Awake()
@@ -35,6 +36,7 @@ public class ConductorManager : MonoBehaviour {
             }
 
             sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+            calibManager.GetComponent<CalibrationManager>().kinectManager = sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>();
         }
     }
 	

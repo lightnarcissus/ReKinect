@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString() + " /17";
 	}
 
     public void IncrementScore()
