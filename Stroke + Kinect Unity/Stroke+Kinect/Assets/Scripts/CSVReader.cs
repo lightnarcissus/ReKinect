@@ -21,7 +21,7 @@ public class CSVReader : MonoBehaviour
     public string filePath = "";
     public void Start()
     {
-        CSVWrite();
+       // CSVWrite();
         string[,] grid = SplitCsvGrid(csvFile.text);
         Debug.Log("size = " + (1 + grid.GetUpperBound(0)) + "," + (1 + grid.GetUpperBound(1)));
 
@@ -85,15 +85,15 @@ public class CSVReader : MonoBehaviour
                 select m.Groups[1].Value).ToArray();
     }
 
-    public void CSVWrite()
+    public void CSVWrite(string name, string age, int focusSide)
     {
         var csv = new StringBuilder();
 
         //in your loop
-        var first = "Ansh";
-        var second = "Patel";
+      //  var first = "Ansh";
+       // var second = "Patel";
         //Suggestion made by KyleMit
-        var newLine = string.Format("{0},{1}", first, second);
+        var newLine = string.Format("{0},{1}. {2}", name, age, focusSide.ToString());
         csv.AppendLine(newLine);
 
         //after your loop
