@@ -18,13 +18,13 @@ public class ConductorManager : MonoBehaviour {
     void Start () {
         if (sceneManager != null)
         {
-            Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (sceneManager.GetComponent<SceneManager>().focusSide == 1)
+          //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            if (SceneManager.focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 focusText.text = "Focus Side: \n Left Arm";
             }
-            if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
+            if (SceneManager.focusSide == 2)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 focusText.text = "Focus Side: \n Right Arm";

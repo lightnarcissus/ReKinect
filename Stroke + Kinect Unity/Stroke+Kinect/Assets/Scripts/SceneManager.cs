@@ -7,7 +7,7 @@ public class SceneManager : MonoBehaviour {
     public GameObject kinectPrefab;
     public GameObject kinectManager;
     public static bool created = false;
-    public int focusSide = 0; //1 for left and 2 for right
+    public static int focusSide = 0; //1 for left and 2 for right
 	// Use this for initialization
 	void Start () {
         if (!created)
@@ -47,12 +47,15 @@ public class SceneManager : MonoBehaviour {
         {
 
             case 1:
+                GameManager.activeApp = 1;
                 Application.LoadLevel("DrawingChallenge");
                 break;
             case 2:
+                GameManager.activeApp = 2;
                 Application.LoadLevel("CardMatching");
                 break;
             case 3:
+                GameManager.activeApp = 3;
                 Application.LoadLevel("ConductorMusic");
                 break;
         }

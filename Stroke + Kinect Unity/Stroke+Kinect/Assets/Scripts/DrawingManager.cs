@@ -26,7 +26,8 @@ public class DrawingManager : MonoBehaviour {
     public GameObject avatarController;
 
     public Text focusText;
-
+    public GameObject leftCanvas;
+    public GameObject rightCanvas;
 	// Use this for initialization
     void Awake()
     {
@@ -35,17 +36,21 @@ public class DrawingManager : MonoBehaviour {
 	void Start () { 
         if(sceneManager!=null)
         {
-            Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (sceneManager.GetComponent<SceneManager>().focusSide == 1)
+            //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            if (SceneManager.focusSide == 1)
             {
+                leftCanvas.SetActive(true);
+                rightCanvas.SetActive(false);
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 drawingDir = 1; // left hand should move counter-clockwise
                 focusText.text = "Focus Side: \n Left Arm";
                 scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
 
             }
-            if (sceneManager.GetComponent<SceneManager>().focusSide == 2)
+            if (SceneManager.focusSide == 2)
             {
+                leftCanvas.SetActive(false);
+                rightCanvas.SetActive(true);
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 drawingDir = 2; //right hand should move clockwise
                 focusText.text = "Focus Side: \n Right Arm";

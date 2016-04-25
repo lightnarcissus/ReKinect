@@ -12,10 +12,10 @@ public class PatientDataManager : MonoBehaviour {
     public CSVReader csvReader;
 
     public List<string>patients;
-    
+    public int focusSideValue = 0; //0 is left, 1 is right
 	// Use this for initialization
 	void Start () {
-	
+        DontDestroyOnLoad(gameObject);
 	}
 	
 	// Update is called once per frame
@@ -26,6 +26,8 @@ public class PatientDataManager : MonoBehaviour {
     public void SubmitDetails()
     {
         patients.Add(patientName.text);
+        SceneManager.focusSide = focusSide.value;
+        focusSideValue = focusSide.value;
         csvReader.CSVWrite(patientName.text,patientAge.text,focusSide.value); // 0 is Left, 1 is Right for focusSide.value 
         Application.LoadLevel(1);
     }

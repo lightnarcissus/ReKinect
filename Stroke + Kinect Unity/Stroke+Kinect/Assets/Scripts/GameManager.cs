@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public GUIText debugText;
     public Text confirmText;
     public Text chooseText;
+
+    public static int activeApp = 0; // 1 is drawing and so on
 	// Use this for initialization
 	void Start () {
 
@@ -97,7 +99,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.leftHandPos.y > intManager.rightHandPos.y)
         {
             focusSelected = true;
-            sceneManager.focusSide = 1;
+            SceneManager.focusSide = 1;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.rightHandPos.y > intManager.leftHandPos.y)
         {
             focusSelected = true;
-            sceneManager.focusSide = 2;
+            SceneManager.focusSide = 2;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 

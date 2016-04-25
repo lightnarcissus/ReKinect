@@ -9,7 +9,8 @@ public class CalibrationManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         balanceWarning.enabled = false;
-        balanceWarning2.enabled = false;
+        if (GameManager.activeApp != 1)
+            balanceWarning2.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -18,13 +19,15 @@ public class CalibrationManager : MonoBehaviour {
         {
             kinectManager.displayUserMap = true;
             balanceWarning.enabled = true;
+            if(GameManager.activeApp!=1)
             balanceWarning2.enabled = true;
         }
         else
         {
             kinectManager.displayUserMap = false;
             balanceWarning.enabled = false;
-            balanceWarning2.enabled = false;
+            if (GameManager.activeApp != 1)
+                balanceWarning2.enabled = false;
         }
 	
 	}
