@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public class CalibrationManager : MonoBehaviour {
     public AvatarController avatarController;
     public KinectManager kinectManager;
-    public Text balanceWarning;
-    public Text balanceWarning2;
+    public GameObject balanceWarning;
+    public GameObject balanceWarning2;
 	// Use this for initialization
 	void Start () {
-        balanceWarning.enabled = false;
+        balanceWarning.SetActive(false);
         if (GameManager.activeApp != 1)
-            balanceWarning2.enabled = false;
+            balanceWarning2.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -18,16 +18,16 @@ public class CalibrationManager : MonoBehaviour {
         if(avatarController.outOfBalance)
         {
             kinectManager.displayUserMap = true;
-            balanceWarning.enabled = true;
-            if(GameManager.activeApp!=1)
-            balanceWarning2.enabled = true;
+            balanceWarning.SetActive(true);
+            if (GameManager.activeApp!=1)
+            balanceWarning2.SetActive(true);
         }
         else
         {
             kinectManager.displayUserMap = false;
-            balanceWarning.enabled = false;
+            balanceWarning.SetActive(false);
             if (GameManager.activeApp != 1)
-                balanceWarning2.enabled = false;
+                balanceWarning2.SetActive(false);
         }
 	
 	}

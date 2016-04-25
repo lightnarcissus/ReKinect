@@ -93,7 +93,7 @@ public class CSVReader : MonoBehaviour
       //  var first = "Ansh";
        // var second = "Patel";
         //Suggestion made by KyleMit
-        var newLine = string.Format("{0},{1}. {2}", name, age, focusSide.ToString());
+        var newLine = string.Format("{0},{1},{2}", name, age, focusSide.ToString());
         csv.AppendLine(newLine);
 
         //after your loop

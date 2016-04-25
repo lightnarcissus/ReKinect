@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour {
        // Debug.Log("left" + intManager.leftHandPos.y);
         
       //  Debug.Log("right" + intManager.rightHandPos.y);
-        if (intManager.leftHandPos.y > intManager.rightHandPos.y && Mathf.Abs(intManager.leftHandPos.y) > 0.5f)
+      if(SceneManager.focusSide==0)
+        //if (intManager.leftHandPos.y > intManager.rightHandPos.y && Mathf.Abs(intManager.leftHandPos.y) > 0.5f)
         {
             avatarCont.activeJoint = 1;
             Debug.Log("left");
@@ -75,7 +76,8 @@ public class GameManager : MonoBehaviour {
             chooseText.gameObject.SetActive(false);
 
         }
-        else if(intManager.rightHandPos.y > intManager.leftHandPos.y && Mathf.Abs(intManager.rightHandPos.y) > 0.5f)
+        else if (SceneManager.focusSide==1)
+      //  else if(intManager.rightHandPos.y > intManager.leftHandPos.y && Mathf.Abs(intManager.rightHandPos.y) > 0.5f)
         {
             avatarCont.activeJoint=2;
             Debug.Log("right");
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.leftHandPos.y > intManager.rightHandPos.y)
         {
             focusSelected = true;
-            SceneManager.focusSide = 1;
+            SceneManager.focusSide = 0;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 
@@ -111,7 +113,7 @@ public class GameManager : MonoBehaviour {
         if (intManager.rightHandPos.y > intManager.leftHandPos.y)
         {
             focusSelected = true;
-            SceneManager.focusSide = 2;
+            SceneManager.focusSide = 1;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
         }
 

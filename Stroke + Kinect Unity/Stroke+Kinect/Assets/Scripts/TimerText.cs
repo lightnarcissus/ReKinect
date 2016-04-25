@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class TimerText : MonoBehaviour {
 
     public float timer = 0f;
-    public Text timerText;
+    public Text timerTextLeft;
+    public Text timerTextRight;
 	// Use this for initialization
 	void Start () {
 	
@@ -14,7 +15,8 @@ public class TimerText : MonoBehaviour {
 	void Update () {
 
         timer += Time.deltaTime;
-        timerText.text =timer.ToString("F2");
+        timerTextLeft.text =timer.ToString("F2");
+        timerTextRight.text= timer.ToString("F2");
     }
 
     public void ResetTimer()

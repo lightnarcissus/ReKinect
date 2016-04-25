@@ -14,7 +14,6 @@ public class DrawingManager : MonoBehaviour {
     public int scoreTarget = 15;
     public TimerText timerManager;
     public GameObject scoreManager;
-    public Text scoreText;
     public int drawingDir = 0; // 1 is counter-clockwise for left  and 2 is clockwise for right
     //indestructible common object
     public GameObject sceneManager;
@@ -22,10 +21,7 @@ public class DrawingManager : MonoBehaviour {
     //important object references to be given to avatar controller
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
-    public GameObject scoreBox;
     public GameObject avatarController;
-
-    public Text focusText;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
 	// Use this for initialization
@@ -37,30 +33,30 @@ public class DrawingManager : MonoBehaviour {
         if(sceneManager!=null)
         {
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (SceneManager.focusSide == 1)
+            if (SceneManager.focusSide == 0)
             {
                 leftCanvas.SetActive(true);
                 rightCanvas.SetActive(false);
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 drawingDir = 1; // left hand should move counter-clockwise
-                focusText.text = "Focus Side: \n Left Arm";
-                scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+               // focusText.text = "Focus Side: \n Left Arm";
+            //    scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
 
             }
-            if (SceneManager.focusSide == 2)
+            if (SceneManager.focusSide == 1)
             {
                 leftCanvas.SetActive(false);
                 rightCanvas.SetActive(true);
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 drawingDir = 2; //right hand should move clockwise
-                focusText.text = "Focus Side: \n Right Arm";
-                scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
+              //  focusText.text = "Focus Side: \n Right Arm";
+              //  scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
             }
             else
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
-                focusText.text = "Focus Side: \n Left Arm";
-                scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+               // focusText.text = "Focus Side: \n Left Arm";
+             //   scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
             }
 
                 sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
@@ -79,8 +75,38 @@ public class DrawingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (sceneManager != null)
+        {
+            //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            if (SceneManager.focusSide == 0)
+            {
+                leftCanvas.SetActive(true);
+                rightCanvas.SetActive(false);
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                drawingDir = 1; // left hand should move counter-clockwise
+                                // focusText.text = "Focus Side: \n Left Arm";
+                                //    scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+
+            }
+            if (SceneManager.focusSide == 1)
+            {
+                leftCanvas.SetActive(false);
+                rightCanvas.SetActive(true);
+                avatarController.GetComponent<AvatarController>().activeJoint = 2;
+                drawingDir = 2; //right hand should move clockwise
+                                //  focusText.text = "Focus Side: \n Right Arm";
+                                //  scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
+            }
+            else
+            {
+                avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                // focusText.text = "Focus Side: \n Left Arm";
+                //   scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+            }
+
+         //   sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+        }
+    }
 
     public void AssignNextTarget(int hitTarget)
     {

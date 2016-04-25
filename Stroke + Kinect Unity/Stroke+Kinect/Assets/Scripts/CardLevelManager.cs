@@ -10,6 +10,8 @@ public class CardLevelManager : MonoBehaviour {
 
     public GameObject prompt1;
 
+    public GameObject leftCanvas;
+    public GameObject rightCanvas;
     GameObject instMatching, instSorting;
 
     int timer;
@@ -28,6 +30,17 @@ public class CardLevelManager : MonoBehaviour {
 
         instMatching.SetActive(true);
         instSorting.SetActive(false);
+
+        if(SceneManager.focusSide==1)
+        {
+            leftCanvas.SetActive(true);
+            rightCanvas.SetActive(false);
+        }
+        else
+        {
+            leftCanvas.SetActive(false);
+            rightCanvas.SetActive(true);
+        }
     }
 	
 	void Update () {
