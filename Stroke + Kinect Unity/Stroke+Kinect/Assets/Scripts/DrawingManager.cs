@@ -22,6 +22,8 @@ public class DrawingManager : MonoBehaviour {
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
     public GameObject avatarController;
+    public GameObject leftHouse;
+    public GameObject rightHouse;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
 	// Use this for initialization
@@ -36,6 +38,8 @@ public class DrawingManager : MonoBehaviour {
             if (SceneManager.focusSide == 0)
             {
                 leftCanvas.SetActive(true);
+                leftHouse.SetActive(true);
+                rightHouse.SetActive(false);
                 rightCanvas.SetActive(false);
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 drawingDir = 1; // left hand should move counter-clockwise
@@ -46,6 +50,8 @@ public class DrawingManager : MonoBehaviour {
             if (SceneManager.focusSide == 1)
             {
                 leftCanvas.SetActive(false);
+                leftHouse.SetActive(false);
+                rightHouse.SetActive(true);
                 rightCanvas.SetActive(true);
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 drawingDir = 2; //right hand should move clockwise
