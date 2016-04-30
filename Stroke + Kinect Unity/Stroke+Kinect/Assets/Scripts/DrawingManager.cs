@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class DrawingManager : MonoBehaviour {
 
     public List<GameObject> targets;
+    public List<GameObject> indicatorTargets;
     public int currentLevel;
     public int directionID = 0; // 0 is clockwise, 1 is anti-clockwise
     public int lastTarget = 0;
@@ -26,6 +27,7 @@ public class DrawingManager : MonoBehaviour {
     public GameObject rightHouse;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
+    public bool correct = false;
 	// Use this for initialization
     void Awake()
     {
@@ -146,14 +148,17 @@ public class DrawingManager : MonoBehaviour {
         int tempInt = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
         if (hitTarget!=nextTarget)
         {
-            
-
             if (tempInt>0)
-                scoreManager.GetComponent<ScoreManager>().DecrementScore() ;
+                scoreManager.GetComponent<ScoreManager>().DecrementScore();
+            correct = false;
+           // StartCoroutine("FalseTarget")
+
         }
         else
         {
+            correct = true;
             scoreManager.GetComponent<ScoreManager>().IncrementScore();
+         //   StartCoroutine("CorrectTarget");
         }
 
         if(tempInt>scoreTarget)
@@ -167,6 +172,7 @@ public class DrawingManager : MonoBehaviour {
     void SetLevel(int activatedLevel)
     {
         targets[currentLevel].SetActive(false);
+     //   indicatorTargets[currentLevel].SetActive(false);
         //increment and then enable
         currentLevel=activatedLevel;
         targets[activatedLevel].SetActive(true);

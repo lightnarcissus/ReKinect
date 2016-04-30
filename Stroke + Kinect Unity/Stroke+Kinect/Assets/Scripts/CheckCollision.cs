@@ -6,9 +6,11 @@ public class CheckCollision : MonoBehaviour {
     public int targetID = 0;
     public GameObject drawingManager;
     private bool changed = false;
+    public GameObject indicatorSprite;
 	// Use this for initialization
 	void Start () {
-	
+
+        indicatorSprite.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -18,7 +20,8 @@ public class CheckCollision : MonoBehaviour {
 
     public void TargetCollision()
     {
-        GetComponent<SpriteRenderer>().color = Color.green;
+        //  GetComponent<SpriteRenderer>().color = Color.green;
+        StartCoroutine("IndicatorTarget");
         if (changed)
             changed = false;
         changed = true;
@@ -26,6 +29,20 @@ public class CheckCollision : MonoBehaviour {
         StartCoroutine("ChangeBack");
        // Debug.Log("collision");
     }
+
+    IEnumerator IndicatorTarget()
+    {
+        indicatorSprite.SetActive(true);
+        if (drawingManager.GetComponent<DrawingManager>().correct)
+            indicatorSprite.GetComponent<SpriteRenderer>().color = Color.green;
+        else
+            indicatorSprite.GetComponent<SpriteRenderer>().color = Color.red;
+
+        yield return new WaitForSeconds(1f);
+        indicatorSprite.SetActive(false);
+        yield return null;
+    }
+
 
     IEnumerator ChangeBack()
     {
