@@ -52,9 +52,15 @@ public class AvatarController : MonoBehaviour
     KinectInterop.JointType spineMidJoint = KinectInterop.JointType.SpineMid;
     KinectInterop.JointType spineShoulderJoint = KinectInterop.JointType.SpineShoulder;
 
+    public KinectInterop.JointType shoulderLeft = KinectInterop.JointType.ShoulderLeft;
+    public KinectInterop.JointType shoulderRight = KinectInterop.JointType.ShoulderRight;
+
     private Vector3 spineMidPos;
     private Vector3 spineShoulderPos;
     public Vector3 balancePos;
+
+    public Vector3 shoulderLeftPos;
+    public Vector3 shoulderRightPos;
 
     
     //whether user is out of balance or not
@@ -242,6 +248,9 @@ public class AvatarController : MonoBehaviour
 				rightElbowPos = kinectManager.GetJointPosition(UserID, (int)tuningJoint);
                 spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
                 spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
+
+                shoulderLeftPos= kinectManager.GetJointPosition(UserID, (int)shoulderLeft);
+                shoulderRightPos = kinectManager.GetJointPosition(UserID, (int)shoulderRight);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
                 //focusing only on spine mid right now

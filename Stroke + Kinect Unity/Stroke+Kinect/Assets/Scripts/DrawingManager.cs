@@ -28,6 +28,9 @@ public class DrawingManager : MonoBehaviour {
     public GameObject leftCanvas;
     public GameObject rightCanvas;
     public bool correct = false;
+
+    public GameObject gradePanel;
+
 	// Use this for initialization
     void Awake()
     {
@@ -194,6 +197,7 @@ public class DrawingManager : MonoBehaviour {
         scoreManager.GetComponent<ScoreManager>().ResetScore();
         if(currentLevel>=4)
         {
+            StartCoroutine("ShowGrading");
             currentLevel = 0;
         }
     }
@@ -203,6 +207,14 @@ public class DrawingManager : MonoBehaviour {
         SetLevel(0);
         timerManager.ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
+    }
+
+    IEnumerator ShowGrading()
+    {
+        leftCanvas.SetActive(false);
+        rightCanvas.SetActive(false);
+        gradePanel.SetActive(true);
+        yield return null;
     }
     
 }
