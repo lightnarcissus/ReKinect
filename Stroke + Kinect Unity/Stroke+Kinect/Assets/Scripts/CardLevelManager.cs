@@ -24,23 +24,6 @@ public class CardLevelManager : MonoBehaviour {
             cardCollections[i].SetActive(false);
         }
         cardCollections[0].SetActive(true);
-
-        instMatching = GameObject.Find("Inst_CardMatching");
-        instSorting = GameObject.Find("Inst_CardSorting");
-
-        instMatching.SetActive(true);
-        instSorting.SetActive(false);
-
-        if(SceneManager.focusSide==1)
-        {
-            leftCanvas.SetActive(true);
-            rightCanvas.SetActive(false);
-        }
-        else
-        {
-            leftCanvas.SetActive(false);
-            rightCanvas.SetActive(true);
-        }
     }
 	
 	void Update () {

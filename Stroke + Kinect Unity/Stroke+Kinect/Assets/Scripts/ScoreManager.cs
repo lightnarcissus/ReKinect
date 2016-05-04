@@ -91,7 +91,14 @@ public class ScoreManager : MonoBehaviour {
         accuracy.text = accuracyVal.ToString("F2");
 
         finalScore = ((timerManager.GetComponent<TimerText>().timer / 2f) * accuracyVal) - (malpositionManager.GetComponent<MalpositionManager>().malpositionVal * 2f);
-      //  if(final)
+        if(finalScore >=80)
+        {
+            finalGrade.text = "A";
+        }
+        else
+        {
+            finalGrade.text = "B";
+        }
         Debug.Log("Final Score is: " + finalScore);
 
     }

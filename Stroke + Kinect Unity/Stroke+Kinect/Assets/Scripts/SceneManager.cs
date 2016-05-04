@@ -7,6 +7,7 @@ public class SceneManager : MonoBehaviour {
     public GameObject kinectPrefab;
     public GameObject kinectManager;
     public static bool created = false;
+    public static int currentApp = 0;
     public static int focusSide = 0; //1 for left and 2 for right
 	// Use this for initialization
 	void Start () {
@@ -28,16 +29,19 @@ public class SceneManager : MonoBehaviour {
         {
             //   Destroy(kinectManager);
             ActivateApp(1);
+            currentApp = 1;
             //Application.LoadLevel("MainMenu");
           //  Destroy(gameObject);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
             ActivateApp(2);
+            currentApp = 2;
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             ActivateApp(3);
+            currentApp = 3;
         }
 	}
 
