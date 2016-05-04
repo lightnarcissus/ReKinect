@@ -29,6 +29,7 @@ public class SceneManager : MonoBehaviour {
         {
             //   Destroy(kinectManager);
             ActivateApp(1);
+         //   GameManager.activeApp = 1;
             currentApp = 1;
             //Application.LoadLevel("MainMenu");
           //  Destroy(gameObject);

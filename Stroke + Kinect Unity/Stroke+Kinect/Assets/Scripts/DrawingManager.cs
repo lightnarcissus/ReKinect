@@ -12,7 +12,7 @@ public class DrawingManager : MonoBehaviour {
     public List<int> levelLimit; //total targets -1
 	private int currentLevelLimit=0;
     public int nextTarget = 0;
-    public int scoreTarget = 15;
+    private List<int> scoreTarget;
     public TimerText timerManager;
     public GameObject scoreManager;
     public int drawingDir = 0; // 1 is counter-clockwise for left  and 2 is clockwise for right
@@ -82,7 +82,7 @@ public class DrawingManager : MonoBehaviour {
                 targets[i].SetActive(false);
         }
 		currentLevelLimit = levelLimit [currentLevel];
-
+       scoreTarget=scoreManager.GetComponent<ScoreManager>().scoreTarget;
 	
 	}
 	
@@ -172,7 +172,7 @@ public class DrawingManager : MonoBehaviour {
          //   StartCoroutine("CorrectTarget");
         }
 
-        if(tempInt>scoreTarget)
+        if(tempInt>scoreTarget[currentLevel])
         {
             UpdateLevel();
         }
@@ -195,7 +195,7 @@ public class DrawingManager : MonoBehaviour {
     {
 
         //first disable the current targets
-        
+        scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
             targets[currentLevel].SetActive(false);
 
             //increment and then enable

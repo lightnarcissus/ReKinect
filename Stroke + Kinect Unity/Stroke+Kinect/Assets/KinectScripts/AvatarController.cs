@@ -261,6 +261,20 @@ public class AvatarController : MonoBehaviour
                 handRightPos= kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
+                if(SceneManager.currentApp==3)
+                {
+                    if(activeJoint==1)
+                    {
+                        targetJoint = KinectInterop.JointType.HandLeft;
+                        tuningJoint = KinectInterop.JointType.HandRight;
+                    }
+                    else
+                    {
+                        targetJoint = KinectInterop.JointType.HandRight;
+                        tuningJoint = KinectInterop.JointType.HandLeft;
+                    }
+                }
+
                 //focusing only on spine mid right now
                 balancePos =spineMidPos - spineShoulderPos;
                // Debug.Log(balancePos);

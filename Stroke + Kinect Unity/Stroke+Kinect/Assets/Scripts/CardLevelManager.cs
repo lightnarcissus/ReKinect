@@ -44,7 +44,7 @@ public class CardLevelManager : MonoBehaviour {
 
     public void NextLevel() {
         timer++;
-        Debug.Log(timer);
+    //    Debug.Log(timer);
 
         prompt1.SetActive(true);
         if (timer > 60) {

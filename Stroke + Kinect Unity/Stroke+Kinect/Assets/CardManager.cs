@@ -17,6 +17,7 @@ public class CardManager : MonoBehaviour {
     public int[] levelTarget;
     public GameObject[] cardCollections;
 
+    GameObject instMatching, instSorting;
     public GameObject prompt1;
     int timer;
 
@@ -66,6 +67,48 @@ public class CardManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	
-	}
+        if (correctMatches >= levelTarget[currentLevel])
+        {
+            NextLevel();
+        }
+    }
+
+    public void CorrectMatch()
+    {
+        correctMatches++;
+    }
+
+
+    public void NextLevel()
+    {
+        timer++;
+        //    Debug.Log(timer);
+
+        prompt1.SetActive(true);
+        if (timer > 60)
+        {
+            currentLevel++;
+            cardCollections[currentLevel - 1].SetActive(false);
+
+            if (currentLevel > 3) currentLevel = 0;
+            cardCollections[currentLevel].SetActive(true);
+
+            correctMatches = 0;
+
+            timer = 0;
+            prompt1.SetActive(false);
+
+            if (currentLevel == 3)
+            {
+                instMatching.SetActive(false);
+                instSorting.SetActive(true);
+            }
+            else
+            {
+                instMatching.SetActive(true);
+                instSorting.SetActive(false);
+            }
+        }
+
+    }
 }

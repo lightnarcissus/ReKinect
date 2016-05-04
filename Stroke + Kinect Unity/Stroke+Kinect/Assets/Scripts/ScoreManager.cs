@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour {
 
@@ -23,8 +24,10 @@ public class ScoreManager : MonoBehaviour {
     public GameObject malpositionManager;
 
     public float accuracyVal = 0f;
-
     private float finalScore = 0f;
+
+    private int currentLevel = 0;
+    public List<int> scoreTarget;
 
     // Use this for initialization
     void Start () {
@@ -44,11 +47,16 @@ public class ScoreManager : MonoBehaviour {
         {
             StartCoroutine("ChangeSides");
         }
-       // Debug.Log("Focus side is" + SceneManager.focusSide);
-        if(SceneManager.focusSide==0)
-        scoreTextLeft.text = score.ToString() + " /17";
+        // Debug.Log("Focus side is" + SceneManager.focusSide);
+        if (SceneManager.focusSide == 0)
+            scoreTextLeft.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
         else
-            scoreTextRight.text = score.ToString() + " /17";
+            scoreTextRight.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
+    }
+
+    public void IncreaseLevel()
+    {
+        currentLevel++;
     }
 
     public void IncrementScore()
