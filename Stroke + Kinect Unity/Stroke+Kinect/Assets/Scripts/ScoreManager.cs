@@ -7,11 +7,35 @@ public class ScoreManager : MonoBehaviour {
     public Text scoreTextLeft;
     public Text scoreTextRight;
 
+    //grade panel
+    public Text timerText;
+    public Text malpositionVal;
+    public Text accuracy;
+    public Text finalGrade;
+
     public Text changeText;
-	// Use this for initialization
-	void Start () {
-	
-	}
+
+    public GameObject leftCanvas;
+    public GameObject rightCanvas;
+
+    public GameObject gradePanel;
+    public GameObject timerManager;
+    public GameObject malpositionManager;
+
+    public float accuracyVal = 0f;
+
+    private float finalScore = 0f;
+
+    // Use this for initialization
+    void Start () {
+
+        gradePanel.SetActive(false);
+        timerText.enabled = false;
+        malpositionVal.enabled = false;
+        accuracy.enabled = false;
+        finalGrade.enabled = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,6 +66,11 @@ public class ScoreManager : MonoBehaviour {
         score = 0;
     }
 
+    public void ShowGrading()
+    {
+        StartCoroutine("ShowGradePanel");
+    }
+
     IEnumerator ChangeSides()
     {
 
@@ -52,6 +81,41 @@ public class ScoreManager : MonoBehaviour {
             SceneManager.focusSide = 0;
         else
             SceneManager.focusSide = 1;
+        yield return null;
+    }
+
+    void UpdateGradePanel()
+    {
+        timerText.text = timerManager.GetComponent<TimerText>().timer.ToString("F2");
+        malpositionVal.text = malpositionManager.GetComponent<MalpositionManager>().malpositionVal.ToString();
+        accuracy.text = accuracyVal.ToString("F2");
+
+        finalScore = ((timerManager.GetComponent<TimerText>().timer / 2f) * accuracyVal) - (malpositionManager.GetComponent<MalpositionManager>().malpositionVal * 2f);
+      //  if(final)
+        Debug.Log("Final Score is: " + finalScore);
+
+    }
+
+    IEnumerator ShowGradePanel()
+    {
+        leftCanvas.SetActive(false);
+        rightCanvas.SetActive(false);
+        gradePanel.SetActive(true);
+        UpdateGradePanel();
+        yield return new WaitForSeconds(1f);
+        timerText.enabled = true;
+        yield return new WaitForSeconds(1f);
+        malpositionVal.enabled = true;
+        yield return new WaitForSeconds(1f);
+        accuracy.enabled = true;
+        yield return new WaitForSeconds(1f);
+        finalGrade.enabled = true;
+        yield return new WaitForSeconds(1f);
+        while(!Input.GetKeyDown(KeyCode.Return))
+        {
+            yield return 0;
+        }
+        Application.LoadLevel("MainMenu");
         yield return null;
     }
 

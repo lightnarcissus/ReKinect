@@ -29,6 +29,8 @@ public class DrawingManager : MonoBehaviour {
     public GameObject rightCanvas;
     public bool correct = false;
 
+    public int totalAttempts = 0;
+
     public GameObject gradePanel;
 
 	// Use this for initialization
@@ -86,6 +88,11 @@ public class DrawingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdateLevel();
+        }
         if (sceneManager != null)
         {
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
@@ -149,6 +156,7 @@ public class DrawingManager : MonoBehaviour {
     void CheckTargetIsCorrect(int hitTarget)
     {
         int tempInt = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+        totalAttempts++;
         if (hitTarget!=nextTarget)
         {
             if (tempInt>0)
@@ -187,34 +195,42 @@ public class DrawingManager : MonoBehaviour {
     {
 
         //first disable the current targets
+        
+            targets[currentLevel].SetActive(false);
 
-        targets[currentLevel].SetActive(false);
-        //increment and then enable
-        currentLevel++;
-        targets[currentLevel].SetActive(true);
+            //increment and then enable
+            currentLevel++;
+        if (currentLevel <= 3)
+        {
+            Debug.Log("NOW ON LEVEL " + currentLevel);
+            targets[currentLevel].SetActive(true);
 
-		currentLevelLimit=levelLimit [currentLevel];
+            currentLevelLimit = levelLimit[currentLevel];
+        }
+
         scoreManager.GetComponent<ScoreManager>().ResetScore();
         if(currentLevel>=4)
         {
-            StartCoroutine("ShowGrading");
+            Debug.Log("should be showing grading"); 
+            scoreManager.GetComponent<ScoreManager>().ShowGrading();
+            scoreManager.GetComponent<ScoreManager>().accuracyVal = (float) 68f/totalAttempts;
             currentLevel = 0;
         }
+    }
+
+    public void MainMenu()
+    {
+        Application.LoadLevel("MainMenu");
     }
 
     public void RestartLevel()
     {
         SetLevel(0);
+        totalAttempts = 0;
         timerManager.ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
     }
 
-    IEnumerator ShowGrading()
-    {
-        leftCanvas.SetActive(false);
-        rightCanvas.SetActive(false);
-        gradePanel.SetActive(true);
-        yield return null;
-    }
+    
     
 }

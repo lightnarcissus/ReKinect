@@ -24,10 +24,12 @@ public class RaycastObj : MonoBehaviour {
       
         if (whichLevel==1)
         {
+            
             if (Physics.Linecast(transform.position,mainCam.transform.position, out hit))
             {
                 if (hit.collider.gameObject.tag == "Target")
                 {
+                    if(manager.GetComponent<DrawingManager>().currentLevel<4)
                     hit.collider.gameObject.GetComponent<CheckCollision>().TargetCollision();
                  //   Debug.Log("blocked by" + hit.collider.gameObject.name);
                 }
