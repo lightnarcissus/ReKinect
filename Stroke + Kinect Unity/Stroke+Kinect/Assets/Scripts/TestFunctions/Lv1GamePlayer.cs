@@ -109,6 +109,7 @@ public class Lv1GamePlayer : MonoBehaviour {
                 stayCounter++;
 
                 //Debug.Log(LvManager.correctMatches);
+                Debug.Log("WhichCard " + whichCard);
                 if (Lv1.Cards[whichCard] == null)
                 {
                     Debug.Log("NOOOOOOOOOOO0000OOOOOOOOO");

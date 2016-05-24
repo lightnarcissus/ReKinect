@@ -9,7 +9,7 @@ public class CalibrationManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         balanceWarning.SetActive(false);
-        if (GameManager.activeApp != 1)
+        if (GameManager.activeApp == 3)
             balanceWarning2.SetActive(false);
     }
 	
@@ -19,14 +19,14 @@ public class CalibrationManager : MonoBehaviour {
         {
             kinectManager.displayUserMap = true;
             balanceWarning.SetActive(true);
-            if (GameManager.activeApp!=1)
+            if (GameManager.activeApp==3)
             balanceWarning2.SetActive(true);
         }
         else
         {
             kinectManager.displayUserMap = false;
             balanceWarning.SetActive(false);
-            if (GameManager.activeApp != 1)
+            if (GameManager.activeApp == 3)
                 balanceWarning2.SetActive(false);
         }
 	

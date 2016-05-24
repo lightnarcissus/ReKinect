@@ -31,7 +31,7 @@ public class Level3Manager : MonoBehaviour
         
         Shuffle();
 
-        timerManager.GetComponent<TimerText>().ResetTimer();
+        //timerManager.GetComponent<TimerText>().ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
 
         for (int i = 0; i < Cards.Count; i++){

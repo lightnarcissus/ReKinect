@@ -12,7 +12,7 @@ public class CardScript : MonoBehaviour {
 //    public Text scoreText;
 
     void Start () {
-        levelManager = GameObject.Find("LevelManager");
+        levelManager = GameObject.Find("CardManager");
         scoreManager = GameObject.Find("ScoreManager");
     }
 	
@@ -34,10 +34,10 @@ public class CardScript : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log(col.gameObject.GetInstanceID());
-
+        Debug.Log("COL " + col.gameObject.name + "AND MINE " + gameObject.name);
         if (col.gameObject.name == gameObject.name)
         {
-            levelManager.GetComponent<CardLevelManager>().CorrectMatch();
+            levelManager.GetComponent<CardManager>().CorrectMatch();
             Destroy(col.gameObject);
             Destroy(gameObject);
         }

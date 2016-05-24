@@ -18,6 +18,7 @@ public class CardManager : MonoBehaviour {
     public GameObject[] cardCollections;
 
     GameObject instMatching, instSorting;
+    public GameObject instructionPanel;
     public GameObject prompt1;
     int timer;
 
@@ -29,6 +30,7 @@ public class CardManager : MonoBehaviour {
     {
         if (sceneManager != null)
         {
+            StartCoroutine("ShowInstructions");
             //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
             if (SceneManager.focusSide == 1)
             {
@@ -67,6 +69,7 @@ public class CardManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        Debug.Log("Correct Matches " + correctMatches);
         if (correctMatches >= levelTarget[currentLevel])
         {
             NextLevel();
@@ -75,29 +78,34 @@ public class CardManager : MonoBehaviour {
 
     public void CorrectMatch()
     {
+        scoreManager.GetComponent<ScoreManager>().IncrementScore();
         correctMatches++;
     }
 
 
     public void NextLevel()
     {
-        timer++;
+       // timer++;
         //    Debug.Log(timer);
 
         prompt1.SetActive(true);
-        if (timer > 60)
-        {
+      //  if (timer > 60)
+       // {
+            Debug.Log("NEXTLEVEL");
             currentLevel++;
             cardCollections[currentLevel - 1].SetActive(false);
 
-            if (currentLevel > 3) currentLevel = 0;
+        if (currentLevel > 3)
+        {
+            scoreManager.GetComponent<ScoreManager>().ShowGrading();
+        }
             cardCollections[currentLevel].SetActive(true);
 
             correctMatches = 0;
 
             timer = 0;
             prompt1.SetActive(false);
-
+        /*
             if (currentLevel == 3)
             {
                 instMatching.SetActive(false);
@@ -108,7 +116,16 @@ public class CardManager : MonoBehaviour {
                 instMatching.SetActive(true);
                 instSorting.SetActive(false);
             }
-        }
+            */
+    //     }
 
+    }
+
+    IEnumerator ShowInstructions()
+    {
+        instructionPanel.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        instructionPanel.SetActive(false);
+       yield return null;
     }
 }

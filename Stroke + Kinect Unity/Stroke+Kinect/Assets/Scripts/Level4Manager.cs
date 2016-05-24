@@ -22,7 +22,7 @@ public class Level4Manager : MonoBehaviour
         InitSlots();
         Shuffle();
 
-        timerManager.GetComponent<TimerText> ().ResetTimer();
+      //  timerManager.GetComponent<TimerText> ().ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
 
         for (int i = 0; i < Cards.Length; i++)

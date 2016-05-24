@@ -33,6 +33,9 @@ public class DrawingManager : MonoBehaviour {
 
     public GameObject gradePanel;
 
+    public GameObject leftInstructionPanel;
+    public GameObject rightInstructionPanel;
+
 	// Use this for initialization
     void Awake()
     {
@@ -41,6 +44,7 @@ public class DrawingManager : MonoBehaviour {
 	void Start () { 
         if(sceneManager!=null)
         {
+            StartCoroutine("ShowInstructions");
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
             if (SceneManager.focusSide == 0)
             {
@@ -216,6 +220,26 @@ public class DrawingManager : MonoBehaviour {
             scoreManager.GetComponent<ScoreManager>().accuracyVal = (float) 68f/totalAttempts;
             currentLevel = 0;
         }
+    }
+
+    IEnumerator ShowInstructions()
+    {
+        if(SceneManager.focusSide==0)
+        {
+            leftInstructionPanel.SetActive(true);
+            rightInstructionPanel.SetActive(false);
+            yield return new WaitForSeconds(5f);
+            leftInstructionPanel.SetActive(false);
+        }
+        else
+        {
+            rightInstructionPanel.SetActive(true);
+            leftInstructionPanel.SetActive(false);
+            yield return new WaitForSeconds(5f);
+            rightInstructionPanel.SetActive(false);
+        }
+        
+        yield return null;
     }
 
     public void MainMenu()

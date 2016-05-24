@@ -15,7 +15,7 @@ public class PointerCollide : MonoBehaviour {
 	void Start () {
 
         string temp = gameObject.name;
-        Debug.Log(temp.Substring(2));
+      //  Debug.Log(temp.Substring(2));
         bgNum=int.Parse(temp.Substring(2));
         orcSeg = gameObject.GetComponent<OrchestraSegment> ();
 	

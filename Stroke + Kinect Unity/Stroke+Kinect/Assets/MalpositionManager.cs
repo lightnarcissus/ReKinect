@@ -27,7 +27,7 @@ public class MalpositionManager : MonoBehaviour {
 
         if (GameManager.activeApp== 1)
             avatarController = drawingManager.GetComponent<DrawingManager>().avatarController.GetComponent<AvatarController>();
-        else if (SceneManager.currentApp == 2)
+        else if (GameManager.activeApp== 2)
             avatarController = drawingManager.GetComponent<CardManager>().avatarController.GetComponent<AvatarController>();
         else if (GameManager.activeApp == 3)
             avatarController = drawingManager.GetComponent<ConductorManager>().avatarController.GetComponent<AvatarController>();
@@ -103,7 +103,7 @@ public class MalpositionManager : MonoBehaviour {
         //   debug2.text = Vector3.Angle(avatarController.handRightPos, avatarController.shoulderRightPos).ToString();
         if (SceneManager.focusSide == 0)
         {
-            if (Vector3.Angle(avatarController.handLeftPos, avatarController.shoulderLeftPos) < 6f)
+            if (Vector3.Angle(avatarController.handLeftPos, avatarController.shoulderLeftPos) < 4f)
             {
                 avatarController.outOfBalance = true;
                 leftContractionWarning.SetActive(true);
@@ -128,7 +128,7 @@ public class MalpositionManager : MonoBehaviour {
         }
         else if (SceneManager.focusSide == 1)
         {
-            if (Vector3.Angle(avatarController.handRightPos, avatarController.shoulderRightPos) < 6f)
+            if (Vector3.Angle(avatarController.handRightPos, avatarController.shoulderRightPos) < 4f)
             {
                 avatarController.outOfBalance = true;
                 rightContractionWarning.SetActive(true);
