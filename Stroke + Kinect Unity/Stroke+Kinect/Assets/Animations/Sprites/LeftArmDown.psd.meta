@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: 3de97ec170e784a4f83a847e28faac40
-timeCreated: 1462379743
+timeCreated: 1464370290
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: LeftArmDown_0
     21300002: LeftArmDown_1
+    21300004: LeftArmDown_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -91,6 +92,24 @@ TextureImporter:
         - {x: 37.5, y: -197.5}
         - {x: 61.5, y: -136.5}
         - {x: 8.5, y: -49.5}
+    - name: LeftArmDown_2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 747
+        width: 64
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24, y: 29.5}
+        - {x: -32, y: 29.5}
+        - {x: -32, y: -45.5}
+        - {x: -29, y: -45.5}
+        - {x: 32, y: 19.5}
+        - {x: 32, y: 24.5}
+        - {x: 11, y: 27.5}
     outline: []
   spritePackingTag: 
   userData: 

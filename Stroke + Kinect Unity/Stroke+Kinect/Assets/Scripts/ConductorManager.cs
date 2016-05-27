@@ -11,6 +11,7 @@ public class ConductorManager : MonoBehaviour {
 
     public GameObject leftCanvas;
     public GameObject rightCanvas;
+    public GameObject instructionPanel;
     // Use this for initialization
 
     void Awake()
@@ -20,7 +21,8 @@ public class ConductorManager : MonoBehaviour {
     void Start () {
         if (sceneManager != null)
         {
-          //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
+            StartCoroutine("ShowInstructions");
+            //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
             if (SceneManager.focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
@@ -83,5 +85,12 @@ public class ConductorManager : MonoBehaviour {
     {
         timerManager.ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
+    }
+    IEnumerator ShowInstructions()
+    {
+        instructionPanel.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        instructionPanel.SetActive(false);
+        yield return null;
     }
 }
