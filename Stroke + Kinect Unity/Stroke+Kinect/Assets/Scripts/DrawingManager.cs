@@ -31,6 +31,9 @@ public class DrawingManager : MonoBehaviour {
 
     public int totalAttempts = 0;
 
+    public GameObject leftTrace;
+    public GameObject rightTrace;
+
     public GameObject gradePanel;
 
     public GameObject leftInstructionPanel;
@@ -45,6 +48,8 @@ public class DrawingManager : MonoBehaviour {
         if(sceneManager!=null)
         {
             StartCoroutine("ShowInstructions");
+            leftTrace.SetActive(false);
+            rightTrace.SetActive(false);
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
             if (SceneManager.focusSide == 0)
             {
@@ -102,6 +107,11 @@ public class DrawingManager : MonoBehaviour {
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
             if (SceneManager.focusSide == 0)
             {
+                if (currentLevel == 3)
+                {
+                    leftTrace.SetActive(true);
+                    rightTrace.SetActive(false);
+                }
                 leftCanvas.SetActive(true);
                 rightCanvas.SetActive(false);
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
@@ -112,6 +122,11 @@ public class DrawingManager : MonoBehaviour {
             }
             if (SceneManager.focusSide == 1)
             {
+                if (currentLevel == 3)
+                {
+                    leftTrace.SetActive(false);
+                    rightTrace.SetActive(true);
+                }
                 leftCanvas.SetActive(false);
                 rightCanvas.SetActive(true);
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
@@ -211,6 +226,8 @@ public class DrawingManager : MonoBehaviour {
 
             currentLevelLimit = levelLimit[currentLevel];
         }
+
+       
 
         scoreManager.GetComponent<ScoreManager>().ResetScore();
         if(currentLevel>=4)
