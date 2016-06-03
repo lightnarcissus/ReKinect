@@ -18,6 +18,10 @@ public class MalpositionManager : MonoBehaviour {
 
     public GameObject contractionText;
     public GameObject straightenText;
+
+    public GameObject balanceWarning;
+    public GameObject balanceText;
+
     public Text debug1;
     public Text debug2;
 	// Use this for initialization
@@ -60,10 +64,20 @@ public class MalpositionManager : MonoBehaviour {
         //  debug1.text = "LEFT: " + avatarController.shoulderLeftPos.y.ToString();
         //  debug2.text = "RIGHT: " + avatarController.shoulderRightPos.y.ToString();
         //shoulder shrug
+        if (avatarController.outOfBalance)
+        {
+            balanceWarning.SetActive(true);
+            balanceText.SetActive(true);
+        }
+        else
+        {
+            balanceWarning.SetActive(false);
+            balanceText.SetActive(false);
+        }
         if (Mathf.Abs(avatarController.shoulderLeftPos.y - avatarController.shoulderRightPos.y) > 0.05f)
         {
             
-            avatarController.outOfBalance = true;
+            //avatarController.outOfBalance = true;
             Debug.Log("SHOULDER SHRUG");
             if (shrugCount < 4)
                 shrugCount++;

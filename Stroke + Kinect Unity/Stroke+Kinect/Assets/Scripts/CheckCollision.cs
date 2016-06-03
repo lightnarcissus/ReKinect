@@ -34,9 +34,15 @@ public class CheckCollision : MonoBehaviour {
     {
         indicatorSprite.SetActive(true);
         if (drawingManager.GetComponent<DrawingManager>().correct)
+        {
+            indicatorSprite.transform.GetChild(0).gameObject.SetActive(true);
             indicatorSprite.GetComponent<SpriteRenderer>().color = Color.green;
+        }
         else
-            indicatorSprite.GetComponent<SpriteRenderer>().color = Color.red;
+        {
+            indicatorSprite.transform.GetChild(0).gameObject.SetActive(false);
+           indicatorSprite.GetComponent<SpriteRenderer>().color = Color.red;
+        }
 
         yield return new WaitForSeconds(1f);
         indicatorSprite.SetActive(false);

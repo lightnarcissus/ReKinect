@@ -2162,6 +2162,7 @@ public class KinectManager : MonoBehaviour
 	
 	void Update() 
 	{
+        /*
         for (int i = 0; i < avatarControllers.Count; i++)
         {
             if(avatarControllers[i].outOfBalance)
@@ -2174,6 +2175,7 @@ public class KinectManager : MonoBehaviour
             }
             
         }
+        */
 		if(kinectInitialized)
 		{
 			if(!kinectReaderRunning)

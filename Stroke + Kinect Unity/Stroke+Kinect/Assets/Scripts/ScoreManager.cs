@@ -25,7 +25,7 @@ public class ScoreManager : MonoBehaviour {
 
     public float accuracyVal = 0f;
     private float finalScore = 0f;
-
+    public Sprite[] stars;
     private int currentLevel = 0;
     public List<int> scoreTarget;
 
