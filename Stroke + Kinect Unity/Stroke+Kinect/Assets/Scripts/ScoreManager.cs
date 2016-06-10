@@ -54,6 +54,12 @@ public class ScoreManager : MonoBehaviour {
             scoreTextRight.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
     }
 
+    public float GetCurrentLevelTime()
+    {
+        float currentLevelTime = timerManager.GetComponent<TimerText>().CalculateLevelTime();
+        return currentLevelTime;
+    }
+
     public void IncreaseLevel()
     {
         currentLevel++;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class SceneManager : MonoBehaviour {
 
     public GameObject avatarController;
@@ -8,7 +8,14 @@ public class SceneManager : MonoBehaviour {
     public GameObject kinectManager;
     public static bool created = false;
     public static int currentApp = 0;
+   
+    public static string patientName = "";
+    public static string age;
     public static int focusSide = 0; //1 for left and 2 for right
+
+    public static float[] levelTime=new float[7];
+    public static float totalTimePlayed;
+    
 	// Use this for initialization
 	void Start () {
         if (!created)
@@ -45,6 +52,16 @@ public class SceneManager : MonoBehaviour {
             currentApp = 3;
         }
 	}
+    public void UpdateCurrentLevelTime(int app, int level, float time)
+    {
+        levelTime[app*3+level] += time;
+    }
+    public void AddToTotalTime(float timePlayed)
+    {
+        Debug.Log("Patient Name is " + patientName);
+        totalTimePlayed += timePlayed;
+        GetComponent<CSVReader>().CSVRewrite(patientName, age, focusSide);
+    }
 
     public void ActivateApp(int appNumber)
     {

@@ -30,6 +30,8 @@ public class PatientDataManager : MonoBehaviour {
     public void SubmitDetails()
     {
         patients.Add(patientName.text);
+        SceneManager.patientName = patientName.text;
+        SceneManager.age = patientAge.text;
         SceneManager.focusSide = focusSide.value;
         focusSideValue = focusSide.value;
         csvReader.CSVWrite(patientName.text,patientAge.text,focusSide.value); // 0 is Left, 1 is Right for focusSide.value 

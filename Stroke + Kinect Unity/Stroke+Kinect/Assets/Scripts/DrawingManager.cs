@@ -214,6 +214,9 @@ public class DrawingManager : MonoBehaviour {
     {
 
         //first disable the current targets
+        float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
+        sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0,currentLevel,currentTimer);
+        sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
         scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
             targets[currentLevel].SetActive(false);
 

@@ -6,6 +6,7 @@ public class TimerText : MonoBehaviour {
     public float timer = 0f;
     public Text timerTextLeft;
     public Text timerTextRight;
+    public float prevLevelTimer = 0f;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,6 +18,14 @@ public class TimerText : MonoBehaviour {
         timer += Time.deltaTime;
         timerTextLeft.text =timer.ToString("F2");
         timerTextRight.text= timer.ToString("F2");
+    }
+
+    public float CalculateLevelTime()
+    {
+        float levelTime = timer - prevLevelTimer;
+        prevLevelTimer = levelTime;
+        Debug.Log("Level time is " + levelTime);
+        return levelTime;
     }
 
     public void ResetTimer()
