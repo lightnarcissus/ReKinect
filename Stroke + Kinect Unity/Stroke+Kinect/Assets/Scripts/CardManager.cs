@@ -8,7 +8,7 @@ public class CardManager : MonoBehaviour {
     public TimerText timerManager;
     public ScoreManager scoreManager;
     public GameObject calibManager;
-
+    public GameObject malpositionManager;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
 
@@ -98,6 +98,15 @@ public class CardManager : MonoBehaviour {
         if (currentLevel > 3)
         {
             scoreManager.GetComponent<ScoreManager>().ShowGrading();
+        }
+        else
+        {
+            float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
+            int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+            sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
+            sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0, currentLevel, currentTimer);
+            sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
+            scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
         }
             cardCollections[currentLevel].SetActive(true);
 

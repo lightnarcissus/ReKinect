@@ -14,6 +14,8 @@ public class SceneManager : MonoBehaviour {
     public static int focusSide = 0; //1 for left and 2 for right
 
     public static float[] levelTime=new float[7];
+    public static int[] levelScore = new int[7];
+    public static int[] levelMalposition = new int[37];
     public static float totalTimePlayed;
     
 	// Use this for initialization
@@ -52,6 +54,21 @@ public class SceneManager : MonoBehaviour {
             currentApp = 3;
         }
 	}
+
+    public void UpdateLevelMalpositions(int app, int level, int poorBalance, int flexionSynergy, int shoulderShrug, int innerRotation, int wristDrop, int extensorSynergy)
+    {
+        levelMalposition[app * 3 + level * 6] = poorBalance;
+        levelMalposition[app * 3 + level * 6 + 1] = flexionSynergy;
+        levelMalposition[app * 3 + level * 6 + 2] = shoulderShrug;
+        levelMalposition[app * 3 + level * 6 + 3] = innerRotation;
+        levelMalposition[app * 3 + level * 6 + 4] = wristDrop;
+        levelMalposition[app * 3 + level * 6 + 5] = extensorSynergy;
+
+    }
+    public void UpdateLevelScore(int app, int level, int score)
+    {
+        levelScore[app * 3 + level] = score;
+    }
     public void UpdateCurrentLevelTime(int app, int level, float time)
     {
         levelTime[app*3+level] += time;

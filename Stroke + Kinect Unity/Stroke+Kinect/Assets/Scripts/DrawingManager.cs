@@ -15,6 +15,7 @@ public class DrawingManager : MonoBehaviour {
     private List<int> scoreTarget;
     public TimerText timerManager;
     public GameObject scoreManager;
+    public GameObject malpositionManager;
     public int drawingDir = 0; // 1 is counter-clockwise for left  and 2 is clockwise for right
     //indestructible common object
     public GameObject sceneManager;
@@ -214,10 +215,28 @@ public class DrawingManager : MonoBehaviour {
     {
 
         //first disable the current targets
+
+        //record information
+
+        //time and score
         float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
+        int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+        sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
         sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0,currentLevel,currentTimer);
         sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
-        scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
+
+        //update malpositions
+        int poorBalanceCount = malpositionManager.GetComponent<MalpositionManager>().RetrievePoorBalanceCount();
+        int shoulderShrugCount= malpositionManager.GetComponent<MalpositionManager>().RetrieveShoulderShrugCount();
+        int wristDropCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveWristDropCount(); 
+        int innerRotationCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveInnerRotationCount();
+        int extensorSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveExtensorSynergyCount();
+        int flexionSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveFlexionSynergyCount();
+
+        sceneManager.GetComponent<SceneManager>().UpdateLevelMalpositions(0, currentLevel, poorBalanceCount, flexionSynergyCount, shoulderShrugCount, innerRotationCount, wristDropCount, extensorSynergyCount);
+
+         //then finally increase the level
+         scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
             targets[currentLevel].SetActive(false);
 
             //increment and then enable

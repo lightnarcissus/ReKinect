@@ -108,13 +108,12 @@ public class CSVReader : MonoBehaviour
                 nice[2, i] = age;
                 nice[3, i] = focusString;
                 SceneManager.totalTimePlayed =float.Parse(nice[4, i]);
-                SceneManager.levelTime[0] = float.Parse(nice[5, i]);
-                SceneManager.levelTime[1] = float.Parse(nice[6, i]);
-                SceneManager.levelTime[2] = float.Parse(nice[7, i]);
-                SceneManager.levelTime[3] = float.Parse(nice[8, i]);
-                SceneManager.levelTime[4] = float.Parse(nice[9, i]);
-                SceneManager.levelTime[5] = float.Parse(nice[10, i]);
-                SceneManager.levelTime[6] = float.Parse(nice[11, i]);
+                for(int j=0;j<=6;j++)
+                    {
+                        SceneManager.levelTime[j] = float.Parse(nice[5+j, i]);
+                        SceneManager.levelScore[j] = int.Parse(nice[11 + j, i]);
+
+                    }
                 Debug.Log("total time played is " + SceneManager.totalTimePlayed);
              }
             

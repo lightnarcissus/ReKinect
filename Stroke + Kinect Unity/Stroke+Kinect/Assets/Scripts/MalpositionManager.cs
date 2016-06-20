@@ -13,6 +13,12 @@ public class MalpositionManager : MonoBehaviour {
     public int malpositionVal = 0;
     public GameObject leftShoulderShrugWarning;
     public GameObject rightShoulderShrugWarning;
+    private int shoulderShrugCount = 0;
+    private int poorBalanceCount = 0;
+    private int flexionSynergyCount = 0;
+    private int innerRotationCount = 0;
+    private int extensorSynergyCount = 0;
+    private int wristDropCount = 0;
     public GameObject leftContractionWarning;
     public GameObject rightContractionWarning;
 
@@ -59,6 +65,51 @@ public class MalpositionManager : MonoBehaviour {
 	
 	}
 
+
+    public int RetrievePoorBalanceCount()
+    {
+        return poorBalanceCount;
+    }
+
+
+    public int RetrieveExtensorSynergyCount()
+    {
+        return extensorSynergyCount;
+    }
+
+
+    public int RetrieveInnerRotationCount()
+    {
+        return innerRotationCount;
+    }
+
+
+    public int RetrieveWristDropCount()
+    {
+        return wristDropCount;
+    }
+
+
+    public int RetrieveFlexionSynergyCount()
+    {
+        return flexionSynergyCount;
+    }
+
+    public int RetrieveShoulderShrugCount()
+    {
+        return shoulderShrugCount;
+    }
+
+    //called on every level
+    public void ResetMalpositionCount()
+    {
+        shoulderShrugCount = 0;
+        poorBalanceCount = 0;
+        innerRotationCount = 0;
+        wristDropCount = 0;
+        flexionSynergyCount = 0;
+        extensorSynergyCount = 0;
+    }
     void CheckMalPositions()
     {
         //  debug1.text = "LEFT: " + avatarController.shoulderLeftPos.y.ToString();
@@ -76,8 +127,9 @@ public class MalpositionManager : MonoBehaviour {
         }
         if (Mathf.Abs(avatarController.shoulderLeftPos.y - avatarController.shoulderRightPos.y) > 0.05f)
         {
-            
+
             //avatarController.outOfBalance = true;
+            shoulderShrugCount++;
             Debug.Log("SHOULDER SHRUG");
             if (shrugCount < 4)
                 shrugCount++;
