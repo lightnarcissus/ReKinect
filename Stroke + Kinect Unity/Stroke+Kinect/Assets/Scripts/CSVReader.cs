@@ -98,8 +98,9 @@ public class CSVReader : MonoBehaviour
         string[,] nice = SplitCsvGrid(File.ReadAllText(filePath));
         for(int i=0;i<nice.GetUpperBound(1);i++)
         {
-           // Debug.Log(nice[1, i]);
-            if(nice[1,i]!=null)
+            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}, {12}, {13}, {14}, {15}, {16}", nice[0, i], nice[1, i], nice[2, i], nice[3, i], nice[4, i], nice[5, i], nice[6, i], nice[7, i], nice[8, i], nice[9, i], nice[10, i], nice[11, i], nice[12, i], nice[13, i], nice[14, i], nice[15, i], nice[16, i]);
+            // Debug.Log(nice[1, i]);
+            if (nice[1,i]!=null)
              if(nice[1,i].Contains(name))
             {
                     found = true;
@@ -116,24 +117,25 @@ public class CSVReader : MonoBehaviour
                     }
                 Debug.Log("total time played is " + SceneManager.totalTimePlayed);
              }
+
             
         }
         if(!found)
         {
-            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}", System.DateTime.Now.ToString(),name,age,focusString,0,0,0,0,0,0,0,0);
+            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}, {12}, {13}, {14}, {15}, {16}", System.DateTime.Now.ToString(),name,age,focusString,0,0,0,0,0,0,0,0,0,0,0,0,0);
             csv.AppendLine(newLine);
         }
         else
         {
             found = false;
         }
-
+        /*
         for (int i = 0; i < nice.GetUpperBound(1); i++)
         {
-            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}", nice[0, i], nice[1, i], nice[2, i], nice[3, i], nice[4, i], nice[5, i], nice[6, i], nice[7, i], nice[8, i], nice[9, i], nice[10, i], nice[11, i]);
+            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}", nice[0, i], nice[1, i], nice[2, i], nice[3, i], nice[4, i], nice[5, i], nice[6, i], nice[7, i], nice[8, i], nice[9, i], nice[10, i], nice[11, i], nice[12, i], nice[13, i], nice[14, i], nice[15, i], nice[16, i]);
             csv.AppendLine(newLine);
         }
-
+        */
             //after your loop
             File.WriteAllText(filePath, csv.ToString());
         }
@@ -147,13 +149,6 @@ public class CSVReader : MonoBehaviour
             focusString = "Right Hand";
 
         float totalTime = SceneManager.totalTimePlayed;
-        float draw1 = SceneManager.levelTime[0];
-        float draw2 = SceneManager.levelTime[1];
-        float draw3 = SceneManager.levelTime[2];
-        float card1 = SceneManager.levelTime[3];
-        float card2 = SceneManager.levelTime[4];
-        float card3 = SceneManager.levelTime[5];
-        float orch = SceneManager.levelTime[6];
         //in your loop
         //  var first = "Ansh";
         // var second = "Patel";
@@ -171,20 +166,18 @@ public class CSVReader : MonoBehaviour
                     nice[2, i] = age;
                     nice[3, i] = focusString;
                     nice[4, i] = totalTime.ToString("F2");
-                    nice[5, i] = draw1.ToString("F2");
-                    nice[6, i] = draw2.ToString("F2");
-                    nice[7, i] = draw3.ToString("F2");
-                    nice[8, i] = card1.ToString("F2");
-                    nice[9, i] = card2.ToString("F2");
-                    nice[10, i] = card3.ToString("F2");
-                    nice[11, i] = orch.ToString("F2");
+                    for (int j = 0; j <= 6; j++)
+                    {
+                        nice[5 + j, i] = SceneManager.levelTime[j].ToString("F2");
+                        nice[11 + j, i] = SceneManager.levelScore[j].ToString();
 
+                    }
                 }
 
         }
         if (!found)
         {
-            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}", System.DateTime.Now.ToString(), name, age, focusString, 0, 0, 0, 0, 0, 0, 0, 0);
+            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}, {12}, {13}, {14}, {15}, {16}", System.DateTime.Now.ToString(), name, age, focusString, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             csv.AppendLine(newLine);
         }
         else
@@ -194,7 +187,7 @@ public class CSVReader : MonoBehaviour
 
         for (int i = 0; i < nice.GetUpperBound(1); i++)
         {
-            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}", nice[0, i], nice[1, i], nice[2, i], nice[3, i], nice[4, i], nice[5, i], nice[6, i], nice[7, i], nice[8, i], nice[9, i], nice[10, i], nice[11, i]);
+            var newLine = string.Format("{0},{1},{2},{3}, {4}, {5},{6},{7},{8},{9},{10},{11}, {12}, {13}, {14}, {15}, {16}", nice[0, i], nice[1, i], nice[2, i], nice[3, i], nice[4, i], nice[5, i], nice[6, i], nice[7, i], nice[8, i], nice[9, i], nice[10, i], nice[11, i], nice[12, i], nice[13, i], nice[14, i], nice[15, i], nice[16, i]);
             csv.AppendLine(newLine);
         }
 
