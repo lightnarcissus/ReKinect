@@ -328,6 +328,10 @@ public class Kinect2Interface : DepthSensorInterface
 
 		Debug.Log("K2-sensor " + (kinectSensor.IsOpen ? "opened" : "closed") + 
 		          ", available: " + kinectSensor.IsAvailable);
+        if(!kinectSensor.IsAvailable)
+        {
+            AlternateController.noKinect = true;
+        }
 
 		if(bUseMultiSource && dwFlags != KinectInterop.FrameSource.TypeNone && kinectSensor.IsOpen)
 		{

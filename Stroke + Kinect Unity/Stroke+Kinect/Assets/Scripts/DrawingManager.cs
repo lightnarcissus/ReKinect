@@ -46,43 +46,55 @@ public class DrawingManager : MonoBehaviour {
         sceneManager = GameObject.Find("SceneManager");
     }
 	void Start () { 
-        if(sceneManager!=null)
+        if(sceneManager!=null || AlternateController.noKinect)
         {
             StartCoroutine("ShowInstructions");
             leftTrace.SetActive(false);
             rightTrace.SetActive(false);
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (SceneManager.focusSide == 0)
+            if (!AlternateController.noKinect)
             {
+                if (SceneManager.focusSide == 0)
+                {
+                    leftCanvas.SetActive(true);
+                    leftHouse.SetActive(true);
+                    rightHouse.SetActive(false);
+                    rightCanvas.SetActive(false);
+                    avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                    sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+                    drawingDir = 1; // left hand should move counter-clockwise
+                                    // focusText.text = "Focus Side: \n Left Arm";
+                                    //    scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+
+                }
+                if (SceneManager.focusSide == 1)
+                {
+                    leftCanvas.SetActive(false);
+                    leftHouse.SetActive(false);
+                    rightHouse.SetActive(true);
+                    rightCanvas.SetActive(true);
+                    avatarController.GetComponent<AvatarController>().activeJoint = 2;
+                    sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+                    drawingDir = 2; //right hand should move clockwise
+                                    //  focusText.text = "Focus Side: \n Right Arm";
+                                    //  scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
+                }
+            }
+            else
+            {
+                //no Kinect
                 leftCanvas.SetActive(true);
                 leftHouse.SetActive(true);
                 rightHouse.SetActive(false);
                 rightCanvas.SetActive(false);
-                avatarController.GetComponent<AvatarController>().activeJoint = 1;
-                drawingDir = 1; // left hand should move counter-clockwise
-               // focusText.text = "Focus Side: \n Left Arm";
-            //    scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
-
-            }
-            if (SceneManager.focusSide == 1)
-            {
-                leftCanvas.SetActive(false);
-                leftHouse.SetActive(false);
-                rightHouse.SetActive(true);
-                rightCanvas.SetActive(true);
-                avatarController.GetComponent<AvatarController>().activeJoint = 2;
-                drawingDir = 2; //right hand should move clockwise
-              //  focusText.text = "Focus Side: \n Right Arm";
-              //  scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
-            }
-            else
-            {
-                avatarController.GetComponent<AvatarController>().activeJoint = 1;
-               // focusText.text = "Focus Side: \n Left Arm";
-             //   scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
+                SceneManager.focusSide = 0;
+                drawingDir = 1;
+                // avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                // focusText.text = "Focus Side: \n Left Arm";
+                //   scoreBox.GetComponent<RectTransform>().position = new Vector3(-397f, -227f, 0f);
             }
 
-                sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
+               
         }
         for(int i=0;i<targets.Count;i++)
         {
@@ -219,30 +231,33 @@ public class DrawingManager : MonoBehaviour {
         //record information
 
         //time and score
-        float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
-        int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
-        sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
-        sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0,currentLevel,currentTimer);
-        sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
+        if (!AlternateController.noKinect)
+        {
+            float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
+            int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+            sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
+            sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0, currentLevel, currentTimer);
+            sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
 
-        //update malpositions
-        int poorBalanceCount = malpositionManager.GetComponent<MalpositionManager>().RetrievePoorBalanceCount();
-        int shoulderShrugCount= malpositionManager.GetComponent<MalpositionManager>().RetrieveShoulderShrugCount();
-        int wristDropCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveWristDropCount(); 
-        int innerRotationCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveInnerRotationCount();
-        int extensorSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveExtensorSynergyCount();
-        int flexionSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveFlexionSynergyCount();
+            //update malpositions
+            int poorBalanceCount = malpositionManager.GetComponent<MalpositionManager>().RetrievePoorBalanceCount();
+            int shoulderShrugCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveShoulderShrugCount();
+            int wristDropCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveWristDropCount();
+            int innerRotationCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveInnerRotationCount();
+            int extensorSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveExtensorSynergyCount();
+            int flexionSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveFlexionSynergyCount();
 
-        sceneManager.GetComponent<SceneManager>().UpdateLevelMalpositions(0, currentLevel, poorBalanceCount, flexionSynergyCount, shoulderShrugCount, innerRotationCount, wristDropCount, extensorSynergyCount);
-
+            sceneManager.GetComponent<SceneManager>().UpdateLevelMalpositions(0, currentLevel, poorBalanceCount, flexionSynergyCount, shoulderShrugCount, innerRotationCount, wristDropCount, extensorSynergyCount);
+        }
          //then finally increase the level
-         scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
+         
             targets[currentLevel].SetActive(false);
 
             //increment and then enable
             currentLevel++;
         if (currentLevel <= 3)
         {
+            scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
             Debug.Log("NOW ON LEVEL " + currentLevel);
             targets[currentLevel].SetActive(true);
 

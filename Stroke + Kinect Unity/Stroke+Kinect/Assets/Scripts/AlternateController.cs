@@ -3,11 +3,11 @@ using System.Collections;
 
 public class AlternateController : MonoBehaviour {
 
-	public bool noKinect=false;
-
+	public static bool noKinect=false;
 	// Use this for initialization
 	void Start () {
 	
+       
 		if (gameObject.GetComponent<InteractionManager> () != null) {
 			if (noKinect) {
 				gameObject.GetComponent<InteractionManager> ().enabled = false;
@@ -25,6 +25,5 @@ public class AlternateController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

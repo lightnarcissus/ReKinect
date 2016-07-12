@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 
 	void CheckController()
 	{
-		if (!altControl.noKinect) {
+		if (!AlternateController.noKinect) {
 			if (intManager.userActive && !focusSelected) {
 				titlePage.SetActive (false);
                 focusSelectionPage.SetActive(true);

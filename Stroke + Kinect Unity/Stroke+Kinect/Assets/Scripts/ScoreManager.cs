@@ -107,7 +107,7 @@ public class ScoreManager : MonoBehaviour {
         finalScore = ((timerManager.GetComponent<TimerText>().timer / 2f) * accuracyVal) - (malpositionManager.GetComponent<MalpositionManager>().malpositionVal * 2f);
         if(finalScore >=80)
         {
-            finalGrade.text = "A";
+            finalGrade.text = "A"; //replace with stars
         }
         else
         {
