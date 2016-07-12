@@ -1,0 +1,3 @@
+Flavours,Strawberry,Banana,Apple,Owl
+Prices,0.34,0.30,0.60,34.0
+Sadness,0,0,1,99
