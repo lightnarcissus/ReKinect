@@ -105,16 +105,16 @@ public class ScoreManager : MonoBehaviour {
         accuracy.text = accuracyVal.ToString("F2");
 
         finalScore = ((timerManager.GetComponent<TimerText>().timer / 2f) * accuracyVal) - (malpositionManager.GetComponent<MalpositionManager>().malpositionVal * 2f);
-        if(finalScore >=80)
-        {
-            finalGrade.text = "A"; //replace with stars
-        }
-        else
-        {
-            finalGrade.text = "B";
-        }
+        StartCoroutine("StarAnimation");
         Debug.Log("Final Score is: " + finalScore);
 
+    }
+
+    IEnumerator StarAnimation()
+    {
+        float starVal = finalScore / 100f;
+   
+        yield return null;
     }
 
     IEnumerator ShowGradePanel()
