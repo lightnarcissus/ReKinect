@@ -25,7 +25,7 @@ public class ScoreManager : MonoBehaviour {
 
     public float accuracyVal = 0f;
     private float finalScore = 0f;
-    public Sprite[] stars;
+    public Animator starAnim;
     private int currentLevel = 0;
     public List<int> scoreTarget;
 
@@ -113,7 +113,40 @@ public class ScoreManager : MonoBehaviour {
     IEnumerator StarAnimation()
     {
         float starVal = finalScore / 100f;
-   
+        int starInt =  Mathf.FloorToInt(starVal);
+        switch(starInt)
+        {
+            case 10:
+                starAnim.SetBool("5Star", true);
+                break;
+            case 9:
+                starAnim.SetBool("4.5Star", true);
+                break;
+            case 8:
+                starAnim.SetBool("4Star", true);
+                break;
+            case 7:
+                starAnim.SetBool("3.5Star", true);
+                break;
+            case 6:
+                starAnim.SetBool("3Star", true);
+                break;
+            case 5:
+                starAnim.SetBool("2.5Star", true);
+                break;
+            case 4:
+                starAnim.SetBool("2Star", true);
+                break;
+            case 3:
+                starAnim.SetBool("1.5Star", true);
+                break;
+            case 2:
+                starAnim.SetBool("1Star", true);
+                break;
+            default:
+                starAnim.SetBool("3Star", true);
+                break;
+        }
         yield return null;
     }
 
