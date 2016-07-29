@@ -104,12 +104,13 @@ public class CardManager : MonoBehaviour {
              
             float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
             int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
+            scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
             if (!AlternateController.noKinect)
             {
             sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
             sceneManager.GetComponent<SceneManager>().UpdateCurrentLevelTime(0, currentLevel, currentTimer);
             sceneManager.GetComponent<SceneManager>().AddToTotalTime(currentTimer);
-            scoreManager.GetComponent<ScoreManager>().IncreaseLevel();
+            
             }
         }
             cardCollections[currentLevel].SetActive(true);
