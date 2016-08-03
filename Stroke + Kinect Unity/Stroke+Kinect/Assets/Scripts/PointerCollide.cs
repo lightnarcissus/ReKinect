@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class PointerCollide : MonoBehaviour {
 
     public GameObject[] activeImg;
@@ -10,6 +11,7 @@ public class PointerCollide : MonoBehaviour {
 	private OrchestraSegment orcSeg;
     private int bgNum = 0;
     public static float volumeVal = 0f;
+    public float timeToSlowDown = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -94,7 +96,7 @@ public class PointerCollide : MonoBehaviour {
     {
         while(source.volume>0)
         {
-            source.volume -= 0.1f;
+            source.volume -= 0.1f * ((1f/60f) * timeToSlowDown);
             yield return null;
         }   
         yield return null;
