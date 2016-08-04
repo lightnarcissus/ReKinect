@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class MalpositionManager : MonoBehaviour {
 
     public enum MalState { ShoulderShrug,Contraction,InnerRotation,WristDrop};
-
+    public static bool malPosActive = false;
     public GameObject drawingManager;
     private AvatarController avatarController;
     public MalState malPosState;
@@ -132,6 +132,8 @@ public class MalpositionManager : MonoBehaviour {
 
                 //avatarController.outOfBalance = true;
                 shoulderShrugCount++;
+                malPosState = MalState.ShoulderShrug;
+                malPosActive = true;
                 Debug.Log("SHOULDER SHRUG");
                 if (shrugCount < 4)
                     shrugCount++;
@@ -182,6 +184,8 @@ public class MalpositionManager : MonoBehaviour {
                     else
                     {
                         contractionCount = 0;
+                        malPosState = MalState.Contraction;
+                        malPosActive = true;
                         malpositionVal += 5;
                     }
                     contractionText.SetActive(true);
@@ -207,6 +211,8 @@ public class MalpositionManager : MonoBehaviour {
                     else
                     {
                         contractionCount = 0;
+                        malPosState = MalState.Contraction;
+                        malPosActive = true;
                         malpositionVal += 5;
                     }
                     contractionText.SetActive(true);
