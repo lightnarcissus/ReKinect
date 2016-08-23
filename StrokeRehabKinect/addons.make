@@ -1,3 +1,0 @@
-ofxGui
-ofxKinect
-ofxKinectV2
