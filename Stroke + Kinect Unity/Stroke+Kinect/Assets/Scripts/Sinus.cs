@@ -11,6 +11,7 @@ public class Sinus : MonoBehaviour
   private double phase;
   private double sampling_frequency = 48000;
 
+    public float timeToSlowDown = 5f;
   void OnAudioFilterRead(float[] data, int channels)
   {
     // update increment if case of frequency as change
@@ -27,7 +28,7 @@ public class Sinus : MonoBehaviour
     public void DecrementFrequency()
     {
         if(frequency>=450f)
-        frequency -= 10f;
+        frequency -= ((1f / 60f) * timeToSlowDown); ;
     }
 
     public void IncrementFrequency()

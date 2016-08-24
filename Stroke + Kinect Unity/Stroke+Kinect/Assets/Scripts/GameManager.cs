@@ -70,10 +70,10 @@ public class GameManager : MonoBehaviour {
             focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
             focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
             focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-            StartCoroutine("ActivateLeft");
             confirmText.gameObject.SetActive(true);
             confirmText.text = "CONFIRM IF LEFT ARM IS \n THE FOCUS SIDE";
             chooseText.gameObject.SetActive(false);
+            StartCoroutine("RunMainMenu");
 
         }
         else if (SceneManager.focusSide==1)
@@ -84,10 +84,10 @@ public class GameManager : MonoBehaviour {
             focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
             focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-            StartCoroutine("ActivateRight");
             confirmText.gameObject.SetActive(true);
             confirmText.text = "CONFIRM IF RIGHT ARM IS \n THE FOCUS SIDE";
             chooseText.gameObject.SetActive(false);
+            StartCoroutine("RunMainMenu");
         }
         else
         {
@@ -97,8 +97,39 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator RunMainMenu()
     {
+        if (SceneManager.focusSide == 0)
+            yield return StartCoroutine("ActivateLeft");
+        else if (SceneManager.focusSide == 1)
+            yield return StartCoroutine("ActivateRight");
 
-        yield return StartCoroutine("ActivateLeft");
+        yield return StartCoroutine("RunCalibrationPhase");
+        yield return null;
+    }
+
+    IEnumerator RunCalibrationPhase()
+    {
+        yield return StartCoroutine("OutstretchArms");
+        yield return StartCoroutine("RaiseThemUp");
+        yield return StartCoroutine("LowerThemToYourSides");
+        yield return null;
+    }
+
+    IEnumerator OutstretchArms()
+    {
+        if(Mathf.Abs(Vector3.Angle(avatarCont.handLeftPos,avatarCont.handRightPos)) > 160f)
+        {
+
+        }
+        yield return null;
+    }
+
+    IEnumerator RaiseThemUp()
+    {
+        yield return null;
+    }
+
+    IEnumerator LowerThemToYourSides()
+    {
         yield return null;
     }
 

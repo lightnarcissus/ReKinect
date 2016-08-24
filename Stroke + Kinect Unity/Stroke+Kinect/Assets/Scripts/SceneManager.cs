@@ -53,25 +53,30 @@ public class SceneManager : MonoBehaviour {
             ActivateApp(3);
             currentApp = 3;
         }
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ActivateApp(4);
+            currentApp = 4; 
+        }
 	}
 
     public void UpdateLevelMalpositions(int app, int level, int poorBalance, int flexionSynergy, int shoulderShrug, int innerRotation, int wristDrop, int extensorSynergy)
     {
-        levelMalposition[app * 3 + level * 6] = poorBalance;
-        levelMalposition[app * 3 + level * 6 + 1] = flexionSynergy;
-        levelMalposition[app * 3 + level * 6 + 2] = shoulderShrug;
-        levelMalposition[app * 3 + level * 6 + 3] = innerRotation;
-        levelMalposition[app * 3 + level * 6 + 4] = wristDrop;
-        levelMalposition[app * 3 + level * 6 + 5] = extensorSynergy;
+        levelMalposition[app * 4 + level * 6] = poorBalance;
+        levelMalposition[app * 4 + level * 6 + 1] = flexionSynergy;
+        levelMalposition[app * 4 + level * 6 + 2] = shoulderShrug;
+        levelMalposition[app * 4 + level * 6 + 3] = innerRotation;
+        levelMalposition[app * 4 + level * 6 + 4] = wristDrop;
+        levelMalposition[app * 4 + level * 6 + 5] = extensorSynergy;
 
     }
     public void UpdateLevelScore(int app, int level, int score)
     {
-        levelScore[app * 3 + level] = score;
+        levelScore[app * 4 + level] = score;
     }
     public void UpdateCurrentLevelTime(int app, int level, float time)
     {
-        levelTime[app*3+level] += time;
+        levelTime[app*4+level] += time;
     }
     public void AddToTotalTime(float timePlayed)
     {
@@ -96,6 +101,10 @@ public class SceneManager : MonoBehaviour {
             case 3:
                 GameManager.activeApp = 3;
                 Application.LoadLevel("ConductorMusic");
+                break;
+            case 4:
+                GameManager.activeApp = 4;
+                Application.LoadLevel("HumanTuningFork");
                 break;
         }
     }
