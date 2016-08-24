@@ -95,6 +95,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    IEnumerator RunMainMenu()
+    {
+
+        yield return StartCoroutine("ActivateLeft");
+        yield return null;
+    }
+
     IEnumerator ActivateLeft()
     {
         yield return new WaitForSeconds(2f);

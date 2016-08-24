@@ -67,6 +67,9 @@ public class AvatarController : MonoBehaviour
     public Vector3 handLeftPos;
     public Vector3 handRightPos;
 
+    public Vector3 thumbLeftPos;
+    public Vector3 thumbRightPos;
+
     
     //whether user is out of balance or not
     public bool outOfBalance = false;
@@ -259,9 +262,12 @@ public class AvatarController : MonoBehaviour
 
                 handLeftPos= kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandLeft);
                 handRightPos= kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight);
+
+                thumbLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbLeft);
+                thumbRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbRight);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
-                if(SceneManager.currentApp==3)
+                if (SceneManager.currentApp==3)
                 {
                     if(activeJoint==1)
                     {

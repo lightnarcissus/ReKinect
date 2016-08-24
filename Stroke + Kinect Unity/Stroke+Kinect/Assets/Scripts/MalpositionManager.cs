@@ -114,6 +114,7 @@ public class MalpositionManager : MonoBehaviour {
     {
         //  debug1.text = "LEFT: " + avatarController.shoulderLeftPos.y.ToString();
         //  debug2.text = "RIGHT: " + avatarController.shoulderRightPos.y.ToString();
+
         //shoulder shrug
         if (!AlternateController.noKinect)
         {
@@ -222,6 +223,22 @@ public class MalpositionManager : MonoBehaviour {
                     contractionText.SetActive(false);
                     rightContractionWarning.SetActive(false);
                     contractionCount = 0;
+                }
+            }
+
+            // WRIST DROP
+            if(SceneManager.focusSide==0)
+            {
+                if(Vector3.Distance(avatarController.thumbLeftPos,avatarController.handLeftPos) > 1f)
+                {
+
+                }
+            }
+            else if(SceneManager.focusSide==1)
+            {
+                if (Vector3.Distance(avatarController.thumbRightPos, avatarController.handRightPos) > 1f)
+                {
+
                 }
             }
         }
