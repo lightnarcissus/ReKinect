@@ -52,7 +52,7 @@ public class ScoreManager : MonoBehaviour {
             scoreTextLeft.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
         else
             scoreTextRight.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
-        Debug.Log(currentLevel);
+       // Debug.Log(currentLevel);
     }
 
     public float GetCurrentLevelTime()

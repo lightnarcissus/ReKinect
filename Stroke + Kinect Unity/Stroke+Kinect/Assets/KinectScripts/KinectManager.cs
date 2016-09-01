@@ -1794,7 +1794,7 @@ public class KinectManager : MonoBehaviour
 		catch(Exception ex)
 		{
 			string message = ex.Message;
-
+			AlternateController.noKinect = true;
 			Debug.LogError(message);
 			Debug.LogException(ex);
 			

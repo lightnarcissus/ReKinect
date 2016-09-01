@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour {
     public GUIText debugText;
     public Text confirmText;
     public Text chooseText;
+	public GameObject cubeMan;
 
     public static int activeApp = 0; // 1 is drawing and so on
 	// Use this for initialization
 	void Start () {
-
+		cubeMan.SetActive (false);
         focusSelectionPage.SetActive(false);
         gamePage.SetActive(false);
         titlePage.SetActive(true);
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator OutstretchArms()
     {
+		cubeMan.SetActive (true);
         if(Mathf.Abs(Vector3.Angle(avatarCont.handLeftPos,avatarCont.handRightPos)) > 160f)
         {
 

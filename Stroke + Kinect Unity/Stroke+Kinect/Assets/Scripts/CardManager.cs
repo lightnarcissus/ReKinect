@@ -69,7 +69,7 @@ public class CardManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Debug.Log("Correct Matches " + correctMatches);
+       // Debug.Log("Correct Matches " + correctMatches);
         if (correctMatches >= levelTarget[currentLevel])
         {
             NextLevel();

@@ -330,6 +330,7 @@ public class Kinect2Interface : DepthSensorInterface
 		          ", available: " + kinectSensor.IsAvailable);
         if(!kinectSensor.IsAvailable)
         {
+			Debug.Log ("no sensor");
             AlternateController.noKinect = true;
         }
 
