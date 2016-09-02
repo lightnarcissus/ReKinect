@@ -10,6 +10,7 @@ namespace CSEncryptDecrypt
 {
     class EncryptDecrypt : MonoBehaviour
     {
+        public string secretKeyPathName = "";
         //  Call this function to remove the key from memory after use for security
         [System.Runtime.InteropServices.DllImport("KERNEL32.DLL", EntryPoint = "RtlZeroMemory")]
         public static extern bool ZeroMemory(IntPtr Destination, int Length);
@@ -24,10 +25,23 @@ namespace CSEncryptDecrypt
             return ASCIIEncoding.ASCII.GetString(desCrypto.Key);
         }
 
-        static void EncryptFile(string sInputFilename,
+         public string EncryptFile(string sInputFilename,
            string sOutputFilename,
            string sKey)
         {
+            //KEY GENERATION
+            // Must be 64 bits, 8 bytes.
+            // Distribute this key to the user who will decrypt this file.
+            string sSecretKey;
+
+            // Get the Key for the file to Encrypt.
+            sSecretKey = GenerateKey();
+
+            // For additional security Pin the key.
+            GCHandle gch = GCHandle.Alloc(sSecretKey, GCHandleType.Pinned);
+
+
+
             FileStream fsInput = new FileStream(sInputFilename,
                FileMode.Open,
                FileAccess.Read);
@@ -46,12 +60,21 @@ namespace CSEncryptDecrypt
             byte[] bytearrayinput = new byte[fsInput.Length];
             fsInput.Read(bytearrayinput, 0, bytearrayinput.Length);
             cryptostream.Write(bytearrayinput, 0, bytearrayinput.Length);
+            string outputString=System.Text.Encoding.Default.GetString(bytearrayinput);
             cryptostream.Close();
             fsInput.Close();
             fsEncrypted.Close();
+
+            //store the secret key in a text file
+            System.IO.File.WriteAllText(secretKeyPathName, sSecretKey);
+
+            //erase the secret key
+            ZeroMemory(gch.AddrOfPinnedObject(), sSecretKey.Length * 2);
+            gch.Free();
+            return outputString;
         }
 
-        static void DecryptFile(string sInputFilename,
+        public void DecryptFile(string sInputFilename,
            string sOutputFilename,
            string sKey)
         {
@@ -82,18 +105,9 @@ namespace CSEncryptDecrypt
 
         void Start()
         {
-            // Must be 64 bits, 8 bytes.
-            // Distribute this key to the user who will decrypt this file.
-            string sSecretKey;
-
-            // Get the Key for the file to Encrypt.
-            sSecretKey = GenerateKey();
-
-            // For additional security Pin the key.
-            GCHandle gch = GCHandle.Alloc(sSecretKey, GCHandleType.Pinned);
-
-            // Encrypt the file.        
-            EncryptFile(@"C:\Users\Ansh\Documents\MyData.txt",
+         
+            /*Encrypt the file.        
+         //   EncryptFile(@"C:\Users\Ansh\Documents\MyData.txt",
                @"C:\Users\Ansh\Documents\Encrypted.txt",
                sSecretKey);
 
@@ -101,10 +115,9 @@ namespace CSEncryptDecrypt
             DecryptFile(@"C:\Users\Ansh\Documents\Encrypted.txt",
                @"C:\Users\Ansh\Documents\Decrypted.txt",
                sSecretKey);
-
+               */
             // Remove the Key from memory. 
-            ZeroMemory(gch.AddrOfPinnedObject(), sSecretKey.Length * 2);
-            gch.Free();
+           
         }
     }
 }
