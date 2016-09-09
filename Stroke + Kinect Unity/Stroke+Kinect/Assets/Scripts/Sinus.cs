@@ -6,11 +6,17 @@ public class Sinus : MonoBehaviour
   // un-optimized version
   public double frequency = 440;
   public double gain = 0.05;
+	public double upperThreshold = 440;
 
+	private double startFrequency=240;
   private double increment;
   private double phase;
   private double sampling_frequency = 48000;
 
+	void Start()
+	{
+		startFrequency = frequency;
+	}
     public float timeToSlowDown = 5f;
   void OnAudioFilterRead(float[] data, int channels)
   {
@@ -27,13 +33,13 @@ public class Sinus : MonoBehaviour
 
     public void DecrementFrequency()
     {
-        if(frequency>=450f)
+		if(frequency>=startFrequency)
         frequency -= ((1f / 60f) * timeToSlowDown); ;
     }
 
     public void IncrementFrequency()
     {
-        if(frequency<=890)
+		if(frequency<=upperThreshold)
         frequency += 10f;
     }
 }
