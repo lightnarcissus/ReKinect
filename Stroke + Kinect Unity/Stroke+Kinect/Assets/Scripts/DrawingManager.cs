@@ -24,8 +24,6 @@ public class DrawingManager : MonoBehaviour {
     public GameObject drawnLines; // kinectAvatar and avatarController variables in DrawMouse
     public GameObject calibrationManager;
     public GameObject avatarController;
-    public GameObject leftHouse;
-    public GameObject rightHouse;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
     public bool correct = false;
@@ -57,8 +55,6 @@ public class DrawingManager : MonoBehaviour {
                 if (SceneManager.focusSide == 0)
                 {
                     leftCanvas.SetActive(true);
-                    leftHouse.SetActive(true);
-                    rightHouse.SetActive(false);
                     rightCanvas.SetActive(false);
                     avatarController.GetComponent<AvatarController>().activeJoint = 1;
                     sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
@@ -70,8 +66,6 @@ public class DrawingManager : MonoBehaviour {
                 if (SceneManager.focusSide == 1)
                 {
                     leftCanvas.SetActive(false);
-                    leftHouse.SetActive(false);
-                    rightHouse.SetActive(true);
                     rightCanvas.SetActive(true);
                     avatarController.GetComponent<AvatarController>().activeJoint = 2;
                     sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
@@ -84,8 +78,6 @@ public class DrawingManager : MonoBehaviour {
             {
                 //no Kinect
                 leftCanvas.SetActive(true);
-                leftHouse.SetActive(true);
-                rightHouse.SetActive(false);
                 rightCanvas.SetActive(false);
                 SceneManager.focusSide = 0;
                 drawingDir = 1;
