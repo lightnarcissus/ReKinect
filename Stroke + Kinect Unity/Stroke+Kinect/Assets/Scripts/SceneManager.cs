@@ -102,8 +102,9 @@ public class SceneManager : MonoBehaviour {
                 GameManager.activeApp = 3;
                 Application.LoadLevel("ConductorMusic");
                 break;
-            case 4:
-                GameManager.activeApp = 4;
+		case 4:
+			GameManager.activeApp = 4;
+			Debug.Log ("game manager is: " + GameManager.activeApp);
                 Application.LoadLevel("HumanTuningFork");
                 break;
         }

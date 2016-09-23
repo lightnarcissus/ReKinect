@@ -30,22 +30,54 @@ public class MalpositionManager : MonoBehaviour {
 
     public Text debug1;
     public Text debug2;
+
+
+	//SINGLETON
+	private static MalpositionManager _instance;
+
+	public static MalpositionManager Instance
+	{
+		get
+		{
+			return _instance;
+		}
+	}
+
+	void Awake()
+	{
+
+		if (_instance != null)
+		{
+			Debug.Log("Instance already exists!");
+			return;
+		}
+		_instance = this;
+
+	}
+
+
 	// Use this for initialization
 	void Start () {
-        straightenText.SetActive(false);
-        contractionText.SetActive(false);
 
-        if (GameManager.activeApp== 1)
-            avatarController = drawingManager.GetComponent<DrawingManager>().avatarController.GetComponent<AvatarController>();
-        else if (GameManager.activeApp== 2)
-            avatarController = drawingManager.GetComponent<CardManager>().avatarController.GetComponent<AvatarController>();
-        else if (GameManager.activeApp == 3)
-            avatarController = drawingManager.GetComponent<ConductorManager>().avatarController.GetComponent<AvatarController>();
-        InvokeRepeating("CheckMalPositions", 1f, 1f);
-        leftShoulderShrugWarning.SetActive(false);
-        rightShoulderShrugWarning.SetActive(false);
-        leftContractionWarning.SetActive(false);
-        rightContractionWarning.SetActive(false);
+		if (GameManager.activeApp == 1)
+			avatarController = drawingManager.GetComponent<DrawingManager> ().avatarController.GetComponent<AvatarController> ();
+		else if (GameManager.activeApp == 2)
+			avatarController = drawingManager.GetComponent<CardManager> ().avatarController.GetComponent<AvatarController> ();
+		else if (GameManager.activeApp == 3)
+			avatarController = drawingManager.GetComponent<ConductorManager> ().avatarController.GetComponent<AvatarController> ();
+		else if (GameManager.activeApp == 4)
+			avatarController = drawingManager.GetComponent<TuningForkManager> ().avatarController.GetComponent<AvatarController> ();
+
+		if (GameManager.activeApp != 4) {
+			InvokeRepeating ("CheckMalPositions", 1f, 1f);
+
+			straightenText.SetActive (false);
+			contractionText.SetActive (false);
+			leftShoulderShrugWarning.SetActive (false);
+			rightShoulderShrugWarning.SetActive (false);
+			leftContractionWarning.SetActive (false);
+			rightContractionWarning.SetActive (false);
+		}
     }
 	
 	// Update is called once per frame
@@ -63,6 +95,18 @@ public class MalpositionManager : MonoBehaviour {
                 break;
         }
 	
+	}
+
+	public IEnumerator CheckMalPosValue()
+	{
+		while (GameManager.tuningFork) {
+
+			Debug.Log ("left side: " + Vector3.Angle (avatarController.shoulderLeftPos, avatarController.handLeftPos));
+			Debug.Log("right side: " + Vector3.Angle (avatarController.shoulderRightPos, avatarController.handRightPos));
+			yield return 0;
+		}
+
+		yield return null;
 	}
 
 

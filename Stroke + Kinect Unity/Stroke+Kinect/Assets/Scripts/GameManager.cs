@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
     public Text chooseText;
 	public GameObject cubeMan;
 
+	//SETTING THIS TO TRUE FOR NOW
+	public static bool tuningFork=true;
     public static int activeApp = 0; // 1 is drawing and so on
 	// Use this for initialization
 	void Start () {
