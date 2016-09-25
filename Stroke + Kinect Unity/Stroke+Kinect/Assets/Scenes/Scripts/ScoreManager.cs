@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour {
 
     private int score = 0;
-    public Text scoreTextLeft;
-    public Text scoreTextRight;
+    public bl_ProgressBar scoreLeft;
+    public bl_ProgressBar scoreRight;
 
     //grade panel
     public Text timerText;
@@ -29,9 +29,11 @@ public class ScoreManager : MonoBehaviour {
     private int currentLevel = 0;
     public List<int> scoreTarget;
 
+    public GameObject instructions;
     // Use this for initialization
     void Start () {
-
+        scoreLeft.Value = 0f;
+        scoreRight.Value = 0f;  
         gradePanel.SetActive(false);
         timerText.enabled = false;
         malpositionVal.enabled = false;
@@ -47,12 +49,35 @@ public class ScoreManager : MonoBehaviour {
         {
             StartCoroutine("ChangeSides");
         }
-        // Debug.Log("Focus side is" + SceneManager.focusSide);
-        if (SceneManager.focusSide == 0)
-            scoreTextLeft.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
-        else
-            scoreTextRight.text = score.ToString() + " /" + scoreTarget[currentLevel].ToString();
        // Debug.Log(currentLevel);
+    }
+
+
+    public void ReturnToMenu()
+    {
+        Application.LoadLevel("MainMenu");
+    }
+    public void ResumeGame()
+    {
+
+        //resume game
+    }
+    public void PauseGame()
+    {
+        //pause game
+    }
+
+    public void ShowInstructions()
+    {
+        StartCoroutine("InstructionDisplay");
+    }
+
+    public IEnumerator InstructionDisplay()
+    {
+        instructions.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        instructions.SetActive(false);
+        yield return null;
     }
 
     public float GetCurrentLevelTime()
@@ -69,13 +94,30 @@ public class ScoreManager : MonoBehaviour {
     public void IncrementScore()
     {
         score++;
+        UpdateScore();
     }
 
     public void DecrementScore()
     {
         score--;
+        UpdateScore();
     }
 
+    void UpdateScore()
+    {
+
+        switch (SceneManager.focusSide)
+        {
+            case 0:
+                //Debug.Log("the score is: " + score + " and the target is: " + scoreTarget[currentLevel]);
+                scoreLeft.Value = ((float)score / (float)scoreTarget[currentLevel]) * 100f;
+                //Debug.Log("the score left value is: " + scoreLeft.Value);
+                break;
+            case 1:
+                scoreRight.Value = ((float)score / (float)scoreTarget[currentLevel]) * 100f;
+                break;
+        }
+    }
     public void ResetScore()
     {
         score = 0;

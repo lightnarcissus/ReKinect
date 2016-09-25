@@ -57,8 +57,8 @@ public class AvatarController : MonoBehaviour
 
    // public KinectInterop.JointType handLeft =
 
-    private Vector3 spineMidPos;
-    private Vector3 spineShoulderPos;
+    public Vector3 spineMidPos;
+    public Vector3 spineShoulderPos;
     public Vector3 balancePos;
 
     public Vector3 shoulderLeftPos;
@@ -66,7 +66,9 @@ public class AvatarController : MonoBehaviour
 
     public Vector3 handLeftPos;
     public Vector3 handRightPos;
-
+    public Vector3 legLeftPos;
+    public Vector3 legRightPos;
+    public Vector3 headPos;
     public Vector3 thumbLeftPos;
     public Vector3 thumbRightPos;
 
@@ -265,6 +267,10 @@ public class AvatarController : MonoBehaviour
 
                 thumbLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbLeft);
                 thumbRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbRight);
+
+                legLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeLeft);
+                legRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeRight);
+                headPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.Head);
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
                 if (SceneManager.currentApp==3)
@@ -479,7 +485,9 @@ public class AvatarController : MonoBehaviour
 			if(posRelativeToCamera)
 			{
 				Vector3 cameraPos = posRelativeToCamera.transform.position;
+                Debug.Log(bodyRoot);
 				Vector3 bodyRootPos = bodyRoot != null ? bodyRoot.position : transform.position;
+               
 				Vector3 hipCenterPos = bodyRoot != null ? bodyRoot.position : bones[0].position;
 
 				float yRelToAvatar = 0f;

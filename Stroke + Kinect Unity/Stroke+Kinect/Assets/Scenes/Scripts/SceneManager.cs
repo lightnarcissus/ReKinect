@@ -87,6 +87,7 @@ public class SceneManager : MonoBehaviour {
 
     public void ActivateApp(int appNumber)
     {
+        Debug.Log("activating some app");
         switch (appNumber)
         {
 

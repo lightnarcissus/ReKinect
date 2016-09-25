@@ -16,7 +16,7 @@ public class OrchestraSegment : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	/*
 		if (!avatarController.outOfBalance) {
             if (avatarController.activeJoint == 1)
                 tuningArmPos = avatarController.rightElbowPos;
@@ -38,6 +38,7 @@ public class OrchestraSegment : MonoBehaviour {
 			orcSource.volume = Mathf.Abs (tuningArmPos.y);
             PointerCollide.volumeVal = tuningArmPos.y;
 		}
+        */
 	}
 
     public void PlaySound()

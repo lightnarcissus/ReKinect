@@ -30,7 +30,10 @@ public class MalpositionManager : MonoBehaviour {
 
     public Text debug1;
     public Text debug2;
-
+    private Vector2 leftHandOffset = new Vector2(-0.3f,0.7f);
+    private Vector2 rightHandOffset = new Vector2(0.2f, 0.7f);
+    private Vector2 leftLegOffset = new Vector2(-0.1f, 0.2f);
+    private Vector2 rightLegOffset = new Vector2(0.1f, 0.2f);
 
 	//SINGLETON
 	private static MalpositionManager _instance;
@@ -59,15 +62,17 @@ public class MalpositionManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		if (GameManager.activeApp == 1)
-			avatarController = drawingManager.GetComponent<DrawingManager> ().avatarController.GetComponent<AvatarController> ();
-		else if (GameManager.activeApp == 2)
-			avatarController = drawingManager.GetComponent<CardManager> ().avatarController.GetComponent<AvatarController> ();
-		else if (GameManager.activeApp == 3)
-			avatarController = drawingManager.GetComponent<ConductorManager> ().avatarController.GetComponent<AvatarController> ();
-		else if (GameManager.activeApp == 4)
-			avatarController = drawingManager.GetComponent<TuningForkManager> ().avatarController.GetComponent<AvatarController> ();
+        if (GameManager.activeApp == 1)
+            avatarController = drawingManager.GetComponent<DrawingManager>().avatarController.GetComponent<AvatarController>();
+        else if (GameManager.activeApp == 2)
+            avatarController = drawingManager.GetComponent<CardManager>().avatarController.GetComponent<AvatarController>();
+        else if (GameManager.activeApp == 3)
+            avatarController = drawingManager.GetComponent<ConductorManager>().avatarController.GetComponent<AvatarController>();
+        else if (GameManager.activeApp == 4)
+        {
 
+            avatarController = drawingManager.GetComponent<TuningForkManager>().avatarController.GetComponent<AvatarController>();
+        }
 		if (GameManager.activeApp != 4) {
 			InvokeRepeating ("CheckMalPositions", 1f, 1f);
 
@@ -101,8 +106,63 @@ public class MalpositionManager : MonoBehaviour {
 	{
 		while (GameManager.tuningFork) {
 
-			Debug.Log ("left side: " + Vector3.Angle (avatarController.shoulderLeftPos, avatarController.handLeftPos));
-			Debug.Log("right side: " + Vector3.Angle (avatarController.shoulderRightPos, avatarController.handRightPos));
+            float tempVal = 0f;
+           // Debug.Log("tuning fork");
+            switch(TuningForkManager.tuningForkTask)
+            {
+                //straight up
+                case 0:
+
+                    //left hand
+             //       Vector2 leftHand = new Vector2(avatarController.handLeftPos.x, avatarController.handLeftPos.z);
+               //     float leftHandAngle = Vector2.Angle(leftHand, leftHandOffset);
+                 //   Debug.Log("the hand pos is : " + avatarController.handLeftPos +" and the offset is" + leftHandOffset);
+                    float leftHandAngle =Mathf.Abs(avatarController.handLeftPos.x - leftHandOffset.x);
+                  //  Debug.Log(leftHandAngle);
+                    if (leftHandAngle>0.2f)
+                        tempVal = Mathf.Abs(0.2f - leftHandAngle);
+
+                    //right hand
+                    //  Vector2 rightHand = new Vector2(avatarController.handRightPos.x, avatarController.handRightPos.z);
+                    //   float rightHandAngle = Vector2.Angle(rightHand, rightHandOffset);
+                   // Debug.Log("the hand pos is : " + rightHand + " and the offset is" + rightHandOffset);
+                    //Debug.Log("the hand pos is : " + avatarController.handRightPos + " and the offset is" + rightHandOffset);
+                    float rightHandAngle = Mathf.Abs(avatarController.handRightPos.x - rightHandOffset.x);
+                 //   Debug.Log(rightHandAngle);
+                    if (rightHandAngle >0.2f)
+                        tempVal = Mathf.Abs(0.2f - rightHandAngle);
+                    /*
+                                        // left feet
+                                        Vector2 leftFeet = new Vector2(avatarController.legLeftPos.x, avatarController.legLeftPos.y);
+                                        float leftFeetAngle = Vector2.Angle(leftFeet, leftHandOffset);
+                                       // Debug.Log("the feet pos is : " + leftFeet + " and the offset is" + leftLegOffset);
+                                        if (leftFeetAngle > 12f)
+                                            tempVal += Mathf.Abs(12f - leftFeetAngle);
+
+
+                                        //right feet
+                                        Vector2 rightFeet = new Vector2(avatarController.legRightPos.x, avatarController.legRightPos.y);
+                                        float rightFeetAngle = Vector2.Angle(rightFeet, rightHandOffset);
+                                      //  Debug.Log("the feet pos is : " + rightFeet + " and the offset is" + rightLegOffset);
+                                        if (rightFeetAngle > 12f)
+                                            tempVal += Mathf.Abs(12f - rightFeetAngle);
+                                            */
+                    //head
+                    Vector2 headPos = new Vector2(avatarController.headPos.x, 0f);
+                    float headAngle = headPos.x;
+                    //Debug.Log(headAngle);
+                    //Debug.Log("the head pos is : " + avatarController.headPos + " and the offset is" + Vector3.zero);
+                    if (headAngle < -0.2f)
+                        tempVal += Mathf.Abs(0.2f - headAngle);
+                    UnityEngine.Debug.Log("the temp val is: " + tempVal);
+
+                    //final calculation
+                    TuningForkManager.malPosFactor = tempVal;
+                    tempVal = 0f;
+                    break;
+                
+            }
+    
 			yield return 0;
 		}
 

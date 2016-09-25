@@ -363,7 +363,7 @@ public class InteractionManager : MonoBehaviour
 					if(allowHandClicks && !dragInProgress && isLeftHandInteracting && 
 					   (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
-                      //  Debug.Log("WAS A CLICK");
+                        Debug.Log("WAS A CLICK");
 						if((Time.realtimeSinceStartup - lastLeftHandTime) >= KinectInterop.Constants.ClickStayDuration)
 						{
 							if(!isLeftHandClick)

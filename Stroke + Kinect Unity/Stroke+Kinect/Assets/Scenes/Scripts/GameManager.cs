@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour {
         focusSelectionPage.SetActive(false);
         gamePage.SetActive(false);
         titlePage.SetActive(true);
-		InvokeRepeating ("CheckController", 0.1f, 0.1f);
+        StartCoroutine("CheckController");
+	//	InvokeRepeating ("CheckController", 0.1f, 0.1f);
 
 
      
@@ -41,16 +42,21 @@ public class GameManager : MonoBehaviour {
 
     }
 
-	void CheckController()
+	IEnumerator CheckController()
 	{
+      //  Debug.Log(AlternateController.noKinect);
 		if (!AlternateController.noKinect) {
-			if (intManager.userActive && !focusSelected) {
+            UnityEngine.Debug.Log(intManager.userActive);
+            while (!intManager.userActive && !focusSelected)
+            {
+                yield return 0;
+            }
 				titlePage.SetActive (false);
                 focusSelectionPage.SetActive(true);
                 avatarCont.outOfBalance = true;
                 CheckStatus();
-            } else if(focusSelected) {
-               
+           
+            if(focusSelected) {
 				focusSelectionPage.SetActive (false);
 				gamePage.SetActive (true);
 			}
@@ -58,6 +64,7 @@ public class GameManager : MonoBehaviour {
 			titlePage.SetActive (false);
 			gamePage.SetActive (true);
 		}
+        yield return null;
 	}
 
     void CheckStatus()
@@ -100,12 +107,45 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator RunMainMenu()
     {
-        if (SceneManager.focusSide == 0)
-            yield return StartCoroutine("ActivateLeft");
-        else if (SceneManager.focusSide == 1)
-            yield return StartCoroutine("ActivateRight");
+        Debug.Log("activating left or right");
+        float currentTime = 0f;
+        while (currentTime < 5f)
+        {
+            if (intManager.leftHandPos.y > intManager.rightHandPos.y)
+            {
+               // Debug.Log("activated left");
+              //  focusSelected = true;
+                SceneManager.focusSide = 0;
+                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+            }
+            else if (intManager.rightHandPos.y > intManager.leftHandPos.y)
+            {
+            //    Debug.Log("activated right");
+              //  focusSelected = true;
+                SceneManager.focusSide = 1;
+                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            currentTime += Time.deltaTime;
+            yield return 0;
+        }
+        //  yield return StartCoroutine("RunCalibrationPhase");
+        yield return StartCoroutine("ShowGameSelection");
+        yield return null;
+    }
 
-        yield return StartCoroutine("RunCalibrationPhase");
+    IEnumerator ShowGameSelection()
+    {
+        Debug.Log("can show game selection screen");
+        titlePage.SetActive(false);
+        focusSelectionPage.SetActive(false);
+        gamePage.SetActive(true);
+        focusSelected = true;
         yield return null;
     }
 
@@ -139,24 +179,36 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator ActivateLeft()
     {
-        yield return new WaitForSeconds(2f);
+        Debug.Log("activated left");
+      //  yield return new WaitForSeconds(2f);
         if (intManager.leftHandPos.y > intManager.rightHandPos.y)
         {
+            Debug.Log("OOOH NO");
             focusSelected = true;
             SceneManager.focusSide = 0;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+            titlePage.SetActive(false);
+            focusSelectionPage.SetActive(false);
+         //   gamePage.SetActive(true);
         }
 
             yield return null;
     }
     IEnumerator ActivateRight()
     {
-        yield return new WaitForSeconds(2f);
+
+        Debug.Log("activated right");
+      //  yield return new WaitForSeconds(2f);
         if (intManager.rightHandPos.y > intManager.leftHandPos.y)
         {
+
+            Debug.Log("OOOH NO");
             focusSelected = true;
             SceneManager.focusSide = 1;
             focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+            titlePage.SetActive(false);
+            focusSelectionPage.SetActive(false);
+          //  gamePage.SetActive(true);
         }
 
             yield return null;

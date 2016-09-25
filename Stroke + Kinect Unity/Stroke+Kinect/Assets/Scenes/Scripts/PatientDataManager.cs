@@ -34,7 +34,8 @@ public class PatientDataManager : MonoBehaviour {
         SceneManager.age = patientAge.text;
         SceneManager.focusSide = focusSide.value;
         focusSideValue = focusSide.value;
-        csvReader.CSVWrite(patientName.text,patientAge.text,focusSide.value); // 0 is Left, 1 is Right for focusSide.value 
+        //UNDO THIS AFTER FIXING THE CSV FORMAT BUGS
+      //  csvReader.CSVWrite(patientName.text,patientAge.text,focusSide.value); // 0 is Left, 1 is Right for focusSide.value 
         Application.LoadLevel(1);
     }
 

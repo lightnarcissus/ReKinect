@@ -16,6 +16,8 @@ public class KinectManager : MonoBehaviour
 	[Tooltip("How high off the ground is the sensor (in meters).")]
 	public float sensorHeight = 1.0f;
 
+    public static bool userActive = false;
+
 	[Tooltip("Kinect elevation angle (in degrees). May be positive or negative.")]
 	public float sensorAngle = 0f;
 	
@@ -3008,6 +3010,8 @@ public class KinectManager : MonoBehaviour
 //				}
 
 				Debug.Log("Adding user " + uidIndex + ", ID: " + userId + ", Body: " + bodyIndex);
+                if (!userActive)
+                    userActive = true;
 				dictUserIdToIndex[userId] = bodyIndex;
 
 				if(uidIndex >= 0)

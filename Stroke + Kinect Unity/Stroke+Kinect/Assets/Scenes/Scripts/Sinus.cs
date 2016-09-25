@@ -31,15 +31,15 @@ public class Sinus : MonoBehaviour
     }
   }
 
-    public void DecrementFrequency()
+    public void DecrementFrequency(float value)
     {
 		if(frequency>=startFrequency)
         frequency -= ((1f / 60f) * timeToSlowDown); ;
     }
 
-    public void IncrementFrequency()
+    public void IncrementFrequency(float value)
     {
-		if(frequency<=upperThreshold)
-        frequency += 10f;
+		if(frequency<=upperThreshold + (440f *value))
+        frequency += 6f;
     }
 }
