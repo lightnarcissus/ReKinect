@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject gamePage;
     public GameObject focusSelectionPage;
 	public GameObject titlePage;
+	public GameObject musicPage;
     public AvatarController avatarCont;
 	public AlternateController altControl;
     public SceneManager sceneManager;
@@ -20,8 +21,32 @@ public class GameManager : MonoBehaviour {
 	//SETTING THIS TO TRUE FOR NOW
 	public static bool tuningFork=true;
     public static int activeApp = 0; // 1 is drawing and so on
+	//SINGLETON
+	private static GameManager _instance;
+
+	public static GameManager Instance
+	{
+		get
+		{
+			return _instance;
+		}
+	}
+
+	void Awake()
+	{
+
+		if (_instance != null)
+		{
+			Debug.Log("Instance already exists!");
+			return;
+		}
+		_instance = this;
+
+	}
+
 	// Use this for initialization
 	void Start () {
+		musicPage.SetActive (false);
 		cubeMan.SetActive (false);
         focusSelectionPage.SetActive(false);
         gamePage.SetActive(false);

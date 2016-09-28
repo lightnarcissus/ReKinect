@@ -75,7 +75,7 @@ public class ScoreManager : MonoBehaviour {
     public IEnumerator InstructionDisplay()
     {
         instructions.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         instructions.SetActive(false);
         yield return null;
     }

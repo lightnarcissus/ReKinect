@@ -89,7 +89,7 @@ public class ConductorManager : MonoBehaviour {
     IEnumerator ShowInstructions()
     {
         instructionPanel.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         instructionPanel.SetActive(false);
         yield return null;
     }

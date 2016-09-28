@@ -99,15 +99,24 @@ public class SceneManager : MonoBehaviour {
                 GameManager.activeApp = 2;
                 Application.LoadLevel("CardMatching");
                 break;
-            case 3:
-                GameManager.activeApp = 3;
-                Application.LoadLevel("ConductorMusic");
+		case 3:
+			GameManager.Instance.gamePage.SetActive (false);
+			GameManager.Instance.musicPage.SetActive (true);
                 break;
 		case 4:
 			GameManager.activeApp = 4;
 			Debug.Log ("game manager is: " + GameManager.activeApp);
                 Application.LoadLevel("HumanTuningFork");
                 break;
+		case 5:
+			GameManager.activeApp = 3;
+			Application.LoadLevel ("ConductorMusic");
+			break;
+		case 6:
+			GameManager.Instance.musicPage.SetActive (false);
+			GameManager.Instance.gamePage.SetActive (true);
+			break;
+			
         }
     }
 

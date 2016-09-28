@@ -274,14 +274,14 @@ public class DrawingManager : MonoBehaviour {
         {
             leftInstructionPanel.SetActive(true);
             rightInstructionPanel.SetActive(false);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             leftInstructionPanel.SetActive(false);
         }
         else
         {
             rightInstructionPanel.SetActive(true);
             leftInstructionPanel.SetActive(false);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             rightInstructionPanel.SetActive(false);
         }
         
