@@ -26,9 +26,12 @@ public class CardScript : MonoBehaviour {
 	}
 
     void OnMouseDown() {
-        isPicking = true;
-        GameObject tempObj=Instantiate(effect, transform.position, Quaternion.identity) as GameObject;
-        tempObj.transform.parent = transform; 
+        if (CardManager.canPick)
+        {
+            isPicking = true;
+            GameObject tempObj = Instantiate(effect, transform.position, Quaternion.identity) as GameObject;
+            tempObj.transform.parent = transform;
+        }
     }
 
     void OnMouseUp() {

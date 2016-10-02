@@ -23,7 +23,28 @@ public class Level1Manager : MonoBehaviour
    
 
     float gapX, gapY;
+    //SINGLETON
+    private static Level1Manager _instance;
 
+    public static Level1Manager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+
+        if (_instance != null)
+        {
+            Debug.Log("Instance already exists!");
+            return;
+        }
+        _instance = this;
+
+    }
     void OnEnable() {
        
         InitCards();
@@ -43,8 +64,8 @@ public class Level1Manager : MonoBehaviour
     {
         slots = new Vector3[16];
         initPos = new Vector3(-3.2f, 2.8f, 0f);
-        gapX = 2.2f;
-        gapY = -1.8f;
+        gapX = 2.5f;
+        gapY = -2f;
 
         for (int i = 0; i < Cards.Count; i++)
         {
@@ -80,6 +101,15 @@ public class Level1Manager : MonoBehaviour
             GameObject tmp = Cards[i];
             Cards[i] = Cards[r];
             Cards[r] = tmp;
+        }
+    }
+
+    public void DestroyAllCards()
+    {
+        for (int i = 0; i < Cards.Count; i++)
+        {
+            Destroy(Cards[i]);
+            Cards.Remove(Cards[i]);
         }
     }
 

@@ -15,6 +15,7 @@ public class CalibrationManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if(avatarController.outOfBalance)
         {
             kinectManager.displayUserMap = true;
@@ -29,6 +30,7 @@ public class CalibrationManager : MonoBehaviour {
             if (GameManager.activeApp == 3)
                 balanceWarning2.SetActive(false);
         }
+        */
 	
 	}
 }

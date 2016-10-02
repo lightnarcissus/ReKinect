@@ -12,6 +12,14 @@ public class ConductorManager : MonoBehaviour {
     public GameObject leftCanvas;
     public GameObject rightCanvas;
     public GameObject instructionPanel;
+    public static bool canPlay = true;
+
+    public Transform orcLeft;
+    public Transform orcRight;
+    public Transform colliderLeft;
+    public Transform colliderRight;
+    public Transform orchestra;
+    public Transform colliders;
     // Use this for initialization
 
     void Awake()
@@ -23,17 +31,21 @@ public class ConductorManager : MonoBehaviour {
         {
             StartCoroutine("ShowInstructions");
             //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (SceneManager.focusSide == 1)
+            if (SceneManager.focusSide == 0)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 leftCanvas.SetActive(true);
+                orchestra.transform.position = orcLeft.transform.position;
+                colliders.transform.position = colliderLeft.transform.position;
                 rightCanvas.SetActive(false);
               //  focusText.text = "Focus Side: \n Left Arm";
             }
-            if (SceneManager.focusSide == 2)
+            if (SceneManager.focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 leftCanvas.SetActive(false);
+                orchestra.transform.position = orcRight.transform.position;
+                colliders.transform.position = colliderRight.transform.position;
                 rightCanvas.SetActive(true);
                 // focusText.text = "Focus Side: \n Right Arm";
             }
@@ -56,14 +68,14 @@ public class ConductorManager : MonoBehaviour {
         if (sceneManager != null)
         {
             //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (SceneManager.focusSide == 1)
+            if (SceneManager.focusSide == 0)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
                 leftCanvas.SetActive(true);
                 rightCanvas.SetActive(false);
                 //  focusText.text = "Focus Side: \n Left Arm";
             }
-            if (SceneManager.focusSide == 2)
+            if (SceneManager.focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 leftCanvas.SetActive(false);
@@ -88,9 +100,11 @@ public class ConductorManager : MonoBehaviour {
     }
     IEnumerator ShowInstructions()
     {
+        canPlay = false;
         instructionPanel.SetActive(true);
         yield return new WaitForSeconds(10f);
         instructionPanel.SetActive(false);
+        canPlay = true;
         yield return null;
     }
 }

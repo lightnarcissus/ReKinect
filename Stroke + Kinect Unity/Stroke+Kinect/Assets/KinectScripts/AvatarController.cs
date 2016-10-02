@@ -254,23 +254,28 @@ public class AvatarController : MonoBehaviour
 				KinectInterop.JointType joint = !mirroredMovement ? boneIndex2JointMap[boneIndex] : boneIndex2MirrorJointMap[boneIndex];
                 //  Debug.Log(boneIndex2JointMap[boneIndex]);
                 //Debug.Log(joint);
-                elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
-				rightElbowPos = kinectManager.GetJointPosition(UserID, (int)tuningJoint);
-                spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
-                spineShoulderPos= kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
+               
+                    elbowPos = kinectManager.GetJointPosition(UserID, (int)targetJoint);
+                    rightElbowPos = kinectManager.GetJointPosition(UserID, (int)tuningJoint);
+                    spineMidPos = kinectManager.GetJointPosition(UserID, (int)spineMidJoint);
+                    spineShoulderPos = kinectManager.GetJointPosition(UserID, (int)spineShoulderJoint);
+                    handLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandLeft);
+                    handRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight);
+                
+                    shoulderLeftPos = kinectManager.GetJointPosition(UserID, (int)shoulderLeft);
+                    shoulderRightPos = kinectManager.GetJointPosition(UserID, (int)shoulderRight);
 
-                shoulderLeftPos= kinectManager.GetJointPosition(UserID, (int)shoulderLeft);
-                shoulderRightPos = kinectManager.GetJointPosition(UserID, (int)shoulderRight);
+                    handLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandLeft);
+                    handRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight);
 
-                handLeftPos= kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandLeft);
-                handRightPos= kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight);
 
-                thumbLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbLeft);
-                thumbRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbRight);
+                    thumbLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbLeft);
+                    thumbRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ThumbRight);
 
-                legLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeLeft);
-                legRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeRight);
-                headPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.Head);
+                    legLeftPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeLeft);
+                    legRightPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeRight);
+                    headPos = kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.Head);
+                
                 // Debug.Log("Shoulder: " + spineShoulderPos + " and Spine" +spineMidPos);
 
                 if (SceneManager.currentApp==3)

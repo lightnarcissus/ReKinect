@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 	//SETTING THIS TO TRUE FOR NOW
 	public static bool tuningFork=true;
     public static int activeApp = 0; // 1 is drawing and so on
+    private bool firstTime = true;
 	//SINGLETON
 	private static GameManager _instance;
 
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (sceneManager == null)
+            sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        
 		musicPage.SetActive (false);
 		cubeMan.SetActive (false);
         focusSelectionPage.SetActive(false);
@@ -76,12 +80,22 @@ public class GameManager : MonoBehaviour {
             {
                 yield return 0;
             }
+            if(firstTime)
+            { 
 				titlePage.SetActive (false);
                 focusSelectionPage.SetActive(true);
                 avatarCont.outOfBalance = true;
                 CheckStatus();
-           
-            if(focusSelected) {
+                firstTime = false;
+            }
+            else
+            {
+                focusSelected = true;
+                titlePage.SetActive(false);
+                focusSelectionPage.SetActive(false);
+                gamePage.SetActive(true);
+            }
+            if (focusSelected) {
 				focusSelectionPage.SetActive (false);
 				gamePage.SetActive (true);
 			}
@@ -133,33 +147,34 @@ public class GameManager : MonoBehaviour {
     IEnumerator RunMainMenu()
     {
         Debug.Log("activating left or right");
-        float currentTime = 0f;
-        while (currentTime < 5f)
-        {
-            if (intManager.leftHandPos.y > intManager.rightHandPos.y)
+            float currentTime = 0f;
+            while (currentTime < 5f)
             {
-               // Debug.Log("activated left");
-              //  focusSelected = true;
-                SceneManager.focusSide = 0;
-                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
-                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
-                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+                if (intManager.leftHandPos.y > intManager.rightHandPos.y)
+                {
+                    // Debug.Log("activated left");
+                    //  focusSelected = true;
+                    SceneManager.focusSide = 0;
+                    focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                    focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
+                    focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                    focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+                }
+                else if (intManager.rightHandPos.y > intManager.leftHandPos.y)
+                {
+                    //    Debug.Log("activated right");
+                    //  focusSelected = true;
+                    SceneManager.focusSide = 1;
+                    focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                    focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
+                    focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                    focusSelectionPage.transform.GetChild(1).gameObject.SetActive(false);
+                }
+                currentTime += Time.deltaTime;
+                yield return 0;
             }
-            else if (intManager.rightHandPos.y > intManager.leftHandPos.y)
-            {
-            //    Debug.Log("activated right");
-              //  focusSelected = true;
-                SceneManager.focusSide = 1;
-                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
-                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
-                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            currentTime += Time.deltaTime;
-            yield return 0;
-        }
-        //  yield return StartCoroutine("RunCalibrationPhase");
+            firstTime = false;
+            //  yield return StartCoroutine("RunCalibrationPhase");
         yield return StartCoroutine("ShowGameSelection");
         yield return null;
     }

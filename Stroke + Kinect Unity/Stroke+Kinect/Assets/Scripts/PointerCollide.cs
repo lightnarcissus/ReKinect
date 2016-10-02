@@ -47,6 +47,9 @@ public class PointerCollide : MonoBehaviour {
 
     void OnMouseOver()
     {
+
+        if(ConductorManager.canPlay)
+        { 
         
         activeImg[bgNum-1].SetActive(true);
     //    activeImg[bgNum - 1].GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, volumeVal);
@@ -58,38 +61,39 @@ public class PointerCollide : MonoBehaviour {
            */
         orcSeg.allow = true;
 
-        /*     switch(gameObject.name)
-             {
-             case "LeftArc":
-                 activeImg [activeArc].SetActive (false);
-                 activeImg [0].SetActive (true);
-                 activeArc = 0;
-                 source.clip = orcClips [0];
-                 if (!source.isPlaying)
-                     source.Play ();
-                     orcSeg.allow = true;
-                     break;
-                 case "CentreArc":
-                     activeImg[activeArc].SetActive(false);
-                     activeImg[1].SetActive(true);
-                     source.clip = orcClips[1];
-                     activeArc = 1;
-                     if(!source.isPlaying)
-                         source.Play();
-                     orcSeg.allow = true;
-                     break;
-                 case "RightArc":
-                     activeImg[activeArc].SetActive(false);
-                     activeImg[2].SetActive(true);
-                     source.clip = orcClips[2];
-                     activeArc = 2;
-                     //Debug.Log("in right");
+            /*     switch(gameObject.name)
+                 {
+                 case "LeftArc":
+                     activeImg [activeArc].SetActive (false);
+                     activeImg [0].SetActive (true);
+                     activeArc = 0;
+                     source.clip = orcClips [0];
                      if (!source.isPlaying)
-                         source.Play();
-                     orcSeg.allow = true;
-                     break;
-             }
-        */
+                         source.Play ();
+                         orcSeg.allow = true;
+                         break;
+                     case "CentreArc":
+                         activeImg[activeArc].SetActive(false);
+                         activeImg[1].SetActive(true);
+                         source.clip = orcClips[1];
+                         activeArc = 1;
+                         if(!source.isPlaying)
+                             source.Play();
+                         orcSeg.allow = true;
+                         break;
+                     case "RightArc":
+                         activeImg[activeArc].SetActive(false);
+                         activeImg[2].SetActive(true);
+                         source.clip = orcClips[2];
+                         activeArc = 2;
+                         //Debug.Log("in right");
+                         if (!source.isPlaying)
+                             source.Play();
+                         orcSeg.allow = true;
+                         break;
+                 }
+            */
+        }
     }
 
     IEnumerator DecreaseVolumeSlowly()

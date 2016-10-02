@@ -28,7 +28,7 @@ public class Level4Manager : MonoBehaviour
         for (int i = 0; i < Cards.Length; i++)
         {
             Cards[i].transform.position = slots[i];
-            Cards[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            Cards[i].transform.localScale = Vector3.one;
         }
     }
 
@@ -36,8 +36,8 @@ public class Level4Manager : MonoBehaviour
     {
         slots = new Vector3[9];
         initPos = new Vector3(-3.2f, 2.8f, 0f);
-        gapX = 1.8f;
-        gapY = -1.5f;
+        gapX = 2f;
+        gapY = -2f;
 
 
         for (int i = 0; i < Cards.Length; i++)

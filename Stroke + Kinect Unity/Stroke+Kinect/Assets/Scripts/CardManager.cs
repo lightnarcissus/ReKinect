@@ -20,6 +20,9 @@ public class CardManager : MonoBehaviour {
     GameObject instMatching, instSorting;
     public GameObject instructionPanel;
     public GameObject prompt1;
+    public static bool canPick = true;
+    public GameObject leftCat;
+    public GameObject rightCat;
     int timer;
 
     void Awake()
@@ -32,17 +35,21 @@ public class CardManager : MonoBehaviour {
         {
             StartCoroutine("ShowInstructions");
             //  Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (SceneManager.focusSide == 1)
+            if (SceneManager.focusSide == 0)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 1;
+                rightCat.SetActive(false);
+                leftCat.SetActive(true);
                 leftCanvas.SetActive(true);
                 rightCanvas.SetActive(false);
                 //  focusText.text = "Focus Side: \n Left Arm";
             }
-            if (SceneManager.focusSide == 2)
+            if (SceneManager.focusSide == 1)
             {
                 avatarController.GetComponent<AvatarController>().activeJoint = 2;
                 leftCanvas.SetActive(false);
+                rightCat.SetActive(true);
+                leftCat.SetActive(false);
                 rightCanvas.SetActive(true);
                 // focusText.text = "Focus Side: \n Right Arm";
             }
@@ -69,8 +76,9 @@ public class CardManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //  Debug.Log(CardManager.canPick);
        // Debug.Log("Correct Matches " + correctMatches);
-        if (correctMatches >= levelTarget[currentLevel])
+        if (correctMatches >= levelTarget[currentLevel] || Input.GetKeyDown(KeyCode.N))
         {
             NextLevel();
         }
@@ -85,16 +93,25 @@ public class CardManager : MonoBehaviour {
 
     IEnumerator ShowPrompt()
     {
+        canPick = false;
         prompt1.SetActive(true);
         yield return new WaitForSeconds(3f);
         prompt1.SetActive(false);
+        canPick = true;
         yield return null;
     }
     public void NextLevel()
     {
         // timer++;
         //    Debug.Log(timer);
-
+        /*
+        switch(currentLevel)
+        {
+            case 0:
+                Level1Manager.Instance.DestroyAllCards();
+                break;
+        }
+        */
         StartCoroutine("ShowPrompt");
       //  if (timer > 60)
        // {
@@ -145,8 +162,10 @@ public class CardManager : MonoBehaviour {
     IEnumerator ShowInstructions()
     {
         instructionPanel.SetActive(true);
+        canPick = false;
         yield return new WaitForSeconds(10f);
         instructionPanel.SetActive(false);
+        canPick = true;
        yield return null;
     }
 }

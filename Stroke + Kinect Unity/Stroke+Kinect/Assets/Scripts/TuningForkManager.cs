@@ -7,12 +7,35 @@ public class TuningForkManager : MonoBehaviour {
 	public GameObject avatarController;
     public static int tuningForkTask = 0;
 	public GameObject sceneManager;
-	// Use this for initialization
-	void Awake()
-	{
-		sceneManager = GameObject.Find("SceneManager");
-	}
+    public GameObject[] instructionList;
+    //SINGLETON
+    private static TuningForkManager _instance;
+
+    public static TuningForkManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+
+        if (_instance != null)
+        {
+            Debug.Log("Instance already exists!");
+            Destroy(this);
+            return;
+        }
+        _instance = this;
+        sceneManager = GameObject.Find("SceneManager");
+    }
 	void Start () {
+        for(int i=0;i<instructionList.Length;i++)
+        {
+            instructionList[i].SetActive(false);
+        }
 		StartCoroutine (MalpositionManager.Instance.CheckMalPosValue ());
         StartCoroutine("TuningForkTasks");
 	}
@@ -21,9 +44,15 @@ public class TuningForkManager : MonoBehaviour {
     {
         while(tuningForkTask<=5)
         {
+            instructionList[tuningForkTask].transform.parent.gameObject.SetActive(true);
+            instructionList[tuningForkTask].SetActive(true);
+            yield return new WaitForSeconds(5f);
+            instructionList[tuningForkTask].SetActive(false);
+            instructionList[tuningForkTask].transform.parent.gameObject.SetActive(false);
             MalpositionManager.Instance.SetTuningTask(tuningForkTask);
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(10f);
             tuningForkTask++;
+            
             yield return 0;
         }
         yield return null;

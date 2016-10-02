@@ -344,66 +344,66 @@ public class Kinect2Interface : DepthSensorInterface
 
 	public void CloseSensor (KinectInterop.SensorData sensorData)
 	{
-		if(coordMapper != null)
-		{
-			coordMapper = null;
-		}
-		
-		if(bodyFrameReader != null)
-		{
-			bodyFrameReader.Dispose();
-			bodyFrameReader = null;
-		}
-		
-		if(bodyIndexFrameReader != null)
-		{
-			bodyIndexFrameReader.Dispose();
-			bodyIndexFrameReader = null;
-		}
-		
-		if(colorFrameReader != null)
-		{
-			colorFrameReader.Dispose();
-			colorFrameReader = null;
-		}
-		
-		if(depthFrameReader != null)
-		{
-			depthFrameReader.Dispose();
-			depthFrameReader = null;
-		}
-		
-		if(infraredFrameReader != null)
-		{
-			infraredFrameReader.Dispose();
-			infraredFrameReader = null;
-		}
-		
-		if(multiSourceFrameReader != null)
-		{
-			multiSourceFrameReader.Dispose();
-			multiSourceFrameReader = null;
-		}
-		
-		if(kinectSensor != null)
-		{
-			//if (kinectSensor.IsOpen)
-			{
-				//Debug.Log("Closing sensor, available: " + kinectSensor.IsAvailable);
-				kinectSensor.Close();
-			}
-			
-			float fWaitTime = Time.realtimeSinceStartup + 3f;
-			while(kinectSensor.IsOpen && Time.realtimeSinceStartup < fWaitTime)
-			{
-				// wait for sensor to close
-			}
-			
-			Debug.Log("K2-sensor " + (kinectSensor.IsOpen ? "opened" : "closed") + 
-			          ", available: " + kinectSensor.IsAvailable);
-			
-			kinectSensor = null;
-		}
+            if (coordMapper != null)
+            {
+                coordMapper = null;
+            }
+
+            if (bodyFrameReader != null)
+            {
+                bodyFrameReader.Dispose();
+                bodyFrameReader = null;
+            }
+
+            if (bodyIndexFrameReader != null)
+            {
+                bodyIndexFrameReader.Dispose();
+                bodyIndexFrameReader = null;
+            }
+
+            if (colorFrameReader != null)
+            {
+                colorFrameReader.Dispose();
+                colorFrameReader = null;
+            }
+
+            if (depthFrameReader != null)
+            {
+                depthFrameReader.Dispose();
+                depthFrameReader = null;
+            }
+
+            if (infraredFrameReader != null)
+            {
+                infraredFrameReader.Dispose();
+                infraredFrameReader = null;
+            }
+
+            if (multiSourceFrameReader != null)
+            {
+                multiSourceFrameReader.Dispose();
+                multiSourceFrameReader = null;
+            }
+
+            if (kinectSensor != null)
+            {
+                //if (kinectSensor.IsOpen)
+                {
+                    //Debug.Log("Closing sensor, available: " + kinectSensor.IsAvailable);
+                    kinectSensor.Close();
+                }
+
+                float fWaitTime = Time.realtimeSinceStartup + 3f;
+                while (kinectSensor.IsOpen && Time.realtimeSinceStartup < fWaitTime)
+                {
+                    // wait for sensor to close
+                }
+
+                Debug.Log("K2-sensor " + (kinectSensor.IsOpen ? "opened" : "closed") +
+                          ", available: " + kinectSensor.IsAvailable);
+
+                kinectSensor = null;
+            }
 	}
 
 	public bool UpdateSensorData (KinectInterop.SensorData sensorData)

@@ -692,41 +692,41 @@ public class KinectInterop
 		return sensorData;
 	}
 
-	// closes opened readers and closes the sensor
-	public static void CloseSensor(SensorData sensorData)
-	{
-		FinishBackgroundRemoval(sensorData);
-		//FinishColorBackground(sensorData);
+    // closes opened readers and closes the sensor
+    public static void CloseSensor(SensorData sensorData)
+    {
+            FinishBackgroundRemoval(sensorData);
+            //FinishColorBackground(sensorData);
 
-		if(sensorData != null && sensorData.sensorInterface != null)
-		{
-			sensorData.sensorInterface.CloseSensor(sensorData);
-		}
-		
-		if(sensorData.bodyIndexBuffer != null)
-		{
-			sensorData.bodyIndexBuffer.Release();
-			sensorData.bodyIndexBuffer = null;
-		}
-		
-		if(sensorData.depthImageBuffer != null)
-		{
-			sensorData.depthImageBuffer.Release();
-			sensorData.depthImageBuffer = null;
-		}
+            if (sensorData != null && sensorData.sensorInterface != null)
+            {
+                sensorData.sensorInterface.CloseSensor(sensorData);
+            }
 
-		if(sensorData.depthHistBuffer != null)
-		{
-			sensorData.depthHistBuffer.Release();
-			sensorData.depthHistBuffer = null;
-		}
-		
-		if(sensorData.depth2ColorBuffer != null)
-		{
-			sensorData.depth2ColorBuffer.Release();
-			sensorData.depth2ColorBuffer = null;
-		}
-	}
+            if (sensorData.bodyIndexBuffer != null)
+            {
+                sensorData.bodyIndexBuffer.Release();
+                sensorData.bodyIndexBuffer = null;
+            }
+
+            if (sensorData.depthImageBuffer != null)
+            {
+                sensorData.depthImageBuffer.Release();
+                sensorData.depthImageBuffer = null;
+            }
+
+            if (sensorData.depthHistBuffer != null)
+            {
+                sensorData.depthHistBuffer.Release();
+                sensorData.depthHistBuffer = null;
+            }
+
+            if (sensorData.depth2ColorBuffer != null)
+            {
+                sensorData.depth2ColorBuffer.Release();
+                sensorData.depth2ColorBuffer = null;
+            }
+    }
 
 	// invoked periodically to update sensor data, if needed
 	public static bool UpdateSensorData(SensorData sensorData)

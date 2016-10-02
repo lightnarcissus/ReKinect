@@ -72,11 +72,39 @@ public class ScoreManager : MonoBehaviour {
         StartCoroutine("InstructionDisplay");
     }
 
+    public void MainMenuActivate()
+    {
+        StartCoroutine("ReturnToMainMenu");
+    }
+
     public IEnumerator InstructionDisplay()
     {
-        instructions.SetActive(true);
+        if (GameManager.activeApp == 4)
+        {
+            //is HTF
+            TuningForkManager.Instance.instructionList[TuningForkManager.tuningForkTask].transform.parent.gameObject.SetActive(true);
+            TuningForkManager.Instance.instructionList[TuningForkManager.tuningForkTask].SetActive(true);
+        }
+        else
+        {
+            instructions.SetActive(true);
+        }
         yield return new WaitForSeconds(10f);
+        if(GameManager.activeApp==4)
+        {
+            //is HTF
+            TuningForkManager.Instance.instructionList[TuningForkManager.tuningForkTask].transform.parent.gameObject.SetActive(false);
+            TuningForkManager.Instance.instructionList[TuningForkManager.tuningForkTask].SetActive(false);
+        }
+        else
         instructions.SetActive(false);
+        yield return null;
+    }
+
+    public IEnumerator ReturnToMainMenu()
+    {
+       SceneManager.Instance.mainMenu = true;
+        SceneManager.Instance.ActivateApp(0);
         yield return null;
     }
 

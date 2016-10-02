@@ -144,7 +144,7 @@ public class MalpositionManager : MonoBehaviour {
                     //left hand
              //       Vector2 leftHand = new Vector2(avatarController.handLeftPos.x, avatarController.handLeftPos.z);
                //     float leftHandAngle = Vector2.Angle(leftHand, leftHandOffset);
-                    Debug.Log("the hand pos is : " + avatarController.handLeftPos +" and the offset is" + leftHandOffset);
+                   // Debug.Log("the hand pos is : " + avatarController.handLeftPos +" and the offset is" + leftHandOffset);
                     float leftHandAngle =Mathf.Abs(avatarController.handLeftPos.x - leftHandOffset.x);
                   //  Debug.Log(leftHandAngle);
                     if (leftHandAngle>0.2f)
@@ -182,7 +182,7 @@ public class MalpositionManager : MonoBehaviour {
                     //Debug.Log("the head pos is : " + avatarController.headPos + " and the offset is" + Vector3.zero);
                     if (headAngle < -0.2f)
                         tempVal += Mathf.Abs(0.2f - headAngle);
-                    UnityEngine.Debug.Log("the temp val is: " + tempVal);
+                   // UnityEngine.Debug.Log("the temp val is: " + tempVal);
 
                     //final calculation
                     TuningForkManager.malPosFactor = tempVal;

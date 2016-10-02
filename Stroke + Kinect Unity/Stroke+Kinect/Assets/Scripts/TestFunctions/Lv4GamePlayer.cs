@@ -92,8 +92,8 @@ public class Lv4GamePlayer : MonoBehaviour {
                 isInBoundary(mappedRHandPos, i);
                 if (isInBoundary(mappedRHandPos, i)) whichCard = i;
 
-                if (Picking[i]) Lv4.Cards[i].transform.localScale = new Vector3(1f, 1f, 1f); //1.17
-                else { Lv4.Cards[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); } //1
+                if (Picking[i]) Lv4.Cards[i].transform.localScale = new Vector3(1.17f, 1.17f, 1.17f); //1.17
+                else { Lv4.Cards[i].transform.localScale = new Vector3(1f, 1f, 1f); } //1
             }
      
         }

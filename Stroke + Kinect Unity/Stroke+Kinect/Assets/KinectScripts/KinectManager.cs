@@ -1957,6 +1957,7 @@ public class KinectManager : MonoBehaviour
 			kinectReaderRunning = false;
 			kinectReaderThread = null;
 
+            Debug.Log("CLOSING NOW");
 			// close the sensor
 			KinectInterop.CloseSensor(sensorData);
 			
