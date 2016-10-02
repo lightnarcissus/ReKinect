@@ -18,12 +18,30 @@ public class DrawMouse : MonoBehaviour
     Vector3 lastPos = Vector3.one * float.MaxValue;
     public GameObject trailRend;
     public AvatarController avatarController;
-	public bool allowMouse=false;
-
+	public bool allowMouse=true;
+    public GUIText ok;
     public Camera mainCam;
+    //SINGLETON
+    private static DrawMouse _instance;
+
+    public static DrawMouse Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
 
     void Awake()
     {
+
+        if (_instance != null)
+        {
+            Debug.Log("Instance already exists!");
+            return;
+        }
+        _instance = this;
+
         Cursor.visible = false;
         //  drawPos = kinectAvatar.GetComponent<AvatarController>().activeJointPos;
         thisCamera = mainCam;
@@ -58,6 +76,9 @@ public class DrawMouse : MonoBehaviour
                     if (dist <= threshold)
                         return;
                     trailRend.transform.position = new Vector3(mouseWorld.x, mouseWorld.y, 50f);
+              //  Vector3 actualMousePos = thisCamera.WorldToViewportPoint(mouseWorld);
+              //  Debug.Log("ACTUAL: " + actualMousePos); 
+              //  MouseControl.MouseMove(actualMousePos,ok);
                     lastPos = mouseWorld;
                 }
                 else

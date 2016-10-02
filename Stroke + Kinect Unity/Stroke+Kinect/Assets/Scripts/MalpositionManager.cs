@@ -73,7 +73,7 @@ public class MalpositionManager : MonoBehaviour {
 
             avatarController = drawingManager.GetComponent<TuningForkManager>().avatarController.GetComponent<AvatarController>();
         }
-		if (GameManager.activeApp != 4) {
+		if (GameManager.activeApp != 4 && KinectManager.userActive && !(GameManager.activeApp==1 && DrawMouse.Instance.allowMouse)) {
 			InvokeRepeating ("CheckMalPositions", 1f, 1f);
 
 			straightenText.SetActive (false);
@@ -263,7 +263,7 @@ public class MalpositionManager : MonoBehaviour {
                 shoulderShrugCount++;
                 malPosState = MalState.ShoulderShrug;
                 malPosActive = true;
-                Debug.Log("SHOULDER SHRUG");
+               // Debug.Log("SHOULDER SHRUG");
                 if (shrugCount < 4)
                     shrugCount++;
                 else

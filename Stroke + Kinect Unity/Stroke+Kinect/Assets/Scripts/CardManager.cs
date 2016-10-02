@@ -83,12 +83,19 @@ public class CardManager : MonoBehaviour {
     }
 
 
+    IEnumerator ShowPrompt()
+    {
+        prompt1.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        prompt1.SetActive(false);
+        yield return null;
+    }
     public void NextLevel()
     {
-       // timer++;
+        // timer++;
         //    Debug.Log(timer);
 
-        prompt1.SetActive(true);
+        StartCoroutine("ShowPrompt");
       //  if (timer > 60)
        // {
             Debug.Log("NEXTLEVEL");
@@ -118,7 +125,7 @@ public class CardManager : MonoBehaviour {
             correctMatches = 0;
 
             timer = 0;
-            prompt1.SetActive(false);
+           // prompt1.SetActive(false);
         /*
             if (currentLevel == 3)
             {

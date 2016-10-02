@@ -89,6 +89,7 @@ public class ScoreManager : MonoBehaviour {
     public void IncreaseLevel()
     {
         currentLevel++;
+        ResetScore();
     }
 
     public void IncrementScore()

@@ -7,6 +7,7 @@ public class CardScript : MonoBehaviour {
     public bool isPicking = false;
     private Vector3 tempPos;
     GameObject levelManager, scoreManager;
+    public GameObject effect;
 
 //    private int Lv123score = 0;
 //    public Text scoreText;
@@ -26,10 +27,12 @@ public class CardScript : MonoBehaviour {
 
     void OnMouseDown() {
         isPicking = true;
+        GameObject tempObj=Instantiate(effect, transform.position, Quaternion.identity) as GameObject;
+        tempObj.transform.parent = transform; 
     }
 
     void OnMouseUp() {
-        isPicking = false;
+     //   isPicking = false;
     }
 
     void OnTriggerEnter2D(Collider2D col)

@@ -60,7 +60,7 @@ public class Lv2GamePlayer : MonoBehaviour {
                 if (manager.IsJointTracked(userId, (int)chosenHand) && manager.IsJointTracked(userId, (int)spineMid)){
                     //////////////////////////////////////////////
                     // output the joint position for easy tracking
-                    Vector3 jointPos = manager.GetJointPosition(userId, (int)rightHand);
+                    Vector3 jointPos = manager.GetJointPosition(userId, (int)chosenHand);
                     rightHandPos = jointPos;
 
                     spindMidPos = manager.GetJointPosition(userId, (int)spineMid);
@@ -71,7 +71,7 @@ public class Lv2GamePlayer : MonoBehaviour {
 
         gPointer.transform.position = new Vector3(spindMidPos.x, spindMidPos.y, -0.01f);
 
-        CalibrateIt();
+       // CalibrateIt();
 
         //
         testFunc();
