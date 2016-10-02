@@ -5,8 +5,10 @@ using System.IO;
 public class Lv4GamePlayer : MonoBehaviour {
 
     public KinectInterop.JointType rightHand = KinectInterop.JointType.HandRight;
+    public KinectInterop.JointType leftHand = KinectInterop.JointType.HandLeft;
     public KinectInterop.JointType spineMid = KinectInterop.JointType.SpineMid;
 
+    private KinectInterop.JointType chosenHand;
     public Vector3 rightHandPos, spindMidPos;
 
     //
@@ -28,14 +30,16 @@ public class Lv4GamePlayer : MonoBehaviour {
     int whichOneAmIMoving = -1;
     int whichCard = -1;
     int match = 0;
-
     int stayCounter = 0;
 
     // 
     void Start () {
         Lv4 = Level4.GetComponent<Level4Manager>();
         LvManager = CardLevelManager.GetComponent<CardLevelManager>();
-
+        if (SceneManager.focusSide == 0)
+            chosenHand = leftHand;
+        else
+            chosenHand = rightHand;
         Picking = new bool[Lv4.Cards.Length];
     }
 	
@@ -50,7 +54,7 @@ public class Lv4GamePlayer : MonoBehaviour {
             if (manager.IsUserDetected()){
                 long userId = manager.GetPrimaryUserID();
 
-                if (manager.IsJointTracked(userId, (int)rightHand) && manager.IsJointTracked(userId, (int)spineMid)){
+                if (manager.IsJointTracked(userId, (int)chosenHand) && manager.IsJointTracked(userId, (int)spineMid)){
                     //////////////////////////////////////////////
                     // output the joint position for easy tracking
                     Vector3 jointPos = manager.GetJointPosition(userId, (int)rightHand);

@@ -63,7 +63,7 @@ public class InteractionManager : MonoBehaviour
 	private bool isLeftHandPress = false;
 	private bool isRightHandPress = false;
 	
-	private Vector3 cursorScreenPos = Vector3.zero;
+	public Vector3 cursorScreenPos = Vector3.zero;
 	private bool dragInProgress = false;
 	
 	private KinectInterop.HandState leftHandState = KinectInterop.HandState.Unknown;

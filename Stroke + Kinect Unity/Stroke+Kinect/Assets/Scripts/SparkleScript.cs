@@ -16,7 +16,9 @@ public class SparkleScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		tempPos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      //  tempPos = new Vector3(InteractionManager.Instance.cursorScreenPos.x * Screen.width, (1f - InteractionManager.Instance.cursorScreenPos.y) * Screen.height);
+      //  tempPos = Input.mousePosition;
+		    tempPos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		transform.position = new Vector3(tempPos.x, tempPos.y, 0f);
 	}
 }

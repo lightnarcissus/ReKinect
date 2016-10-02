@@ -300,7 +300,7 @@ public class MalpositionManager : MonoBehaviour {
             //contraction
             //  debug1.text = Vector3.Angle(avatarController.handLeftPos, avatarController.shoulderLeftPos).ToString();
             //   debug2.text = Vector3.Angle(avatarController.handRightPos, avatarController.shoulderRightPos).ToString();
-            if (SceneManager.focusSide == 0)
+            if (SceneManager.focusSide == 1)
             {
                 if (Vector3.Angle(avatarController.handLeftPos, avatarController.shoulderLeftPos) < 6f)
                 {
@@ -327,7 +327,7 @@ public class MalpositionManager : MonoBehaviour {
                 }
 
             }
-            else if (SceneManager.focusSide == 1)
+            else if (SceneManager.focusSide == 0)
             {
                 if (Vector3.Angle(avatarController.handRightPos, avatarController.shoulderRightPos) < 6f)
                 {

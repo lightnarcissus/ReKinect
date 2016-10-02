@@ -18,7 +18,8 @@ public class CardScript : MonoBehaviour {
 	
 	void Update () {
         if(isPicking) {
-            tempPos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
+           // tempPos = Input.mousePosition;
+           tempPos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(tempPos.x, tempPos.y, 0f);
         }
 	}
