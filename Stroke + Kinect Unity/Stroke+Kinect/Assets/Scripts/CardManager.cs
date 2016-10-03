@@ -80,8 +80,11 @@ public class CardManager : MonoBehaviour {
        // Debug.Log("Correct Matches " + correctMatches);
         if (correctMatches >= levelTarget[currentLevel] || Input.GetKeyDown(KeyCode.N))
         {
+			cardCollections [currentLevel].SetActive (false);
             NextLevel();
         }
+		if (Input.GetKeyDown (KeyCode.P))
+			PreviousLevel ();
     }
 
     public void CorrectMatch()
@@ -100,6 +103,14 @@ public class CardManager : MonoBehaviour {
         canPick = true;
         yield return null;
     }
+
+	void PreviousLevel()
+	{
+		if (currentLevel > 0)
+			currentLevel--;
+		cardCollections [currentLevel + 1].SetActive (false);
+		cardCollections [currentLevel].SetActive (true);
+	}
     public void NextLevel()
     {
         // timer++;

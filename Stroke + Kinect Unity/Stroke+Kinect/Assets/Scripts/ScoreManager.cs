@@ -116,6 +116,7 @@ public class ScoreManager : MonoBehaviour {
 
     public void IncreaseLevel()
     {
+		Debug.Log ("increasing level");
         currentLevel++;
         ResetScore();
     }
@@ -131,6 +132,11 @@ public class ScoreManager : MonoBehaviour {
         score--;
         UpdateScore();
     }
+
+	public void FinishLevel()
+	{
+		IncreaseLevel ();
+	}
 
     void UpdateScore()
     {

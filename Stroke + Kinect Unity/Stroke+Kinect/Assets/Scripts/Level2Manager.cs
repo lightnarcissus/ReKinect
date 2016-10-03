@@ -16,14 +16,19 @@ public class Level2Manager : MonoBehaviour
     public Vector3[] slots;
     Vector3 initPos;
     //public GameObject[] Cards;
-
+	public GameObject cardContainer;
     private GameObject[] tempArray;
 
     public List<GameObject> Cards = new List<GameObject>();
    
 
     float gapX, gapY;
-
+	void OnDisable()
+	{
+		for (int i = 0; i<cardContainer.transform.childCount; i++) {
+			Destroy (cardContainer.transform.GetChild (cardContainer.transform.childCount - 1));
+		}
+	}
     void OnEnable() {
        
         InitCards();
@@ -60,11 +65,17 @@ public class Level2Manager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             RedCard = (GameObject)Instantiate(RedPrefab);
+			RedCard.transform.parent = cardContainer.transform;
             BlueCard = (GameObject)Instantiate(BluePrefab);
+			BlueCard.transform.parent = cardContainer.transform;
             GreenCard = (GameObject)Instantiate(GreenPrefab);
+			GreenCard.transform.parent = cardContainer.transform;
             YellowCard = (GameObject)Instantiate(YellowPrefab);
+			YellowCard.transform.parent = cardContainer.transform;
             NumCard1 = (GameObject)Instantiate(Num1Prefab);
+			NumCard1.transform.parent = cardContainer.transform;
             NumCard3 = (GameObject)Instantiate(Num3Prefab);
+			NumCard3.transform.parent = cardContainer.transform;
         }
 
         // Cards = GameObject.FindGameObjectsWithTag("Lv1Card");

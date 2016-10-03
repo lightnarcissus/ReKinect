@@ -11,7 +11,7 @@ public class Level4Manager : MonoBehaviour
     Vector3 initPos;
     public GameObject[] Cards;
     public GameObject timerManager, scoreManager;
-
+	public GameObject cardContainer;
     float gapX, gapY;
 
     void OnEnable()

@@ -11,7 +11,7 @@ public class Level3Manager : MonoBehaviour
     private GameObject RedCard, BlueCard, GreenCard, YellowCard, NumCard1, NumCard3, Dog, Cat;
 
     public GameObject timerManager, scoreManager;
-
+	public GameObject cardContainer;
     //Initiate slots to place cards
     public Vector3[] slots;
     Vector3 initPos;
@@ -23,7 +23,12 @@ public class Level3Manager : MonoBehaviour
    
 
     float gapX, gapY;
-
+	void OnDisable()
+	{
+		for (int i = 0; i<cardContainer.transform.childCount; i++) {
+			Destroy (cardContainer.transform.GetChild (cardContainer.transform.childCount - 1));
+		}
+	}
     void OnEnable() {
        
         InitCards();
@@ -60,13 +65,21 @@ public class Level3Manager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             RedCard = (GameObject)Instantiate(RedPrefab);
+			RedCard.transform.parent = cardContainer.transform;
             BlueCard = (GameObject)Instantiate(BluePrefab);
+			BlueCard.transform.parent = cardContainer.transform;
             GreenCard = (GameObject)Instantiate(GreenPrefab);
+			GreenCard.transform.parent = cardContainer.transform;
             YellowCard = (GameObject)Instantiate(YellowPrefab);
+			YellowCard.transform.parent = cardContainer.transform;
             NumCard1 = (GameObject)Instantiate(Num1Prefab);
+			NumCard1.transform.parent = cardContainer.transform;
             NumCard3 = (GameObject)Instantiate(Num3Prefab);
+			NumCard3.transform.parent = cardContainer.transform;
             Dog = (GameObject)Instantiate(DogPrefab);
+			Dog.transform.parent = cardContainer.transform;
             Cat = (GameObject)Instantiate(CatPrefab);
+			Cat.transform.parent = cardContainer.transform;
         }
 
         // Cards = GameObject.FindGameObjectsWithTag("Lv1Card");

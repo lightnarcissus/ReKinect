@@ -103,10 +103,6 @@ public class DrawingManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdateLevel();
-        }
         if (sceneManager != null)
         {
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
@@ -148,6 +144,10 @@ public class DrawingManager : MonoBehaviour {
 
          //   sceneManager.GetComponent<SceneManager>().kinectManager.GetComponent<KinectManager>().avatarControllers[0] = avatarController.GetComponent<AvatarController>();
         }
+		if (Input.GetKeyDown (KeyCode.N)) 
+		{
+			UpdateLevel ();
+		}
     }
 
     public void AssignNextTarget(int hitTarget)
