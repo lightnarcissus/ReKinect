@@ -246,6 +246,7 @@ public class MalpositionManager : MonoBehaviour {
         //shoulder shrug
         if (!AlternateController.noKinect)
         {
+			//OUT OF BALANCE
             if (avatarController.outOfBalance)
             {
                 balanceWarning.SetActive(true);

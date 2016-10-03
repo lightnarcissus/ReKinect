@@ -148,6 +148,9 @@ public class DrawingManager : MonoBehaviour {
 		{
 			UpdateLevel ();
 		}
+		if (Input.GetKeyDown (KeyCode.P)) {
+			//PreviousLevel ();
+		}
     }
 
     public void AssignNextTarget(int hitTarget)
