@@ -746,18 +746,22 @@ public class InteractionManager : MonoBehaviour
 					if(controlMouseCursor)
 					{
 						MouseControl.MouseMove(cursorScreenPos, debugText);
-						rectTexture = new Rect(Input.mousePosition.x - texture.width / 2, Screen.height - Input.mousePosition.y - texture.height / 2, 
-						                       texture.width, texture.height);
-					}
+  
+                                rectTexture = new Rect(Input.mousePosition.x - texture.width / 2, Screen.height - Input.mousePosition.y - texture.height / 2,
+                                                       texture.width, texture.height);
+
+                            }
+                       
 					else 
 					{
 						rectTexture = new Rect(cursorScreenPos.x * Screen.width - texture.width / 2, (1f - cursorScreenPos.y) * Screen.height - texture.height / 2, 
 						                       texture.width, texture.height);
-						//	Rect rectTexture = new Rect(cursorScreenPos.x * Screen.width, (1f - cursorScreenPos.y) * Screen.height, texture.width, texture.height);
-					}
 
-					GUI.DrawTexture(rectTexture, texture);
-				}
+                        
+                        //	Rect rectTexture = new Rect(cursorScreenPos.x * Screen.width, (1f - cursorScreenPos.y) * Screen.height, texture.width, texture.height);
+                    }
+                    GUI.DrawTexture(rectTexture, texture);
+                }
 			}
 		}
 	}

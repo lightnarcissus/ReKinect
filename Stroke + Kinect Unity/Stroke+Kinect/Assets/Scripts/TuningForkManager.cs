@@ -46,13 +46,28 @@ public class TuningForkManager : MonoBehaviour {
         {
             instructionList[tuningForkTask].transform.parent.gameObject.SetActive(true);
             instructionList[tuningForkTask].SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return StartCoroutine("WaitForShortTime", 5f);
             instructionList[tuningForkTask].SetActive(false);
             instructionList[tuningForkTask].transform.parent.gameObject.SetActive(false);
             MalpositionManager.Instance.SetTuningTask(tuningForkTask);
-            yield return new WaitForSeconds(10f);
+           
+            yield return StartCoroutine("WaitForShortTime",10f);
             tuningForkTask++;
             
+            yield return 0;
+        }
+        yield return null;
+    }
+
+    IEnumerator WaitForShortTime(float waitTime)
+    {
+
+        float timer = 0f;
+        while(timer<waitTime)
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+                timer = waitTime;
+            timer += Time.deltaTime;
             yield return 0;
         }
         yield return null;

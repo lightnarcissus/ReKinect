@@ -192,7 +192,7 @@ public class SceneManager : MonoBehaviour {
 			break;
         case 0:
                 Debug.Log("Go back to main menu");
-                
+                GameManager.activeApp = 0;
                 KinectManager.Instance.gameObject.SetActive(false);
             Application.LoadLevel("MainMenu");
                 ResetConnections();

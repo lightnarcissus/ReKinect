@@ -12,7 +12,7 @@ public class PointerCollide : MonoBehaviour {
     private int bgNum = 0;
     public static float volumeVal = 0f;
     public float timeToSlowDown = 10f;
-
+    public static bool canPlay = false;
 	// Use this for initialization
 	void Start () {
 
@@ -48,7 +48,7 @@ public class PointerCollide : MonoBehaviour {
     void OnMouseOver()
     {
 
-        if(ConductorManager.canPlay)
+        if(canPlay)
         { 
         
         activeImg[bgNum-1].SetActive(true);
