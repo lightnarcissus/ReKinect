@@ -360,7 +360,9 @@ public class InteractionManager : MonoBehaviour
 					// check for left hand click
 					float fClickDist = (leftHandPos - lastLeftHandPos).magnitude;
 
-					if(allowHandClicks && !dragInProgress && isLeftHandInteracting && 
+					if(allowHandClicks && !dragInProgress 
+                           && isLeftHandInteracting 
+                        && 
 					   (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
                       //  Debug.Log("WAS A CLICK");
@@ -626,7 +628,7 @@ public class InteractionManager : MonoBehaviour
 
 			case KinectInterop.HandState.Closed:
 			case KinectInterop.HandState.Lasso:
-				return HandEventType.Grip;
+				return HandEventType.Release;
 			
 			case KinectInterop.HandState.Unknown:
 				return lastEventType;

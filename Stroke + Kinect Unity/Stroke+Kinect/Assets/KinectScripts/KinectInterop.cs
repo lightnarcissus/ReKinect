@@ -34,7 +34,7 @@ public class KinectInterop
 
 		public const float MinTimeBetweenSameGestures = 0.0f;
 		public const float PoseCompleteDuration = 1.0f;
-		public const float ClickMaxDistance = 0.05f;
+		public const float ClickMaxDistance = 0.08f;
 		public const float ClickStayDuration = 2.0f;
 	}
 

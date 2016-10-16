@@ -3169,7 +3169,7 @@ public class KinectManager : MonoBehaviour
 	{
 		int jointsCount = sensorData.jointCount;
 		
-		for(int i = 0; i < jointsCount; i++)
+		for(int i = 2; i < 12; i++)
 		{
 			int parent = (int)sensorData.sensorInterface.GetParentJoint((KinectInterop.JointType)i);
 			
