@@ -9,35 +9,37 @@ using System.IO;
 /// <summary>
 /// Interaction manager is the component that deals with hand interactions.
 /// </summary>
-public class InteractionManager : MonoBehaviour 
+public class InteractionManager : MonoBehaviour
 {
-	/// <summary>
-	/// The hand event types.
-	/// </summary>
-	public enum HandEventType : int
+
+  
+    /// <summary>
+    /// The hand event types.
+    /// </summary>
+    public enum HandEventType : int
     {
         None = 0,
         Grip = 1,
         Release = 2
     }
 
-	[Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
-	public int playerIndex = 0;
-	
-	[Tooltip("Whether to use the GUI hand-cursor as on-screen cursor.")]
-	public bool useHandCursor = true;
-	
-	[Tooltip("Hand-cursor texture for the hand-grip state.")]
-	public Texture gripHandTexture;
-	[Tooltip("Hand-cursor texture for the hand-release state.")]
-	public Texture releaseHandTexture;
-	[Tooltip("Hand-cursor texture for the non-tracked state.")]
-	public Texture normalHandTexture;
+    [Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
+    public int playerIndex = 0;
 
-	[Tooltip("Smooth factor for cursor movement.")]
-	public float smoothFactor = 3f;
-	
-	[Tooltip("Whether hand clicks (hand not moving for ~2 seconds) are enabled or not.")]
+    [Tooltip("Whether to use the GUI hand-cursor as on-screen cursor.")]
+    public bool useHandCursor = true;
+
+    [Tooltip("Hand-cursor texture for the hand-grip state.")]
+    public Texture gripHandTexture;
+    [Tooltip("Hand-cursor texture for the hand-release state.")]
+    public Texture releaseHandTexture;
+    [Tooltip("Hand-cursor texture for the non-tracked state.")]
+    public Texture normalHandTexture;
+
+      [Tooltip("Smooth factor for cursor movement.")]
+    public float smoothFactor = 100;
+
+    [Tooltip("Whether hand clicks (hand not moving for ~2 seconds) are enabled or not.")]
 	public bool allowHandClicks = true;
 	
 	[Tooltip("Whether hand cursor and interactions control the mouse cursor or not.")]
@@ -526,7 +528,8 @@ public class InteractionManager : MonoBehaviour
 
 					if((leftHandClickProgress < 0.8f) /**&& !isLeftHandPress*/)
 					{
-						float smooth = smoothFactor * Time.deltaTime;
+						float smooth = Config.sensitivityMovement * Time.deltaTime;
+                        Debug.Log("the smooth factor is: " + Config.sensitivityMovement);
 						if(smooth == 0f) smooth = 1f;
 						
 						cursorScreenPos = Vector3.Lerp(cursorScreenPos, leftHandScreenPos, smooth);

@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
     public Text confirmText;
     public Text chooseText;
 	public GameObject cubeMan;
-    public int difficultyLevel = 0; //0 is easy, 1 medium, 2 hard
     private bool levelSelected = false;
 	//SETTING THIS TO TRUE FOR NOW
 	public static bool tuningFork=true;
@@ -87,16 +86,19 @@ public class GameManager : MonoBehaviour {
             { 
 				titlePage.SetActive (false);
                 //do level selection
+                Debug.Log("first time");
                 yield return StartCoroutine("SelectLevel");
 
                 //then bring up focus selection
+             
                 focusSelectionPage.SetActive(true);
                 avatarCont.outOfBalance = true;
-                CheckStatus();
+                yield return StartCoroutine("ActivateFocusSide");
                 firstTime = false;
             }
             else
             {
+                Debug.Log("NOT");
                 focusSelected = true;
                 titlePage.SetActive(false);
                 focusSelectionPage.SetActive(false);
@@ -115,6 +117,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator SelectLevel()
     {
+        Debug.Log("selecting level");
         levelPage.SetActive(true);
         while(!levelSelected)
         {
@@ -139,7 +142,7 @@ public class GameManager : MonoBehaviour {
             confirmText.gameObject.SetActive(true);
             confirmText.text = "CONFIRM IF LEFT ARM IS \n THE FOCUS SIDE";
             chooseText.gameObject.SetActive(false);
-            StartCoroutine("RunMainMenu");
+            StartCoroutine("ActivateFocusSide");
 
         }
         else if (SceneManager.focusSide==1)
@@ -153,7 +156,7 @@ public class GameManager : MonoBehaviour {
             confirmText.gameObject.SetActive(true);
             confirmText.text = "CONFIRM IF RIGHT ARM IS \n THE FOCUS SIDE";
             chooseText.gameObject.SetActive(false);
-            StartCoroutine("RunMainMenu");
+            StartCoroutine("ActivateFocusSide");
         }
         else
         {
@@ -161,36 +164,39 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    IEnumerator RunMainMenu()
+    IEnumerator ActivateFocusSide()
     {
         Debug.Log("activating left or right");
             float currentTime = 0f;
-            while (currentTime < 5f)
+        while (currentTime < 5f)
+        {
+
+            if ((intManager.leftHandPos.y > intManager.rightHandPos.y && Config.difficultyLevel != 2) || ((intManager.leftHandPos.z > intManager.rightHandPos.z) && Config.difficultyLevel == 2))
             {
-                if (intManager.leftHandPos.y > intManager.rightHandPos.y)
-                {
-                    // Debug.Log("activated left");
-                    //  focusSelected = true;
-                    SceneManager.focusSide = 0;
-                    focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
-                    focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
-                    focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-                    focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
-                }
-                else if (intManager.rightHandPos.y > intManager.leftHandPos.y)
-                {
-                    //    Debug.Log("activated right");
-                    //  focusSelected = true;
-                    SceneManager.focusSide = 1;
-                    focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
-                    focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
-                    focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
-                    focusSelectionPage.transform.GetChild(1).gameObject.SetActive(false);
-                }
+                // Debug.Log("activated left");
+                //  focusSelected = true;
+                SceneManager.focusSide = 0;
+                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(false);
+            }
+            else if ((intManager.rightHandPos.y > intManager.leftHandPos.y && Config.difficultyLevel != 2) || ((intManager.rightHandPos.z > intManager.leftHandPos.z) && Config.difficultyLevel == 2))
+            {
+                //    Debug.Log("activated right");
+                //  focusSelected = true;
+                SceneManager.focusSide = 1;
+                focusSelectionPage.transform.GetChild(0).gameObject.SetActive(false);
+                focusSelectionPage.transform.GetChild(2).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(3).gameObject.SetActive(true);
+                focusSelectionPage.transform.GetChild(1).gameObject.SetActive(false);
+            }
                 currentTime += Time.deltaTime;
                 yield return 0;
             }
             firstTime = false;
+
+        //commenting out until Calibration Phase is implemented
             //  yield return StartCoroutine("RunCalibrationPhase");
         yield return StartCoroutine("ShowGameSelection");
         yield return null;
@@ -273,25 +279,44 @@ public class GameManager : MonoBehaviour {
 
     public void SelectDifficultyLevel(int level)
     {
+        Debug.Log("clicked a button");
         switch(level)
         {
             case 0:
                 //easy
-                difficultyLevel = 0;
+                Config.difficultyLevel = 0;
+                SetDifficultyLevel(0);
                 levelSelected = true;
                 break;
             case 1:
                 //medium
-                difficultyLevel = 1;
+                Config.difficultyLevel = 1;
+                SetDifficultyLevel(1);
                 levelSelected = true;
                 break;
             case 2:
                 //hard
-                difficultyLevel = 2;
+                Config.difficultyLevel = 2;
+                SetDifficultyLevel(2);
                 levelSelected = true;
                 break;
 
         }
     }
     
+    void SetDifficultyLevel(int difficultyLevel)
+    {
+       switch(difficultyLevel)
+        {
+            case 0:
+                Config.sensitivityMovement = 50;
+                break;
+            case 1:
+                Config.sensitivityMovement = 100;
+                break;
+            case 2:
+                Config.sensitivityMovement = 100;
+                break;
+        }
+    }
 }

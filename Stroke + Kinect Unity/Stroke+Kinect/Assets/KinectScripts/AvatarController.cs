@@ -493,12 +493,12 @@ public class AvatarController : MonoBehaviour
                 Debug.Log(bodyRoot);
 				Vector3 bodyRootPos = bodyRoot != null ? bodyRoot.position : transform.position;
                
-				Vector3 hipCenterPos = bodyRoot != null ? bodyRoot.position : bones[0].position;
+			//	Vector3 hipCenterPos = bodyRoot != null ? bodyRoot.position : bones[0].position;
 
 				float yRelToAvatar = 0f;
 				if(verticalMovement)
 				{
-					yRelToAvatar = (trans.y - cameraPos.y) - (hipCenterPos - bodyRootPos).magnitude;
+				//	yRelToAvatar = (trans.y - cameraPos.y) - (hipCenterPos - bodyRootPos).magnitude;
 				}
 				else
 				{
