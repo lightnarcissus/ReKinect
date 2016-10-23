@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	public InteractionManager intManager;
 	public GameObject gamePage;
+    public GameObject levelPage;
     public GameObject focusSelectionPage;
 	public GameObject titlePage;
 	public GameObject musicPage;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour {
     public Text confirmText;
     public Text chooseText;
 	public GameObject cubeMan;
-
+    public int difficultyLevel = 0; //0 is easy, 1 medium, 2 hard
+    private bool levelSelected = false;
 	//SETTING THIS TO TRUE FOR NOW
 	public static bool tuningFork=true;
     public static int activeApp = 0; // 1 is drawing and so on
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour {
         
 		musicPage.SetActive (false);
 		cubeMan.SetActive (false);
+        levelPage.SetActive(false);
         focusSelectionPage.SetActive(false);
         gamePage.SetActive(false);
         titlePage.SetActive(true);
@@ -83,6 +86,10 @@ public class GameManager : MonoBehaviour {
             if(firstTime)
             { 
 				titlePage.SetActive (false);
+                //do level selection
+                yield return StartCoroutine("SelectLevel");
+
+                //then bring up focus selection
                 focusSelectionPage.SetActive(true);
                 avatarCont.outOfBalance = true;
                 CheckStatus();
@@ -106,6 +113,16 @@ public class GameManager : MonoBehaviour {
         yield return null;
 	}
 
+    IEnumerator SelectLevel()
+    {
+        levelPage.SetActive(true);
+        while(!levelSelected)
+        {
+            yield return 0;
+        }
+        levelPage.SetActive(false);
+        yield return null;
+    }
     void CheckStatus()
     {
        // Debug.Log("left" + intManager.leftHandPos.y);
@@ -254,5 +271,27 @@ public class GameManager : MonoBehaviour {
             yield return null;
     }
 
+    public void SelectDifficultyLevel(int level)
+    {
+        switch(level)
+        {
+            case 0:
+                //easy
+                difficultyLevel = 0;
+                levelSelected = true;
+                break;
+            case 1:
+                //medium
+                difficultyLevel = 1;
+                levelSelected = true;
+                break;
+            case 2:
+                //hard
+                difficultyLevel = 2;
+                levelSelected = true;
+                break;
+
+        }
+    }
     
 }

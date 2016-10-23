@@ -3168,8 +3168,8 @@ public class KinectManager : MonoBehaviour
 	private void DrawSkeleton(Texture2D aTexture, ref KinectInterop.BodyData bodyData)
 	{
 		int jointsCount = sensorData.jointCount;
-		
-		for(int i = 2; i < 12; i++)
+		for(int i=0;i<jointsCount;i++)
+		//for(int i = 2; i < 12; i++)
 		{
 			int parent = (int)sensorData.sensorInterface.GetParentJoint((KinectInterop.JointType)i);
 			
