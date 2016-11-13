@@ -529,7 +529,7 @@ public class InteractionManager : MonoBehaviour
 					if((leftHandClickProgress < 0.8f) /**&& !isLeftHandPress*/)
 					{
 						float smooth = Config.sensitivityMovement * Time.deltaTime;
-                        Debug.Log("the smooth factor is: " + Config.sensitivityMovement);
+                       // Debug.Log("the smooth factor is: " + Config.sensitivityMovement);
 						if(smooth == 0f) smooth = 1f;
 						
 						cursorScreenPos = Vector3.Lerp(cursorScreenPos, leftHandScreenPos, smooth);

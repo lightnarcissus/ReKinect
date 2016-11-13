@@ -1697,7 +1697,9 @@ public class KinectManager : MonoBehaviour
 
 	void Awake()
 	{
-		try
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+        try
 		{
 			bool bOnceRestarted = false;
 			if(System.IO.File.Exists("KMrestart.txt"))

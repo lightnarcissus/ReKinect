@@ -47,9 +47,7 @@ public class PointerCollide : MonoBehaviour {
 
     void OnMouseOver()
     {
-
-        if(canPlay)
-        { 
+        
         
         activeImg[bgNum-1].SetActive(true);
     //    activeImg[bgNum - 1].GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, volumeVal);
@@ -93,7 +91,6 @@ public class PointerCollide : MonoBehaviour {
                          break;
                  }
             */
-        }
     }
 
     IEnumerator DecreaseVolumeSlowly()
