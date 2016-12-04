@@ -187,7 +187,7 @@ public class MalpositionManager : MonoBehaviour {
                     //Debug.Log("the head pos is : " + avatarController.headPos + " and the offset is" + Vector3.zero);
                     if (headAngle < -0.2f)
                         tempVal += Mathf.Abs(0.2f - headAngle);
-                    UnityEngine.Debug.Log("the temp val is: " + tempVal);
+                   // UnityEngine.Debug.Log("the temp val is: " + tempVal);
 
                     //final calculation
                     TuningForkManager.malPosFactor = tempVal;

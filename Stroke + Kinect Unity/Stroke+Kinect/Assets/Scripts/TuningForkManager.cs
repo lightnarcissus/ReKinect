@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class TuningForkManager : MonoBehaviour {
 
 	public static float malPosFactor=0f;
@@ -8,6 +8,9 @@ public class TuningForkManager : MonoBehaviour {
     public static int tuningForkTask = 0;
 	public GameObject sceneManager;
     public GameObject[] instructionList;
+    
+    private AudioSource aud;
+   public AudioClip[] saxMinorAClips;
     //SINGLETON
     private static TuningForkManager _instance;
 
@@ -30,6 +33,7 @@ public class TuningForkManager : MonoBehaviour {
         }
         _instance = this;
         sceneManager = GameObject.Find("SceneManager");
+        aud = GetComponent<AudioSource>();
     }
 	void Start () {
         for(int i=0;i<instructionList.Length;i++)
@@ -38,6 +42,7 @@ public class TuningForkManager : MonoBehaviour {
         }
 		StartCoroutine (MalpositionManager.Instance.CheckMalPosValue ());
         StartCoroutine("TuningForkTasks");
+        PlayClips();
 	}
 
     IEnumerator TuningForkTasks()
@@ -72,18 +77,35 @@ public class TuningForkManager : MonoBehaviour {
         }
         yield return null;
     }
-
+    
 	// Update is called once per frame
 	void Update () {
 		if((KinectManager.userActive && malPosFactor > 0.1f) || Input.GetKey(KeyCode.F))
         {
-           // Debug.Log("innit");
-            GetComponent<Sinus>().IncrementFrequency(malPosFactor);
-        }
+                //  GetComponent<Sinus>().IncrementFrequency(malPosFactor);
+            }
        else
         {
           //  Debug.Log("NOPPPE");
             GetComponent<Sinus>().DecrementFrequency(malPosFactor);
+        }
+    }
+
+    public void PlayClips()
+    {
+        if (KinectManager.userActive && malPosFactor > 0.1f)
+        {
+            int malPosClip = Mathf.FloorToInt(malPosFactor * 8f);
+            Debug.Log("THE CLIP: " + malPosClip);
+            Debug.Log(aud.isPlaying);
+
+            aud.clip = saxMinorAClips[malPosClip];
+            aud.Play();
+            Invoke("PlayClips", saxMinorAClips[malPosClip].length);
+        }
+        else
+        {
+            Invoke("PlayClips", 0.3f);
         }
     }
 }
