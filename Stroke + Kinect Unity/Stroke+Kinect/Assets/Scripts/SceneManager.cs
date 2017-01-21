@@ -172,7 +172,6 @@ public class SceneManager : MonoBehaviour {
                 break;
 		case 3:
 			GameManager.Instance.gamePage.SetActive (false);
-
 			GameManager.Instance.musicPage.SetActive (true);
                 break;
 		case 4:

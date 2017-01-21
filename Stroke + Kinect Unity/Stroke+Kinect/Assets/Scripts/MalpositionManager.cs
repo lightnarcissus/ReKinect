@@ -21,7 +21,7 @@ public class MalpositionManager : MonoBehaviour {
     private int wristDropCount = 0;
     public GameObject leftContractionWarning;
     public GameObject rightContractionWarning;
-
+    int tuningTask = 0;
     public GameObject contractionText;
     public GameObject straightenText;
 
@@ -104,8 +104,10 @@ public class MalpositionManager : MonoBehaviour {
 
     public void SetTuningTask(int tuningForkTask)
     {
+        tuningTask = tuningForkTask;
         switch (tuningForkTask)
         {
+            
             //straight down
             case 0:
                 leftHandOffset = new Vector2(-0.3f, 0.7f);
@@ -151,9 +153,11 @@ public class MalpositionManager : MonoBehaviour {
                //     float leftHandAngle = Vector2.Angle(leftHand, leftHandOffset);
                    // Debug.Log("the hand pos is : " + avatarController.handLeftPos +" and the offset is" + leftHandOffset);
                     float leftHandAngle =Mathf.Abs(avatarController.handLeftPos.x - leftHandOffset.x);
+            float leftAngle=0f;
+            float rightAngle = 0f;
                   //  Debug.Log(leftHandAngle);
                     if (leftHandAngle>0.2f)
-                        tempVal = Mathf.Abs(0.2f - leftHandAngle);
+                        leftAngle = Mathf.Abs(0.2f - leftHandAngle);
 
                     //right hand
                     //  Vector2 rightHand = new Vector2(avatarController.handRightPos.x, avatarController.handRightPos.z);
@@ -161,9 +165,11 @@ public class MalpositionManager : MonoBehaviour {
                    // Debug.Log("the hand pos is : " + rightHand + " and the offset is" + rightHandOffset);
                    // Debug.Log("the hand pos is : " + avatarController.handRightPos + " and the offset is" + rightHandOffset);
                     float rightHandAngle = Mathf.Abs(avatarController.handRightPos.x - rightHandOffset.x);
+           // float rightAngle = Vector2.Angle(avatarController.handRightPos, rightHandOffset);
+          //  UnityEngine.Debug.Log(rightAngle);      
                  //   Debug.Log(rightHandAngle);
                     if (rightHandAngle >0.2f)
-                        tempVal = Mathf.Abs(0.2f - rightHandAngle);
+                        rightAngle = Mathf.Abs(0.2f - rightHandAngle);
                     /*
                                         // left feet
                                         Vector2 leftFeet = new Vector2(avatarController.legLeftPos.x, avatarController.legLeftPos.y);
@@ -190,8 +196,29 @@ public class MalpositionManager : MonoBehaviour {
                    // UnityEngine.Debug.Log("the temp val is: " + tempVal);
 
                     //final calculation
-                    TuningForkManager.malPosFactor = tempVal;
+                  //  TuningForkManager.malPosFactor = tempVal;
                     tempVal = 0f;
+            switch(tuningTask)
+            {
+                case 0:
+                    TuningForkManager.malPosFactor = leftAngle;
+                    break;
+                case 1:
+                    TuningForkManager.malPosFactor = leftAngle;
+                    break;
+                case 2:
+                    TuningForkManager.malPosFactor = rightAngle;
+                    break;
+                case 3:
+                    TuningForkManager.malPosFactor = leftAngle;
+                    break;
+                case 4:
+                    TuningForkManager.malPosFactor = rightAngle;
+                    break;
+                case 5:
+                    TuningForkManager.malPosFactor = leftAngle;
+                    break;
+            }
 			yield return 0;
 		}
 
