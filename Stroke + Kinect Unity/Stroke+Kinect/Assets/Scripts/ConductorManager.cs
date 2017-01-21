@@ -19,6 +19,9 @@ public class ConductorManager : MonoBehaviour {
     public GameObject loadingScreen;
     public GameObject collidersGroupLeft;
     public GameObject collidersGroupRight;
+
+    public GameObject activeImg;
+        
     // Use this for initialization
 
     void Awake()
@@ -101,16 +104,21 @@ public class ConductorManager : MonoBehaviour {
         timerManager.ResetTimer();
         scoreManager.GetComponent<ScoreManager>().ResetScore();
     }
+
     IEnumerator ShowInstructions()
     {
         PointerCollide.canPlay = false;
         instructionPanel.SetActive(true);
+        Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
+        //   activeImg.SetActive(false);
         yield return new WaitForSeconds(10f);
         instructionPanel.SetActive(false);
         PointerCollide.canPlay = true;
         loadingScreen.SetActive(true);
         yield return new WaitForSeconds(5f);
         loadingScreen.SetActive(false);
+        Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
+        // activeImg.SetActive(true);
         yield return null;
     }
 }
