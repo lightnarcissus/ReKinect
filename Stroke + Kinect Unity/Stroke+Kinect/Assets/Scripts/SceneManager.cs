@@ -178,7 +178,7 @@ public class SceneManager : MonoBehaviour {
 			GameManager.activeApp = 4;
                 mainMenu = false;
                 Debug.Log ("game manager is: " + GameManager.activeApp);
-                Application.LoadLevel("HumanTuningFork");
+                Application.LoadLevel("HumanTuningFork_2");
                 break;
 		case 5:
 			GameManager.activeApp = 3;

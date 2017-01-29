@@ -21,6 +21,7 @@ public class ConductorManager : MonoBehaviour {
     public GameObject collidersGroupRight;
 
     public GameObject activeImg;
+    public GameObject collidersCol;
         
     // Use this for initialization
 
@@ -109,6 +110,7 @@ public class ConductorManager : MonoBehaviour {
     {
         PointerCollide.canPlay = false;
         instructionPanel.SetActive(true);
+        collidersCol.SetActive(false);
         Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
         //   activeImg.SetActive(false);
         yield return new WaitForSeconds(10f);
@@ -117,6 +119,7 @@ public class ConductorManager : MonoBehaviour {
         loadingScreen.SetActive(true);
         yield return new WaitForSeconds(5f);
         loadingScreen.SetActive(false);
+        collidersCol.SetActive(true);
         Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
         // activeImg.SetActive(true);
         yield return null;

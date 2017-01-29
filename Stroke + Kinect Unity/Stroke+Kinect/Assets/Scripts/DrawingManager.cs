@@ -44,14 +44,12 @@ public class DrawingManager : MonoBehaviour {
         sceneManager = GameObject.Find("SceneManager");
     }
 	void Start () { 
-        if(sceneManager!=null || AlternateController.noKinect)
+        if(sceneManager!=null)
         {
             StartCoroutine("ShowInstructions");
             leftTrace.SetActive(false);
             rightTrace.SetActive(false);
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
-            if (!AlternateController.noKinect)
-            {
                 if (SceneManager.focusSide == 0)
                 {
                     leftCanvas.SetActive(true);
@@ -73,7 +71,6 @@ public class DrawingManager : MonoBehaviour {
                                     //  focusText.text = "Focus Side: \n Right Arm";
                                     //  scoreBox.GetComponent<RectTransform>().position = new Vector3(269f, -227f, 0f);
                 }
-            }
             else
             {
                 //no Kinect
@@ -102,7 +99,7 @@ public class DrawingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        UnityEngine.Debug.Log(SceneManager.focusSide);
         if (sceneManager != null)
         {
             //Debug.Log("focus side " + sceneManager.GetComponent<SceneManager>().focusSide);
@@ -226,8 +223,7 @@ public class DrawingManager : MonoBehaviour {
         //record information
 
         //time and score
-        if (!AlternateController.noKinect)
-        {
+
             float currentTimer = scoreManager.GetComponent<ScoreManager>().GetCurrentLevelTime();
             int currentScore = scoreManager.GetComponent<ScoreManager>().RetrieveScore();
             sceneManager.GetComponent<SceneManager>().UpdateLevelScore(0, currentLevel, currentScore);
@@ -243,7 +239,7 @@ public class DrawingManager : MonoBehaviour {
             int flexionSynergyCount = malpositionManager.GetComponent<MalpositionManager>().RetrieveFlexionSynergyCount();
 
             sceneManager.GetComponent<SceneManager>().UpdateLevelMalpositions(0, currentLevel, poorBalanceCount, flexionSynergyCount, shoulderShrugCount, innerRotationCount, wristDropCount, extensorSynergyCount);
-        }
+        
          //then finally increase the level
          
             targets[currentLevel].SetActive(false);
