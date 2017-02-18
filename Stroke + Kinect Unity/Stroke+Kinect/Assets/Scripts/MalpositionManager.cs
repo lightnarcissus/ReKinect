@@ -69,10 +69,9 @@ public class MalpositionManager : MonoBehaviour {
         else if (GameManager.activeApp == 3)
             avatarController = drawingManager.GetComponent<ConductorManager>().avatarController.GetComponent<AvatarController>();
         else if (GameManager.activeApp == 4)
-        {
-
             avatarController = drawingManager.GetComponent<TuningForkManager>().avatarController.GetComponent<AvatarController>();
-        }
+        else if (GameManager.activeApp == 5)
+            avatarController = drawingManager.GetComponent<RhythmHTFManager>().avatarController.GetComponent<AvatarController>();
 		if (GameManager.activeApp != 4 && KinectManager.userActive && !(GameManager.activeApp==1 && DrawMouse.Instance.allowMouse)) {
 			InvokeRepeating ("CheckMalPositions", 1f, 1f);
 

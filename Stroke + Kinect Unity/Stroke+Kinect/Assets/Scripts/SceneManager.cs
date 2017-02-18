@@ -121,6 +121,11 @@ public class SceneManager : MonoBehaviour {
             ActivateApp(4);
             currentApp = 4; 
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ActivateApp(6);
+            currentApp = 5;
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             mainMenu = true;
@@ -178,14 +183,19 @@ public class SceneManager : MonoBehaviour {
 			GameManager.activeApp = 4;
                 mainMenu = false;
                 Debug.Log ("game manager is: " + GameManager.activeApp);
-                Application.LoadLevel("HumanTuningFork_2");
+                Application.LoadLevel("HumanTuningFork");
                 break;
 		case 5:
 			GameManager.activeApp = 3;
                 mainMenu = false;
                 Application.LoadLevel ("ConductorMusic");
 			break;
-		case 6:
+          case 6:
+                GameManager.activeApp = 5;
+                mainMenu = false;
+                Application.LoadLevel("RhythmHTF");
+                break;
+            case 7:
 			GameManager.Instance.musicPage.SetActive (false);
 			GameManager.Instance.gamePage.SetActive (true);
 			break;
